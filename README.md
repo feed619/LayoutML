@@ -1,4 +1,9 @@
-# LayoutML — Layout Markup Library
+<p align="center">
+  <img src="ico\ico3x.png" style="width: 50%; max-width: 300px;" />
+</p>
+<h2><p align="center">LayoutML — Layout Markup Library/p></h2>
+
+---
 
 ## LayoutML — это простой и расширяемый Python-фреймворк для декларативного создания HTML и CSS с использованием классов и объектов Python.
 
