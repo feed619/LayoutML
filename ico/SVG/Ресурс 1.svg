@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_Слой_2" data-name="Слой 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 119.42 42.75">
+  <defs>
+    <style>
+      .cls-1 {
+        font-family: XOCourser-Bold, 'XO Courser';
+        font-size: 38.99px;
+        font-weight: 700;
+      }
+
+      .cls-2 {
+        fill: #fff;
+        font-family: XOCourser, 'XO Courser';
+        font-size: 21.18px;
+      }
+
+      .cls-3 {
+        fill: none;
+        stroke: #fff;
+        stroke-miterlimit: 10;
+      }
+    </style>
+  </defs>
+  <g id="_Слой_1-2" data-name="Слой 1">
+    <text class="cls-2" transform="translate(0 24.84) scale(1.19 1)"><tspan x="0" y="0">Layout</tspan></text>
+    <text class="cls-1" transform="translate(93.33 31.04) scale(.56 1)"><tspan x="0" y="0">ML</tspan></text>
+    <rect class="cls-3" x=".5" y="8.7" width="90" height="22"/>
+  </g>
+</svg>
