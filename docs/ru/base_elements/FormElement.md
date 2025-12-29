@@ -822,7 +822,8 @@ comment_field = FormElement(
     id="userComment"
 )
 
-# HTML: <textarea name="comment" rows="5" cols="40" maxlength="1000" wrap="hard" placeholder="Оставьте ваш комментарий здесь..." required class="form-control comment-box" id="userComment"> </textarea>
+# HTML: <textarea name="comment" rows="5" cols="40" maxlength="1000" wrap="hard"
+# placeholder="Оставьте ваш комментарий здесь..." required class="form-control comment-box" id="userComment"> </textarea>
 ```
 
 ## Использование: загрузка файлов, фотографий, документов
@@ -908,7 +909,8 @@ submit_image = FormElement(
     onclick="validateBeforeSubmit()",
     aria_label="Кнопка отправки формы"
 )
-# HTML: <input type="image" src="/images/submit-button.png" alt="Отправить форму" width="120" height="40" name="submit_btn" value="submit" class="image-button" title="Нажмите для отправки формы" onclick="validateBeforeSubmit()" aria-label="Кнопка отправки формы">
+# HTML: <input type="image" src="/images/submit-button.png" alt="Отправить форму" width="120" height="40" name="submit_btn" value="submit"
+# class="image-button" title="Нажмите для отправки формы" onclick="validateBeforeSubmit()" aria-label="Кнопка отправки формы">
 """
 ---
 
