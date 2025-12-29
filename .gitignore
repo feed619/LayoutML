@@ -28,7 +28,7 @@ MANIFEST
 
 # files
 asd.py
-components.py
+oldcomponents.py
 main.css
 main.py
 test.py
@@ -37,7 +37,7 @@ test.py
 scripts/
 styles/
 templates/
-
+ico/layoutml.ai
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
