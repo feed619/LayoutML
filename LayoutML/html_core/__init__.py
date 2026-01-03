@@ -1,3 +1,3 @@
-from . import HTMLEvents, HTMLAttributes
+from . import HTMLEvents, HTMLAttributes, HTMLElement
 
-__all__ = ["HTMLEvents", "HTMLAttributes"]
+__all__ = ["HTMLEvents", "HTMLAttributes", "HTMLElement"]

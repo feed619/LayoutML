@@ -1,3 +1,3 @@
-from .HTMLElement import HTMLElement
+# from ..html_core.HTMLElement import HTMLElement
 
-__all__ = ["HTMLElement"]
+# __all__ = ["HTMLElement"]
