@@ -51,7 +51,7 @@ ValueAttributes - Атрибуты со значениями
 | start          | Начальное значение списка         | HTMLElement(start="10")                                    |
 | list           | связь с datalist                  | HTMLElement(list="browsers")                               |
 | form           | связь с формой                    | HTMLElement(form="myForm")                                 |
-| srcdoc         | HTML для iframe                   | HTMLElement(srcdoc="<p>Hi</p>")                            |
+| srcdoc         | HTML для iframe                   | HTMLElement(srcdoc="<'p>hello<'/p>")                       |
 | sandbox        | Ограничения iframe                | HTMLElement(sandbox="allow-scripts allow-forms")           |
 | allow          | разрешения iframe                 | HTMLElement(allow="camera; microphone; geolocation")       |
 | preload        | Предзагрузка медиа                | HTMLElement(preload="metadata")                            |
