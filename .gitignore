@@ -32,12 +32,15 @@ oldcomponents.py
 main.css
 main.py
 test.py
+asdasd.py
 
 # folders
 scripts/
 styles/
 templates/
 ico/layoutml.ai
+images/
+LayoutML1/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
