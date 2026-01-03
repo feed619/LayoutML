@@ -5,6 +5,8 @@ class HTMLElement:
     class_: list[str]
     styles: dict
     events: dict
+    aria_attrs: dict
+    data_attrs: dict
     value_attributes: dict
     custom_attributes: dict
     boolean_attributes: list
@@ -21,6 +23,9 @@ class HTMLElement:
         if "style" in kwargs:
             self.styles = self.parse_style_string(kwargs.get("style", ""))
             del kwargs["style"]
+        self.aria_attrs = {k[5:]: v for k, v in kwargs.items() if k.startswith("aria_")}
+        self.data_attrs = {k[5:]: v for k, v in kwargs.items() if k.startswith("data_")}
+
         self.value_attributes: dict = kwargs
 
     def parse_style_string(self, style_str: str) -> dict:
@@ -112,6 +117,54 @@ class HTMLElement:
         if event_name in self.events:
             del self.events[event_name]
 
+    def add_aria(self, key, value):
+        """
+        Добавляет или обновляет aria-* атрибут для улучшения доступности.
+
+        Parameters
+        ----------
+        key : str
+            Имя ARIA-атрибута без префикса 'aria-'
+        value : str
+            Значение атрибута
+
+        ARIA-атрибуты важны для обеспечения доступности веб-контента
+        для пользователей с ограниченными возможностями.
+        """
+        self.aria_attrs[key] = value
+
+    def del_aria(self, key):
+        """
+        Удаляет aria атрибут
+        """
+        if key in self.aria_attrs:
+            del self.aria_attrs[key]
+
+    def add_data(self, key, value):
+        """
+        Добавляет или обновляет data-* атрибут.
+
+        Parameters
+        ----------
+        key : str
+            Имя атрибута без префикса 'data-'
+        value : str
+            Значение атрибута
+
+        Notes
+        -----
+        В HTML атрибут будет преобразован в data-user-id (с дефисами),
+        но в методе используется нижнее подчеркивание для удобства.
+        """
+        self.data_attrs[key] = value
+
+    def del_data(self, key):
+        """
+        Удаляет data атрибут
+        """
+        if key in self.data_attrs:
+            del self.data_attrs[key]
+
     def get_attributes_string(self):
         """
         Генерирует строку атрибутов для использования в HTML-теге.
@@ -133,10 +186,18 @@ class HTMLElement:
         if self.events:
             for event, handler in self.events.items():
                 attrs.append(f'{event}="{handler}"')
+        # Булевые атрибуты
         if self.boolean_attributes:
             for bool_atr in self.boolean_attributes:
                 attrs.append(bool_atr)
-
+        # data-* атрибуты
+        if self.data_attrs:
+            for key, value in self._data_attrs.items():
+                attrs.append(f'data-{key}="{value}"')
+        # aria-* атрибуты
+        if self.aria_attrs:
+            for key, value in self._aria_attrs.items():
+                attrs.append(f'aria-{key}="{value}"')
         for key, value in self.value_attributes.items():
             try:
                 atr_name = getattr(ValueAttributes, key)
@@ -149,11 +210,3 @@ class HTMLElement:
 
             print(atr_name, value)
         return " ".join(attrs)
-
-        # data-* атрибуты
-        for key, value in self._data_attrs.items():
-            attrs.append(f'data-{key}="{value}"')
-
-        # aria-* атрибуты
-        for key, value in self._aria_attrs.items():
-            attrs.append(f'aria-{key}="{value}"')
