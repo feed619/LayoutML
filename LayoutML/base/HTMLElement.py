@@ -178,7 +178,6 @@ class HTMLElement:
             Строка атрибутов, готовая для вставки в HTML-тег
         """
         attrs = []
-        print(self.value_attributes)
         if self.class_:
             attrs.append(f'class="{" ".join(self.class_)}"')
         if self.styles:
@@ -211,5 +210,4 @@ class HTMLElement:
                 )
             attrs.append(f'{atr_name}="{value}"')
 
-            print(atr_name, value)
         return " ".join(attrs)
