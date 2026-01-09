@@ -24,8 +24,7 @@ class Body(HTMLElement):
         Добавить HTML элемент
 
         Пример:
-        body.add_element(div.render())
-        body.add_element(str(button))
+        body.add_element(FormElement)
         """
         self.elements.append(element)
         return self
