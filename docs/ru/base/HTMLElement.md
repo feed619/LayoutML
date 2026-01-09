@@ -317,6 +317,27 @@ element.del_data("status")  # Удаляет data-status
 
 ```
 
+### add_attributes(boolean_attributes=[], \*\*kwargs)
+
+Добавляет несколько атрибутов одновременно.
+
+```python
+element.add_attributes(
+    boolean_attributes=["required"],
+    id="email",
+    name="email",
+    placeholder="Введите email"
+)
+```
+
+### del_attributes(\*args)
+
+Удаляет несколько атрибутов.
+
+```python
+element.del_attributes("id", "name", "required")
+```
+
 ### get_attributes_string()
 
 Генерирует строку атрибутов для использования в HTML-теге.
