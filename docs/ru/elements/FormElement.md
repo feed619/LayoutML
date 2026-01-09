@@ -23,12 +23,12 @@ from LayoutML.elements import FormElement
 | ------------------ | --------- | ------------ | -------------------------------- | ------------------------------------ |
 | form_type          | str       | "text"       | Тип элемента формы               | "email", "password", "date"          |
 | boolean_attributes | list[str] | []           | Список булевых HTML атрибутов    | ["required", "disabled", "readonly"] |
-| \*\*kwargs         | dict      | -            | Дополнительные атрибуты элемента | id_="email", name="user_email"        |
+| \*\*kwargs         | dict      | -            | Дополнительные атрибуты элемента | id\_="email", name="user_email"      |
 
 ### Особенности конструктора:
 
 - Автоматически устанавливает HTML тег как "input"
-- Добавляет атрибут type с указанным значением form_type
+- Добавляет атрибут type с указанным значением form_type.Все возможные значения находятся в классе [FormTypes](types/FormTypes.md)
 - Наследует все возможности родительского класса HTMLElement (классы, стили, события, ARIA, data-атрибуты)
 
 ## Атрибуты класса
