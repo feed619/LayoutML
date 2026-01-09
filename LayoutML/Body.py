@@ -28,11 +28,6 @@ class Body(HTMLElement):
         body.add_element(str(button))
         """
         self.elements.append(element)
-
-        if hasattr(element, "render"):
-            self.elements.append(element.render())
-        else:
-            self.elements.append(str(element))
         return self
 
     def add_raw_html(self, html: str) -> "Body":
@@ -102,7 +97,10 @@ class Body(HTMLElement):
         if self.elements:
             html_context = ""
             for element in self.elements:
-                html_context += "\n" + element.render()
+                if hasattr(element, "render"):
+                    html_context += "\n" + element.render()
+                else:
+                    html_context += "\n" + str(element)
             if all_content:
                 all_content += "\n"
             all_content += "\n" + html_context
