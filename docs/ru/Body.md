@@ -106,7 +106,6 @@ from LayoutML.elements import FormElement
 
 # Добавление элемента с методом render()
 form = FormElement(
-    email_field = FormElement(
     form_type="email",
     id="user_email",
     name="email",
@@ -276,9 +275,8 @@ from LayoutML.elements import FormElement
 body = Body(class_="main-body")
 
 form = FormElement(
-    email_field = FormElement(
     form_type="email",
-    id="user_email",
+    id_="user_email",
     name="email",
     required=True,
     pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$"

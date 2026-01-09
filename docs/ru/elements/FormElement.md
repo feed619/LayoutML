@@ -23,7 +23,7 @@ from LayoutML.elements import FormElement
 | ------------------ | --------- | ------------ | -------------------------------- | ------------------------------------ |
 | form_type          | str       | "text"       | Тип элемента формы               | "email", "password", "date"          |
 | boolean_attributes | list[str] | []           | Список булевых HTML атрибутов    | ["required", "disabled", "readonly"] |
-| \*\*kwargs         | dict      | -            | Дополнительные атрибуты элемента | id="email", name="user_email"        |
+| \*\*kwargs         | dict      | -            | Дополнительные атрибуты элемента | id_="email", name="user_email"        |
 
 ### Особенности конструктора:
 
@@ -60,7 +60,7 @@ from LayoutML.elements import FormElement
 Формат вывода:
 
 ```text
-type="email" class="form-control" id="emailInput" name="email" required placeholder="Введите email" aria-label="Электронная почта" data-validation="email"
+type="email" class="form-control" id_="emailInput" name="email" required placeholder="Введите email" aria-label="Электронная почта" data-validation="email"
 ```
 
 ### render()
@@ -76,7 +76,7 @@ type="email" class="form-control" id="emailInput" name="email" required placehol
 # Простое текстовое поле
 text_field = FormElement(
     form_type="text",
-    id="username",
+    id_="username",
     name="username",
     placeholder="Введите имя"
 )
@@ -84,7 +84,7 @@ text_field = FormElement(
 # Поле email с валидацией
 email_field = FormElement(
     form_type="email",
-    id="user_email",
+    id_="user_email",
     name="email",
     required=True,
     pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$"
@@ -94,7 +94,7 @@ email_field = FormElement(
 password_field = FormElement(
     form_type="password",
     boolean_attributes=["required"],
-    id="user_password",
+    id_="user_password",
     name="password",
     minlength="8",
     autocomplete="new-password",
@@ -105,7 +105,7 @@ password_field = FormElement(
 newsletter_checkbox = FormElement(
     form_type="checkbox",
     boolean_attributes=["checked"],
-    id="subscribe",
+    id_="subscribe",
     name="newsletter",
     value="yes"
 )
@@ -113,7 +113,7 @@ newsletter_checkbox = FormElement(
 # Поле даты с ограничениями
 birthday_field = FormElement(
     form_type="date",
-    id="birth_date",
+    id_="birth_date",
     name="birthday",
     min="1900-01-01",
     max="2024-12-31",
@@ -123,14 +123,14 @@ birthday_field = FormElement(
 # Создание и рендеринг элементов
 text_field = FormElement(
     form_type="text",
-    id="name",
+    id_="name",
     name="full_name",
     placeholder="Иван Иванов"
 )
 
 email_field = FormElement(
     form_type="email",
-    id="email",
+    id_="email",
     name="email",
     required=True
 )
@@ -142,7 +142,7 @@ submit_button = FormElement(
 )
 
 # Рендеринг
-print(text_field.render())   # <input type="text" id="name" name="full_name" placeholder="Иван Иванов">
-print(email_field.render())  # <input type="email" id="email" name="email" required>
+print(text_field.render())   # <input type="text" id_="name" name="full_name" placeholder="Иван Иванов">
+print(email_field.render())  # <input type="email" id_="email" name="email" required>
 print(submit_button.render()) # <input type="submit" value="Отправить" class="btn btn-primary">
 ```
