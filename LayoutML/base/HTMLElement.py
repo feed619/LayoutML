@@ -28,7 +28,12 @@ class HTMLElement:
             del kwargs["style"]
         self.aria_attrs = {k[5:]: v for k, v in kwargs.items() if k.startswith("aria_")}
         self.data_attrs = {k[5:]: v for k, v in kwargs.items() if k.startswith("data_")}
-
+        if self.aria_attrs:
+            for key in self.aria_attrs:
+                del kwargs[f"aria_{key}"]
+        if self.data_attrs:
+            for key in self.data_attrs:
+                del kwargs[f"data_{key}"]
         self.value_attributes: dict = kwargs
 
     def parse_style_string(self, style_str: str) -> dict:
@@ -208,11 +213,11 @@ class HTMLElement:
                 attrs.append(bool_atr)
         # data-* атрибуты
         if self.data_attrs:
-            for key, value in self._data_attrs.items():
+            for key, value in self.data_attrs.items():
                 attrs.append(f'data-{key}="{value}"')
         # aria-* атрибуты
         if self.aria_attrs:
-            for key, value in self._aria_attrs.items():
+            for key, value in self.aria_attrs.items():
                 attrs.append(f'aria-{key}="{value}"')
         for key, value in self.value_attributes.items():
             try:
