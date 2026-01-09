@@ -168,6 +168,20 @@ class HTMLElement:
         if key in self.data_attrs:
             del self.data_attrs[key]
 
+    def add_attributes(self, boolean_attributes=[], **kwargs):
+        for atr in boolean_attributes:
+            if not atr in self.boolean_attributes:
+                self.boolean_attributes.append(atr)
+        for key, value in kwargs.items():
+            self.value_attributes[key] = value
+
+    def del_attributes(self, *args):
+        for atr in args:
+            if atr in self.value_attributes:
+                del self.value_attributes[atr]
+            if atr in self.boolean_attributes:
+                self.boolean_attributes.remove(atr)
+
     def get_attributes_string(self):
         """
         Генерирует строку атрибутов для использования в HTML-теге.
