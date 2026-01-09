@@ -8,7 +8,7 @@
 
 ```python
 # Импорт всего класса
-from LayoutML.FormType import FormTypes
+from LayoutML.types import FormTypes
 
 # Использование констант
 text_field = FormElement(form_type=FormTypes.TEXT)
