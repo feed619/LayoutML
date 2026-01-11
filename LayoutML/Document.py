@@ -10,17 +10,18 @@ class Document(HTMLElement):
     Полный HTML документ
     Объединяет Head и Body
     """
-    doctype:str
-    head:Head
-    body:Body
-    custom_prefix:Optional[str] = None
+
+    doctype: str
+    head: Head
+    body: Body
+    custom_prefix: Optional[str] = None
     custom_suffix: Optional[str] = None
 
-    def __init__(self, doctype: str = "html", **kwargs):
+    def __init__(self, doctype: str = "html", title: str = "LayoutML", **kwargs):
         super().__init__(**kwargs)
 
         self.doctype = doctype
-        self.head = Head()
+        self.head = Head(title=title)
         self.body = Body()
         self.custom_prefix: Optional[str] = None
         self.custom_suffix: Optional[str] = None
