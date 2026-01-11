@@ -29,6 +29,6 @@ class FormElement(HTMLElement):
         """Рендеринг Label"""
         attrs = self.get_attributes_string()
         if attrs:
-            return f"<{self.tag} {attrs}></{self.tag}>"
+            return f"<{self.tag} {attrs}>"
         else:
-            return f"<{self.tag}></{self.tag}>"
+            return f"<{self.tag}>"
