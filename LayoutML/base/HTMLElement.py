@@ -178,7 +178,11 @@ class HTMLElement:
             if not atr in self.boolean_attributes:
                 self.boolean_attributes.append(atr)
         for key, value in kwargs.items():
-            self.value_attributes[key] = value
+            if key == "class_":
+                if value not in self.class_:
+                    self.class_.append(value)
+            else:
+                self.value_attributes[key] = value
 
     def del_attributes(self, *args):
         for atr in args:
