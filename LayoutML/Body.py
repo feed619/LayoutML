@@ -14,6 +14,13 @@ class Body(HTMLElement):
         self.elements: List = []
         self.scripts_footer: List[Dict] = []  # Скрипты в конце body
 
+    def delete_spaces(self):
+        self.styles["margin"] = "0"
+        self.styles["padding"] = "0"
+
+    def set_overflow_hidden(self):
+        self.styles["overflow"] = "hidden"
+
     def add_content(self, content: str) -> "Body":
         """Добавить текстовое содержимое"""
         self.content += content
