@@ -116,6 +116,14 @@ body.add_element(form)
 
 ```
 
+### delete_spaces(self)
+
+Удаляет внешние и внутренние отступы у HTML-элемента, устанавливая нулевые значения для свойств margin и padding.
+
+### set_overflow_hidden(self)
+
+Устанавливает свойство overflow в значение hidden, что скрывает содержимое, выходящее за границы элемента.
+
 ### add_raw_html(html: str) -> "Body"
 
 Добавляет сырой HTML код напрямую в body.
