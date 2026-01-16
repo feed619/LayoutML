@@ -5,7 +5,7 @@ from .Body import Body
 from .Head import Head
 
 
-class Document(HTMLElement):
+class Page(HTMLElement):
     """
     Полный HTML документ
     Объединяет Head и Body
@@ -26,32 +26,32 @@ class Document(HTMLElement):
         self.custom_prefix: Optional[str] = None
         self.custom_suffix: Optional[str] = None
 
-    def set_head(self, head: Head) -> "Document":
+    def set_head(self, head: Head) -> "Page":
         self.head = head
         return self
 
-    def set_body(self, body: Body) -> "Document":
+    def set_body(self, body: Body) -> "Page":
         self.body = body
         return self
 
-    def set_doctype(self, doctype: str) -> "Document":
+    def set_doctype(self, doctype: str) -> "Page":
         """
         Установить doctype
         """
         self.doctype = doctype
         return self
 
-    def set_language(self, lang: str) -> "Document":
+    def set_language(self, lang: str) -> "Page":
         """Установить язык документа"""
         self.add_attributes(lang=lang)
         return self
 
-    def add_prefix(self, html: str) -> "Document":
+    def add_prefix(self, html: str) -> "Page":
         """Добавить HTML перед документом (например, комментарии)"""
         self.custom_prefix = html
         return self
 
-    def add_suffix(self, html: str) -> "Document":
+    def add_suffix(self, html: str) -> "Page":
         """Добавить HTML после документа"""
         self.custom_suffix = html
         return self
@@ -78,7 +78,7 @@ class Document(HTMLElement):
         # Doctype
         parts.append(self._get_doctype())
 
-        html_attrs = self.get_attributes_string()  # Если Document наследует HTMLElement
+        html_attrs = self.get_attributes_string()  # Если Page наследует HTMLElement
         if html_attrs:
             parts.append(f'<html" {html_attrs}>')
         else:
@@ -110,4 +110,4 @@ class Document(HTMLElement):
         return self.render()
 
     def __repr__(self) -> str:
-        return f'Document(lang="{self.lang}", title="{self.head.title}")'
+        return f'Page(lang="{self.lang}", title="{self.head.title}")'

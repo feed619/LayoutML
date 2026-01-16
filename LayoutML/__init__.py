@@ -1,9 +1,9 @@
 from .Head import Head
 from .Body import Body
-from .Document import Document
+from .Page import Page
 
 __all__ = [
     "Head",
     "Body",
-    "Document",
+    "Page",
 ]

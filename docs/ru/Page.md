@@ -1,13 +1,13 @@
-# Document
+# Page
 
-`Document` - является специализированным наследником базового класса HTMLElement, предназначенным для создания HTML <body> элемента с управлением основным содержимым страницы. Этот класс предоставляет удобный объектно-ориентированный интерфейс для добавления элементов, скриптов и управления фоном веб-страницы.
+`Page` - является специализированным наследником базового класса HTMLElement, предназначенным для создания HTML <body> элемента с управлением основным содержимым страницы. Этот класс предоставляет удобный объектно-ориентированный интерфейс для добавления элементов, скриптов и управления фоном веб-страницы.
 
 ---
 
 ## Импорт
 
 ```python
-from LayoutML import Document
+from LayoutML import Page
 ```
 
 ## Конструктор
@@ -34,13 +34,13 @@ from LayoutML import Document
 
 ```python
 # Простой документ
-doc = Document()
+doc = Page()
 
 # Документ с кастомным doctype
-doc = Document(doctype="xhtml")
+doc = Page(doctype="xhtml")
 
 # Документ с атрибутами
-doc = Document(
+doc = Page(
     doctype="html5",
     class_="no-js",
     lang="ru",
@@ -50,7 +50,7 @@ doc = Document(
 
 ## Методы
 
-### set_head(head: Head) -> "Document"
+### set_head(head: Head) -> "Page"
 
 Устанавливает заголовок документа.
 
@@ -59,7 +59,7 @@ head = Head(title="Мой сайт")
 doc.set_head(head)
 ```
 
-### set_body(body: Body) -> "Document"
+### set_body(body: Body) -> "Page"
 
 Устанавливает тело документа.
 
@@ -69,7 +69,7 @@ body.add_element("<h1>Привет мир!</h1>")
 doc.set_body(body)
 ```
 
-### set_doctype(doctype: str) -> "Document"
+### set_doctype(doctype: str) -> "Page"
 
 Устанавливает тип документа (DOCTYPE).
 
@@ -80,7 +80,7 @@ doc.set_doctype("strict")     # <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN
 doc.set_doctype("transitional") # <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" ...>
 ```
 
-### set_language(lang: str) -> "Document"
+### set_language(lang: str) -> "Page"
 
 Устанавливает язык документа. Добавляет атрибут lang к тегу <html>.
 
@@ -90,7 +90,7 @@ doc.set_language("en")    # <html lang="en">
 doc.set_language("de")    # <html lang="de">
 ```
 
-### add_prefix(html: str) -> "Document"
+### add_prefix(html: str) -> "Page"
 
 Добавляет пользовательский HTML код перед документом (например, комментарии, условия для IE).
 
@@ -99,7 +99,7 @@ doc.add_prefix("<!--[if IE]><![endif]-->")
 doc.add_prefix("<!-- Built with LayoutML -->")
 ```
 
-### add_suffix(html: str) -> "Document"
+### add_suffix(html: str) -> "Page"
 
 Добавляет пользовательский HTML код после документа.
 

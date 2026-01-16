@@ -185,7 +185,7 @@ body.add_script_footer(src="/js/app.js", defer=True)
 # Встроенный скрипт
 body.add_script_footer(content="""
     // Инициализация после загрузки DOM
-    document.addEventListener('DOMContentLoaded', function() {
+    page.addEventListener('DOMContentLoaded', function() {
         console.log('Страница загружена');
         initComponents();
         setupEventListeners();
