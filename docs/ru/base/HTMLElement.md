@@ -79,9 +79,9 @@ element3 = HTMLElement(
 
 ### Значения из HTMLAttributes.ValueAttributes
 
-Класс поддерживает все атрибуты, определенные в классе [HTMLAttributes](HTMLAttributes.md): - Базовые атрибуты: id, name, title, lang, dir, translate - Стили и классы: class, style - Ссылки и пути: href, src, srcset, sizes, poster, action, formaction - Размеры: width, height, size - Формы и ввод: value, placeholder, pattern, min, max, step, maxlength, minlength - Мета-атрибуты: charset, content, http_equiv, property - Таблицы: colspan, rowspan, headers, scope - И многие другие...
+Класс поддерживает все атрибуты, определенные в классе [HTMLAttributes](../html_core/HTMLAttributes.md): - Базовые атрибуты: id, name, title, lang, dir, translate - Стили и классы: class, style - Ссылки и пути: href, src, srcset, sizes, poster, action, formaction - Размеры: width, height, size - Формы и ввод: value, placeholder, pattern, min, max, step, maxlength, minlength - Мета-атрибуты: charset, content, http_equiv, property - Таблицы: colspan, rowspan, headers, scope - И многие другие...
 
-Полный список смотрите в документации [HTMLAttributes.py](HTMLAttributes.md).
+Полный список смотрите в документации [HTMLAttributes.py](../html_core/HTMLAttributes.md).
 
 ### Булевые атрибуты
 
@@ -92,7 +92,7 @@ element3 = HTMLElement(
 - Медиа: controls, autoplay, loop, muted, playsinline
 - Другие: contenteditable, draggable, spellcheck, async, defer, open
 
-Полный список смотрите в документации [HTMLAttributes.py](HTMLAttributes.md) (класс BooleanAttributes).
+Полный список смотрите в документации [HTMLAttributes.py](../html_core/HTMLAttributes.md) (класс BooleanAttributes).
 
 ### События из HTMLEvents
 
@@ -104,7 +104,7 @@ element3 = HTMLElement(
 - MediaEvents: onabort, oncanplay, onended, onerror, onloadeddata, onpause, onplay
 - И многие другие...
 
-Полный список смотрите в документации [HTMLEvents.py](HTMLEvents.md).
+Полный список смотрите в документации [HTMLEvents.py](../html_core/HTMLEvents.md).
 
 ## Методы
 
