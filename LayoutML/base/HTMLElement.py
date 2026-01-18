@@ -1,9 +1,10 @@
 from LayoutML.html_core.HTMLAttributes import ValueAttributes
+from .css import CSSInline
 
 
 class HTMLElement:
+
     class_: list[str]
-    styles: dict
     events: dict
     aria_attrs: dict
     data_attrs: dict
@@ -11,21 +12,19 @@ class HTMLElement:
     custom_attributes: dict
     boolean_attributes: list
 
-    def __init__(self, boolean_attributes=[], **kwargs):
+    def __init__(self, boolean_attributes=[], style=None, **kwargs):
+
+        self.styles = CSSInline(style=style)
 
         self.custom_attributes = {}
         self.events = {}
         self.class_ = []
-        self.styles = {}
 
         self.boolean_attributes = boolean_attributes if type(boolean_attributes) is list else []
 
         if "class_" in kwargs:
             self.class_ = kwargs.get("class_", "").split()
             del kwargs["class_"]
-        if "style" in kwargs:
-            self.styles = self.parse_style_string(kwargs.get("style", ""))
-            del kwargs["style"]
         self.aria_attrs = {k[5:]: v for k, v in kwargs.items() if k.startswith("aria_")}
         self.data_attrs = {k[5:]: v for k, v in kwargs.items() if k.startswith("data_")}
         if self.aria_attrs:
@@ -35,22 +34,6 @@ class HTMLElement:
             for key in self.data_attrs:
                 del kwargs[f"data_{key}"]
         self.value_attributes: dict = kwargs
-
-    def parse_style_string(self, style_str: str) -> dict:
-        """Парсит CSS-строку стилей в словарь."""
-        styles = {}
-
-        for item in style_str.split(";"):
-            item = item.strip()
-            if not item:
-                continue
-
-            if ":" not in item:
-                continue
-            key, value = item.split(":", 1)
-            styles[key.strip()] = value.strip()
-
-        return styles
 
     def add_class(self, classname):
         """
@@ -77,31 +60,6 @@ class HTMLElement:
         """
         if classname in self.class_:
             self.class_.remove(classname)
-
-    def add_style(self, style):
-        """
-        Добавляет стили в словарь styles.
-
-        Parameters
-        ----------
-        style : str
-        """
-        new_styles = self.parse_style_string(style)
-        for style_name, style_value in new_styles.items():
-            self.styles[style_name] = style_value
-
-    def del_style(self, style_name):
-        """
-        Удаляет стиля из словаря styles.
-
-        Parameters
-        ----------
-        stryle_name : str
-            Название стиля для удаления
-
-        """
-        if style_name in self.styles:
-            del self.styles[style_name]
 
     def add_event(self, event_name, handler):
         """
@@ -204,10 +162,11 @@ class HTMLElement:
         if self.class_:
             attrs.append(f'class="{" ".join(self.class_)}"')
         if self.styles:
-            style_str_list = []
-            for style_name, style_value in self.styles.items():
-                style_str_list.append(f"{style_name}:{style_value};")
-            attrs.append(f'style="{" ".join(style_str_list)}"')
+            attrs.append(self.styles.get_styles_string)
+
+        if self.input_styles:
+            attrs.append(self.input_styles.render())
+
         if self.events:
             for event, handler in self.events.items():
                 attrs.append(f'{event}="{handler}"')
@@ -224,13 +183,13 @@ class HTMLElement:
             for key, value in self.aria_attrs.items():
                 attrs.append(f'aria-{key}="{value}"')
         for key, value in self.value_attributes.items():
-            try:
-                atr_name = getattr(ValueAttributes, key)
-            except AttributeError:
-                raise AttributeError(
-                    f"Attribute '{key}' not found in HTMLElementAttributes class. "
-                    f"Available attributes are defined in the HTMLElementAttributes class."
-                )
-            attrs.append(f'{atr_name}="{value}"')
+            # try:
+            #     atr_name = getattr(ValueAttributes, key)
+            # except AttributeError:
+            #     raise AttributeError(
+            #         f"Attribute '{key}' not found in HTMLElementAttributes class. "
+            #         f"Available attributes are defined in the HTMLElementAttributes class."
+            #     )
+            attrs.append(f'{key}="{value}"')
 
         return " ".join(attrs)

@@ -22,15 +22,15 @@ from LayoutML.html_core.HTMLEvents import MouseEvents, KeyboardEvents, FormEvent
 
 Параметры:
 
-| Параметр           | Тип | По умолчанию | Описание                                   | Пример            |
-| ------------------ | --- | ------------ | ------------------------------------------ | ----------------- |
-| boolean_attributes | str | []           | Уникальный идентификатор элемента          | "main-container"  |
-| \*\*kwargs         | str | -            | CSS классы (строка, разделенная пробелами) | "btn btn-primary" |
+| Параметр           | Тип | По умолчанию | Описание                                   | Пример             |
+| ------------------ | --- | ------------ | ------------------------------------------ | ------------------ |
+| boolean_attributes | str | []           | Уникальный идентификатор элемента          | "main-container"   |
+| style              | str | []           | Встроенные CSS стили (строка в формате     | "property: value;" |
+| \*\*kwargs         | str | -            | CSS классы (строка, разделенная пробелами) | "btn btn-primary"  |
 
 ### Особые параметры \*\*kwargs:
 
     - class_ - CSS классы (строка, разделенная пробелами)
-    - style - Встроенные CSS стили (строка в формате "property: value; property2: value2")
     - Любые другие атрибуты, определенные в классе ValueAttributes из [HTMLAttributes](HTMLAttributes.md)
 
 ### Примеры:
@@ -65,7 +65,7 @@ element3 = HTMLElement(
 | Атрибут            | Тип       | Описание                                                 |
 | ------------------ | --------- | -------------------------------------------------------- |
 | class\_            | list[str] | Список CSS классов элемента                              |
-| styles             | dict      | Словарь CSS стилей (ключ → значение)                     |
+| styles             | CSSInline | Класс [HTMLAttributes](../css/CSSInline.md)              |
 | events             | dict      | Словарь обработчиков событий (event_name → handler)      |
 | aria_attrs         | dict      | Словарь атрибут для улучшения доступности веб-контента   |
 | data_attrs         | dict      | Словарь атрибут для хранения пользовательских данных     |
@@ -140,39 +140,6 @@ element = HTMLElement(classname="container active highlight")
 element.del_class("active")  # Удаляет класс "active"
 # Результат: class="container highlight"
 
-```
-
-### add_style(style)
-
-Добавляет стили в словарь styles.
-
-Параметры:
-
-- style (str): Строка CSS стилей в формате "property: value; property2: value2"
-
-Пример:
-
-```python
-element = HTMLElement()
-element.add_style("color: red; font-size: 14px;")
-element.add_style("margin: 10px; padding: 5px;")
-# Результат: styles = {'color': 'red', 'font-size': '14px', 'margin': '10px', 'padding': '5px'}
-```
-
-### del_style(style_name)
-
-Удаляет стиль из словаря styles.
-
-Параметры:
-
-- style_name (str): Название CSS свойства для удаления
-
-Пример:
-
-```python
-element = HTMLElement(style="color: red; font-size: 14px;")
-element.del_style("color")
-# Результат: styles = {'font-size': '14px'}
 ```
 
 ### add_event(event_name, handler)
