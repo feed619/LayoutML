@@ -65,7 +65,7 @@ element3 = HTMLElement(
 | Атрибут            | Тип       | Описание                                                 |
 | ------------------ | --------- | -------------------------------------------------------- |
 | class\_            | list[str] | Список CSS классов элемента                              |
-| styles             | CSSInline | Класс [HTMLAttributes](../css/CSSInline.md)              |
+| styles             | CSSInline | Класс [CSSInline](../css/CSSInline.md)                   |
 | events             | dict      | Словарь обработчиков событий (event_name → handler)      |
 | aria_attrs         | dict      | Словарь атрибут для улучшения доступности веб-контента   |
 | data_attrs         | dict      | Словарь атрибут для хранения пользовательских данных     |
