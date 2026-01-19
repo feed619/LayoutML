@@ -56,6 +56,7 @@ element = CSSBase(style="width: 100px; height: 200px; color: #333;")
 | set_display(value)        | Тип отображения           | set_display("flex")          |
 | set_visibility(value)     | Видимость                 | set_visibility("hidden")     |
 | set_overflow(value)       | Переполнение              | set_overflow("auto")         |
+| remove_padding_margin()   | Удаляет отступы           | remove_padding_margin()      |
 
 ### Позиционирование
 

@@ -111,6 +111,12 @@ class CSSBase:
         self.styles["padding-left"] = padding
         return self
 
+    def remove_padding_margin(self) -> "CSSBase":
+        """Убрать все отступы"""
+        self.styles["padding"] = "0"
+        self.styles["margin"] = "0"
+        return self
+
     def set_box_sizing(self, box_sizing: str = "border-box") -> "CSSBase":
         """Установить box-sizing: content-box, border-box"""
         self.styles["box-sizing"] = box_sizing
