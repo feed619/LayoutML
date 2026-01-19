@@ -1,4 +1,5 @@
 from LayoutML.base import HTMLElement
+from LayoutML.base.css import CSSInput
 
 
 class FormElement(HTMLElement):
@@ -6,6 +7,7 @@ class FormElement(HTMLElement):
     def __init__(self, form_type: str = "text", boolean_attributes=[], object_name=None, **kwargs):
         """ """
         super().__init__(boolean_attributes=boolean_attributes, object_name=object_name, **kwargs)
+        self.input_styles = CSSInput()
 
         self.object_type = "FormElement"
 
