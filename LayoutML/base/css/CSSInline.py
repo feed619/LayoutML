@@ -10,4 +10,8 @@ class CSSInline(CSSBase):
         super().__init__(style=style)
 
     def render(self, space=False):
-        return f'style="{self.get_styles_string(space=space)}"'
+        styles = self.get_styles_string(space=space)
+        if styles:
+            return f'style="{self.get_styles_string(space=space)}"'
+        else:
+            return ""
