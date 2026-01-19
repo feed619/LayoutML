@@ -69,6 +69,7 @@ element3 = HTMLElement(
 | Атрибут            | Тип       | Описание                                                 |
 | ------------------ | --------- | -------------------------------------------------------- |
 | object_name        | str       | Уникальный идентификатор элемента                        |
+| object_type        | str       | Название типа объекта                                    |
 | class\_            | list[str] | Список CSS классов элемента                              |
 | styles             | CSSInline | Класс [CSSInline](../css/CSSInline.md)                   |
 | events             | dict      | Словарь обработчиков событий (event_name → handler)      |

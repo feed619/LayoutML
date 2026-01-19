@@ -5,6 +5,7 @@ from .css import CSSInline
 class HTMLElement:
 
     object_name: str
+    object_type: str
     class_: list[str]
     events: dict
     aria_attrs: dict
@@ -22,6 +23,7 @@ class HTMLElement:
         self.class_ = []
 
         self.object_name = object_name
+        self.object_type = "HTMLElement"
 
         self.boolean_attributes = boolean_attributes if type(boolean_attributes) is list else []
 
