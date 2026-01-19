@@ -16,7 +16,7 @@ class HTMLElement:
 
     def __init__(self, object_name=None, style=None, boolean_attributes=[], **kwargs):
 
-        self.styles = CSSInline(style=style)
+        self.inline_styles = CSSInline(style=style)
 
         self.custom_attributes = {}
         self.events = {}
@@ -169,12 +169,8 @@ class HTMLElement:
         attrs = []
         if self.class_:
             attrs.append(f'class="{" ".join(self.class_)}"')
-        if self.styles:
-            attrs.append(self.styles.get_styles_string)
-
-        if self.input_styles:
-            attrs.append(self.input_styles.render())
-
+        if self.inline_styles:
+            attrs.append(self.inline_styles.render())
         if self.events:
             for event, handler in self.events.items():
                 attrs.append(f'{event}="{handler}"')
@@ -191,13 +187,13 @@ class HTMLElement:
             for key, value in self.aria_attrs.items():
                 attrs.append(f'aria-{key}="{value}"')
         for key, value in self.value_attributes.items():
-            # try:
-            #     atr_name = getattr(ValueAttributes, key)
-            # except AttributeError:
-            #     raise AttributeError(
-            #         f"Attribute '{key}' not found in HTMLElementAttributes class. "
-            #         f"Available attributes are defined in the HTMLElementAttributes class."
-            #     )
-            attrs.append(f'{key}="{value}"')
+            try:
+                atr_name = getattr(ValueAttributes, key)
+            except AttributeError:
+                raise AttributeError(
+                    f"Attribute '{key}' not found in HTMLElementAttributes class. "
+                    f"Available attributes are defined in the HTMLElementAttributes class."
+                )
+            attrs.append(f'{atr_name}="{value}"')
 
         return " ".join(attrs)
