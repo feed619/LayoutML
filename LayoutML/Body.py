@@ -8,8 +8,11 @@ class Body(HTMLElement):
     Содержит основное содержимое страницы
     """
 
-    def __init__(self, content: str = "", **kwargs):
-        super().__init__(**kwargs)
+    object_type: str
+
+    def __init__(self, content: str = "", object_name=None, **kwargs):
+        super().__init__(object_name=object_name, **kwargs)
+        self.object_type = "Body"
         self.content = content
         self.elements: List = []
         self.scripts_footer: List[Dict] = []  # Скрипты в конце body

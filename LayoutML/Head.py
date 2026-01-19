@@ -5,11 +5,15 @@ from .base import HTMLElement
 class Head(HTMLElement):
     """
     Класс для HTML head элемента
-    Содержит мета-теги, заголовок, стили, скрипты
     """
 
-    def __init__(self, title: str = "", **kwargs):
-        super().__init__(**kwargs)
+    object_type: str
+
+    def __init__(self, title: str = "", object_name=None, **kwargs):
+        super().__init__(object_name=object_name, **kwargs)
+
+        self.object_type = "Head"
+
         self.title = title
         self.meta_tags: List[Dict] = []
         self.links: List[Dict] = []

@@ -11,14 +11,18 @@ class Page(HTMLElement):
     Объединяет Head и Body
     """
 
+    object_type: str
+
     doctype: str
     head: Head
     body: Body
     custom_prefix: Optional[str] = None
     custom_suffix: Optional[str] = None
 
-    def __init__(self, doctype: str = "html", title: str = "LayoutML", **kwargs):
-        super().__init__(**kwargs)
+    def __init__(self, doctype: str = "html", title: str = "LayoutML", object_name=None, **kwargs):
+        super().__init__(object_name=object_name, **kwargs)
+
+        self.object_name = object_name
 
         self.doctype = doctype
         self.head = Head(title=title)
