@@ -7,6 +7,7 @@ class FormElement(HTMLElement):
         """ """
         super().__init__(boolean_attributes=boolean_attributes, **kwargs)
 
+        self.object_type = "FormElement"
         self.tag = "input"
         self.form_type = form_type
 
