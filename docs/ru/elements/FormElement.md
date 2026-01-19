@@ -19,11 +19,12 @@ from LayoutML.elements import FormElement
 
 Параметры:
 
-| Константа          | Тип       | По умолчанию | Описание                         | Пример                               |
-| ------------------ | --------- | ------------ | -------------------------------- | ------------------------------------ |
-| form_type          | str       | "text"       | Тип элемента формы               | "email", "password", "date"          |
-| boolean_attributes | list[str] | []           | Список булевых HTML атрибутов    | ["required", "disabled", "readonly"] |
-| \*\*kwargs         | dict      | -            | Дополнительные атрибуты элемента | id\_="email", name="user_email"      |
+| Константа          | Тип       | По умолчанию | Описание                          | Пример                               |
+| ------------------ | --------- | ------------ | --------------------------------- | ------------------------------------ |
+| form_type          | str       | "text"       | Тип элемента формы                | "email", "password", "date"          |
+| boolean_attributes | list[str] | []           | Список булевых HTML атрибутов     | ["required", "disabled", "readonly"] |
+| object_name        | str       | None         | Уникальный идентификатор элемента | "form_element"                       |
+| \*\*kwargs         | dict      | -            | Дополнительные атрибуты элемента  | id\_="email", name="user_email"      |
 
 ### Особенности конструктора:
 
