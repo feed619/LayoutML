@@ -26,7 +26,7 @@ from LayoutML.html_core.HTMLEvents import MouseEvents, KeyboardEvents, FormEvent
 | ------------------ | --- | ------------ | ------------------------------------------ | ------------------ |
 | object_name        | str | None         | Уникальный идентификатор элемента          | "container         |
 | boolean_attributes | str | []           | Булевые атрибуты                           | "main-container"   |
-| style              | str | []           | Встроенные CSS стили (строка в формате     | "property: value;" |
+| inline_styles      | str | []           | Встроенные CSS стили (строка в формате     | "property: value;" |
 | \*\*kwargs         | str | -            | CSS классы (строка, разделенная пробелами) | "btn btn-primary"  |
 
 ### Особые параметры \*\*kwargs:
@@ -71,7 +71,7 @@ element3 = HTMLElement(
 | object_name        | str       | Уникальный идентификатор элемента                        |
 | object_type        | str       | Название типа объекта                                    |
 | class\_            | list[str] | Список CSS классов элемента                              |
-| styles             | CSSInline | Класс [CSSInline](../css/CSSInline.md)                   |
+| inline_styles      | CSSInline | Класс [CSSInline](../css/CSSInline.md)                   |
 | events             | dict      | Словарь обработчиков событий (event_name → handler)      |
 | aria_attrs         | dict      | Словарь атрибут для улучшения доступности веб-контента   |
 | data_attrs         | dict      | Словарь атрибут для хранения пользовательских данных     |
