@@ -24,7 +24,8 @@ from LayoutML.html_core.HTMLEvents import MouseEvents, KeyboardEvents, FormEvent
 
 | Параметр           | Тип | По умолчанию | Описание                                   | Пример             |
 | ------------------ | --- | ------------ | ------------------------------------------ | ------------------ |
-| boolean_attributes | str | []           | Уникальный идентификатор элемента          | "main-container"   |
+| object_name        | str | None         | Уникальный идентификатор элемента          | "container         |
+| boolean_attributes | str | []           | Булевые атрибуты                           | "main-container"   |
 | style              | str | []           | Встроенные CSS стили (строка в формате     | "property: value;" |
 | \*\*kwargs         | str | -            | CSS классы (строка, разделенная пробелами) | "btn btn-primary"  |
 
@@ -38,6 +39,7 @@ from LayoutML.html_core.HTMLEvents import MouseEvents, KeyboardEvents, FormEvent
 ```python
 # Простой элемент с классами и стилями
 element1 = HTMLElement(
+    object_name="element1",
     class_="container primary",
     style="color: red; font-size: 14px;",
     id="main",
@@ -46,6 +48,7 @@ element1 = HTMLElement(
 
 # Элемент с булевыми атрибутами
 element2 = HTMLElement(
+    object_name="element2",
     boolean_attributes=["disabled", "readonly", "required"],
     id="inputField",
     name="username",
@@ -54,6 +57,7 @@ element2 = HTMLElement(
 
 # Элемент с произвольными атрибутами
 element3 = HTMLElement(
+    object_name="element3",
     data_id="123",
     aria_label="Описание",
     custom_attribute="значение"
@@ -64,6 +68,7 @@ element3 = HTMLElement(
 
 | Атрибут            | Тип       | Описание                                                 |
 | ------------------ | --------- | -------------------------------------------------------- |
+| object_name        | str       | Уникальный идентификатор элемента                        |
 | class\_            | list[str] | Список CSS классов элемента                              |
 | styles             | CSSInline | Класс [CSSInline](../css/CSSInline.md)                   |
 | events             | dict      | Словарь обработчиков событий (event_name → handler)      |

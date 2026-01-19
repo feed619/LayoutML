@@ -4,6 +4,7 @@ from .css import CSSInline
 
 class HTMLElement:
 
+    object_name: str
     class_: list[str]
     events: dict
     aria_attrs: dict
@@ -12,13 +13,15 @@ class HTMLElement:
     custom_attributes: dict
     boolean_attributes: list
 
-    def __init__(self, boolean_attributes=[], style=None, **kwargs):
+    def __init__(self, object_name=None, style=None, boolean_attributes=[], **kwargs):
 
         self.styles = CSSInline(style=style)
 
         self.custom_attributes = {}
         self.events = {}
         self.class_ = []
+
+        self.object_name = object_name
 
         self.boolean_attributes = boolean_attributes if type(boolean_attributes) is list else []
 
@@ -34,6 +37,9 @@ class HTMLElement:
             for key in self.data_attrs:
                 del kwargs[f"data_{key}"]
         self.value_attributes: dict = kwargs
+
+    def set_object_name(self, name):
+        self.object_name = name
 
     def add_class(self, classname):
         """
