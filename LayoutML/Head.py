@@ -1,4 +1,6 @@
 from typing import List, Dict, Optional, Any
+
+from .base.css import CSSInput
 from .base import HTMLElement
 
 
@@ -13,6 +15,7 @@ class Head(HTMLElement):
         super().__init__(object_name=object_name, **kwargs)
 
         self.object_type = "Head"
+        self.input_styles = CSSInput()
 
         self.title = title
         self.meta_tags: List[Dict] = []
@@ -197,10 +200,10 @@ class Head(HTMLElement):
         attrs = self.get_attributes_string()
         if attrs:
             content = "\n    ".join(parts)
-            return f"<head {attrs}>\n    {content}\n</head>"
+            return f"<head {attrs}>{self.input_styles.render()}\n    {content}\n</head>"
         else:
             content = "\n    ".join(parts)
-            return f"<head>\n    {content}\n</head>"
+            return f"<head>{self.input_styles.render()}\n    {content}\n</head>"
 
     def get_html(self) -> str:
         """Алиас для render"""

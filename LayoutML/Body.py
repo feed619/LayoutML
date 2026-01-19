@@ -1,5 +1,6 @@
 from typing import List, Dict, Optional, Any
 from LayoutML.base import HTMLElement
+from .base.css import CSSInput
 
 
 class Body(HTMLElement):
@@ -12,17 +13,13 @@ class Body(HTMLElement):
 
     def __init__(self, content: str = "", object_name=None, **kwargs):
         super().__init__(object_name=object_name, **kwargs)
+
+        self.input_styles = CSSInput()
+
         self.object_type = "Body"
         self.content = content
         self.elements: List = []
         self.scripts_footer: List[Dict] = []  # Скрипты в конце body
-
-    def delete_spaces(self):
-        self.styles["margin"] = "0"
-        self.styles["padding"] = "0"
-
-    def set_overflow_hidden(self):
-        self.styles["overflow"] = "hidden"
 
     def add_content(self, content: str) -> "Body":
         """Добавить текстовое содержимое"""
@@ -39,7 +36,7 @@ class Body(HTMLElement):
         self.elements.append(element)
         return self
 
-    def add_raw_html(self, html: str) -> "Body":
+    def add_html(self, html: str) -> "Body":
         """Добавить сырой HTML"""
         self.elements.append(html)
         return self
@@ -57,28 +54,6 @@ class Body(HTMLElement):
         if content:
             script_attrs["_content"] = content
         self.scripts_footer.append(script_attrs)
-        return self
-
-    def set_background(self, color: str = None, image: str = None) -> "Body":
-        """Установить фон body"""
-        style_parts = []
-
-        if color:
-            style_parts.append(f"background-color: {color};")
-
-        if image:
-            style_parts.append(f'background-image: url("{image}");')
-            style_parts.append("background-size: cover;")
-            style_parts.append("background-position: center;")
-
-        if style_parts:
-            current_style = self._attributes.get("style", "")
-            new_style = " ".join(style_parts)
-            if current_style:
-                self._attributes["style"] = f"{current_style} {new_style}"
-            else:
-                self._attributes["style"] = new_style
-
         return self
 
     def _render_scripts_footer(self) -> str:
@@ -107,12 +82,12 @@ class Body(HTMLElement):
             html_context = ""
             for element in self.elements:
                 if hasattr(element, "render"):
-                    html_context += "\n" + element.render()
+                    html_context += "\n\t" + element.render()
                 else:
-                    html_context += "\n" + str(element)
+                    html_context += "\n\t" + str(element)
             if all_content:
                 all_content += "\n"
-            all_content += "\n" + html_context
+            all_content += html_context
 
         # Скрипты в конце
         footer_scripts = self._render_scripts_footer()
@@ -122,10 +97,7 @@ class Body(HTMLElement):
         # Атрибуты body
         attrs = self.get_attributes_string()
 
-        if attrs:
-            return f"<body {attrs}>\n{all_content}\n</body>"
-        else:
-            return f"<body>\n{all_content}\n</body>"
+        return f"<body {attrs}>{self.input_styles.render()}\n{all_content}\n</body>"
 
     def get_html(self) -> str:
         """Алиас для render"""
