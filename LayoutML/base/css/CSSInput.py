@@ -42,4 +42,7 @@ class CSSInput:
                 selector_prefix = "@"
 
             selectors_str_list.append(f"{selector_prefix}{selector_name}" + " {\n" + selector.get_styles_string(space=space) + "}\n")
-        return f"<style>\n {''.join(selectors_str_list)}</style>"
+        if selectors_str_list:
+            return f"<style>\n {''.join(selectors_str_list)}</style>"
+        else:
+            return ""
