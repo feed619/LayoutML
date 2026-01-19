@@ -84,9 +84,9 @@ class Page(HTMLElement):
 
         html_attrs = self.get_attributes_string()  # Если Page наследует HTMLElement
         if html_attrs:
-            parts.append(f'<html" {html_attrs}>')
+            parts.append(f"<html {html_attrs}>")
         else:
-            parts.append(f'<html">')
+            parts.append(f"<html>")
 
         # Head
         parts.append(self.head.render())
