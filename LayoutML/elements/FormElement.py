@@ -5,10 +5,9 @@ class FormElement(HTMLElement):
 
     def __init__(self, form_type: str = "text", boolean_attributes=[], object_name=None, **kwargs):
         """ """
-        super().__init__(boolean_attributes=boolean_attributes, **kwargs)
+        super().__init__(boolean_attributes=boolean_attributes, object_name=object_name, **kwargs)
 
         self.object_type = "FormElement"
-        self.object_name = object_name
 
         self.tag = "input"
         self.form_type = form_type
