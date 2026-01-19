@@ -206,13 +206,30 @@ class CSSBase:
         return self
 
     def set_justify_content(self, justify: str) -> "CSSBase":
-        """Установить justify-content: flex-start, flex-end, center, space-between, space-around, space-evenly"""
-        self.styles["justify-content"] = justify
+        """
+        Установить выравнивание по главной оси
+
+        Args:
+            justify: flex-start, center, flex-end, space-between, space-around, space-evenly
+        """
+        valid_values = ["flex-start", "center", "flex-end", "space-between", "space-around", "space-evenly"]
+        if justify in valid_values:
+            self.styles["justify-content"] = justify
+        else:
+            raise ValueError(f"Недопустимое значение justify-content: {justify}. " f"Допустимые значения: {', '.join(valid_values)}")
         return self
 
     def set_align_items(self, align: str) -> "CSSBase":
-        """Установить align-items: stretch, flex-start, flex-end, center, baseline"""
-        self.styles["align-items"] = align
+        """
+        Установить выравнивание по поперечной оси
+        Args:
+            align: stretch, flex-start, center, flex-end, baseline
+        """
+        valid_values = ["stretch", "flex-start", "center", "flex-end", "baseline"]
+        if align in valid_values:
+            self.styles["align-items"] = align
+        else:
+            raise ValueError(f"Недопустимое значение align-items: {align}. " f"Допустимые значения: {', '.join(valid_values)}")
         return self
 
     def set_align_content(self, align: str) -> "CSSBase":
@@ -336,7 +353,7 @@ class CSSBase:
 
     def set_background_image(self, image: str) -> "CSSBase":
         """Установить background-image: url('image.jpg'), linear-gradient(), etc."""
-        self.styles["background-image"] = image
+        self.styles["background-image"] = f'url("{image}")'
         return self
 
     def set_background_repeat(self, repeat: str) -> "CSSBase":
