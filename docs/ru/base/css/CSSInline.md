@@ -12,62 +12,71 @@ from LayoutML.base.css import CSSInline
 
 ## Наследование
 
-CSSInline наследует все методы и свойства от родительского класса [CSSBase](CSSBase.md), добавляя специализированный функционал для рендеринга inline стилей.
+- Родительский класс: [CSSBase](CSSBase.md)
+- Наследует все методы из [CSSBase](CSSBase.md)
+- Добавляет специальные методы для работы с inline стилями
 
 ## Конструктор
 
-### **init**(self, style=None)
+### **init**(style=None)
+
+Создаёт новый экземпляр CSSInline для работы с inline стилями.
 
 Параметры:
 
-| Параметр | Тип | По умолчанию | Описание                                                                   |
-| -------- | --- | ------------ | -------------------------------------------------------------------------- |
-| style    | str | None         | Начальная строка CSS стилей. Формат: "property: value; property2: value2;" |
-
-Пример
-
-```python
-# Пустой экземпляр
-css_inline = CSSInline()
-# С начальными стилями
-css_inline = CSSInline(style="color: red; font-size: 16px; margin: 10px;")
-```
-
-## Методы
-
-### render(space=False)
-
-Генерирует строку inline стилей в формате HTML атрибута.
-
-Параметры:
-
-- space (bool, optional): Если True, добавляет форматирование с пробелами и переносами строк. По умолчанию False.
-
-Возвращает:
-
-- str: Строка в формате style="property:value; property2:value2;"
+- style (опционально): CSS строка стилей для парсинга
 
 Примеры:
 
 ```python
-# Создание экземпляра
+# Создание пустого объекта
 css = CSSInline()
-# Установка стилей
-css.set_color("red")
-.set_font_size("16px")
-.set_margin("10px")
-# Рендеринг без форматирования
-result = css.render()
-# style="color:red;font-size:16px;margin:10px;"
-# Рендеринг с форматированием
-result_formatted = css.render(space=True)
-# style="
-# color:red;
-# font-size:16px;
-# margin:10px;
-# "
+# Создание с начальными стилями
+css = CSSInline(style="color: red; font-size: 16px;")
+# Наследование всех методов CSSBase
+css.set_width("100px").set_background_color("blue")
 ```
 
-### Унаследованные методы
+## Основные методы
 
-CSSInline наследует все методы из [CSSBase](CSSBase.md)
+### get_styles_str(space=False) -> str
+
+Генерирует готовую строку атрибута style для HTML тега.
+
+Параметры:
+
+- space (bool): Если True, форматирует с пробелами и переносами строк внутри атрибута
+
+Возвращает:
+
+- Строку атрибута style или пустую строку, если стилей нет
+
+Примеры:
+
+```python
+css = CSSInline()
+css.set_color("red").set_font_size("16px")
+# Без форматирования
+print(css.get_styles_str())
+# Результат: 'style="color:red;font-size:16px;"'
+# С форматированием
+print(css.get_styles_str(space=True))
+# Результат: 'style="  color: red;\n  font-size: 16px;"'
+# Пустые стили
+css_empty = CSSInline()
+print(css_empty.get_styles_str())
+# Результат: ""
+```
+
+## Наследованные методы
+
+CSSInline наследует все методы из CSSBase, включая:
+Категории методов:
+
+- Блочная модель: set_width(), set_height(), set_margin(), и т.д.
+- Позиционирование: set_position(), set_top(), set_left(), и т.д.
+- Flexbox: set_flex_direction(), set_justify_content(), и т.д.
+- Grid: set_grid_template_columns(), set_grid_area(), и т.д.
+- Текст: set_color(), set_font_family(), set_text_align(), и т.д.
+- CSS переменные: set_css_variable(), get_css_variable()
+- Утилитные методы: add_style(), remove_style(), clear_styles(), и т.д.
