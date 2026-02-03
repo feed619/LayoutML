@@ -1,3 +1,3 @@
 from .CSSBase import CSSBase
-from .CSSInput import CSSInput
+from .CSSSelectors import CSSSelectors
 from .CSSInline import CSSInline

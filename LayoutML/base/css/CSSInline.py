@@ -9,7 +9,7 @@ class CSSInline(CSSBase):
     def __init__(self, style=None):
         super().__init__(style=style)
 
-    def render(self, space=False):
+    def get_styles_str(self, space=False):
         styles = self.get_styles_string(space=space)
         if styles:
             return f'style="{self.get_styles_string(space=space)}"'

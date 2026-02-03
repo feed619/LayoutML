@@ -1,4 +1,4 @@
-from LayoutML.html_core.HTMLAttributes import ValueAttributes
+from layoutml.html_core.HTMLAttributes import ValueAttributes
 from .css import CSSInline
 
 
@@ -6,6 +6,7 @@ class HTMLElement:
 
     object_name: str
     object_type: str
+
     class_: list[str]
     events: dict
     aria_attrs: dict
@@ -42,6 +43,9 @@ class HTMLElement:
 
     def set_object_name(self, name):
         self.object_name = name
+
+    def get_object_name(self):
+        return self.object_name if self.object_name else self.object_type
 
     def add_class(self, classname):
         """
@@ -170,7 +174,7 @@ class HTMLElement:
         if self.class_:
             attrs.append(f'class="{" ".join(self.class_)}"')
         if self.inline_styles:
-            attrs.append(self.inline_styles.render())
+            attrs.append(self.inline_styles.get_styles_str())
         if self.events:
             for event, handler in self.events.items():
                 attrs.append(f'{event}="{handler}"')

@@ -1,11 +1,11 @@
 from typing import Optional
 
-from LayoutML.base import HTMLElement
+from layoutml.base import HTMLElement, BaseElement
 from .Body import Body
 from .Head import Head
 
 
-class Page(HTMLElement):
+class Page(BaseElement):
     """
     Полный HTML документ
     Объединяет Head и Body
@@ -16,19 +16,14 @@ class Page(HTMLElement):
     doctype: str
     head: Head
     body: Body
-    custom_prefix: Optional[str] = None
-    custom_suffix: Optional[str] = None
 
-    def __init__(self, doctype: str = "html", title: str = "LayoutML", object_name=None, **kwargs):
-        super().__init__(object_name=object_name, **kwargs)
+    def __init__(self, doctype: str = "html", title: str = "LayoutML", lang="ru", object_name=None, **kwargs):
+        super().__init__(tag="html", object_name=object_name, lang=lang, **kwargs)
 
-        self.object_name = object_name
-
+        self.object_type = "Page"
         self.doctype = doctype
         self.head = Head(title=title)
         self.body = Body()
-        self.custom_prefix: Optional[str] = None
-        self.custom_suffix: Optional[str] = None
 
     def set_head(self, head: Head) -> "Page":
         self.head = head
@@ -50,16 +45,6 @@ class Page(HTMLElement):
         self.add_attributes(lang=lang)
         return self
 
-    def add_prefix(self, html: str) -> "Page":
-        """Добавить HTML перед документом (например, комментарии)"""
-        self.custom_prefix = html
-        return self
-
-    def add_suffix(self, html: str) -> "Page":
-        """Добавить HTML после документа"""
-        self.custom_suffix = html
-        return self
-
     def _get_doctype(self) -> str:
         """Получить строку doctype"""
         doctypes = {
@@ -71,47 +56,60 @@ class Page(HTMLElement):
         }
         return doctypes.get(self.doctype, "<!DOCTYPE html>")
 
+    def get_css_text(self) -> str:
+        css_styles: dict = self.body.get_styles()
+        css_text: str = ""
+        for selector_name, css in css_styles.items():
+            css_text += f"{selector_name} " + "{\n" + css + "}\n"
+
+        return css_text
+
     def render(self) -> str:
         """Рендеринг полного HTML документа"""
+
+        css_text = self.get_css_text()
+        if css_text:
+            css_file_name = f"styles/{self.body.object_name}.css" if self.body.object_name else f"styles/{self.body.object_type}.css"
+            with open(css_file_name, "w") as f:
+                f.write(css_text)
+            self.head.add_stylesheet(css_file_name)
+
+        return self.get_html()
+
+    def create_css(self):
+        pass
+
+    def get_styles(self):
+
+        css_styles: dict = {}
+        css_styles.update(super().get_styles())
+        css_styles.update(self.head.get_styles())
+        css_styles.update(self.body.get_styles())
+
+        return css_styles
+
+    def get_html(self):
         parts = []
-
-        # Префикс (если есть)
-        if self.custom_prefix:
-            parts.append(self.custom_prefix)
-
-        # Doctype
         parts.append(self._get_doctype())
 
-        html_attrs = self.get_attributes_string()  # Если Page наследует HTMLElement
-        if html_attrs:
-            parts.append(f"<html {html_attrs}>")
-        else:
-            parts.append(f"<html>")
+        attrs = self.get_attributes_string()
+        parts.append(f"<{self.tag} {attrs}>")
 
-        # Head
-        parts.append(self.head.render())
-        # Body
-        parts.append(self.body.render())
-        # Закрытие html тега
+        parts.append(self.head.get_html())
+        parts.append(self.body.get_html())
+
         parts.append("</html>")
-        # Суффикс (если есть)
-        if self.custom_suffix:
-            parts.append(self.custom_suffix)
 
         return "\n".join(parts)
 
     def save(self, filename: str, encoding: str = "utf-8") -> None:
         """Сохранить документ в файл"""
         with open(filename, "w", encoding=encoding) as f:
-            f.write(self.render())
+            f.write(self.get_html())
         print(f"Документ сохранен в {filename}")
 
-    def get_html(self) -> str:
-        """Алиас для render"""
-        return self.render()
-
     def __str__(self) -> str:
-        return self.render()
+        return self.get_html()
 
     def __repr__(self) -> str:
-        return f'Page(lang="{self.lang}", title="{self.head.title}")'
+        return f'{self.get_object_name()}", title="{self.head.title}")'

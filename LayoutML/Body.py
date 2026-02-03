@@ -1,9 +1,9 @@
 from typing import List, Dict, Optional, Any
-from LayoutML.base import HTMLElement
-from .base.css import CSSInput
+from layoutml.base import BaseElement
+from .base import BaseElement
 
 
-class Body(HTMLElement):
+class Body(BaseElement):
     """
     Класс для HTML body элемента
     Содержит основное содержимое страницы
@@ -12,14 +12,13 @@ class Body(HTMLElement):
     object_type: str
 
     def __init__(self, content: str = "", object_name=None, **kwargs):
-        super().__init__(object_name=object_name, **kwargs)
+        super().__init__(tag="body", object_name=object_name, **kwargs)
 
-        self.input_styles = CSSInput()
-
+        self.links = {}
         self.object_type = "Body"
         self.content = content
-        self.elements: List = []
-        self.scripts_footer: List[Dict] = []  # Скрипты в конце body
+        self.elements: List[BaseElement] = []
+        self.scripts_footer: List[Dict] = []
 
     def add_content(self, content: str) -> "Body":
         """Добавить текстовое содержимое"""
@@ -56,11 +55,8 @@ class Body(HTMLElement):
         self.scripts_footer.append(script_attrs)
         return self
 
-    def _render_scripts_footer(self) -> str:
+    def _get_scripts_footer_str(self) -> str:
         """Рендеринг скриптов в конце body"""
-        if not self.scripts_footer:
-            return ""
-
         scripts = []
         for script in self.scripts_footer:
             content = script.pop("_content", None)
@@ -73,38 +69,33 @@ class Body(HTMLElement):
 
         return "\n    ".join(scripts)
 
-    def render(self) -> str:
-        """Рендеринг всего body"""
-        # Собираем все элементы
-        all_content = self.content
+    def get_html(self):
+        parts = []
+        parts.append(self.content)
 
         if self.elements:
             html_context = ""
             for element in self.elements:
-                if hasattr(element, "render"):
-                    html_context += "\n\t" + element.render()
+                if hasattr(element, "get_html"):
+                    html_context += "\n\t" + element.get_html()
                 else:
                     html_context += "\n\t" + str(element)
-            if all_content:
-                all_content += "\n"
-            all_content += html_context
+            parts.append(html_context)
 
-        # Скрипты в конце
-        footer_scripts = self._render_scripts_footer()
-        if footer_scripts:
-            all_content += f"\n{footer_scripts}"
+        if self.scripts_footer:
+            parts.append(self._get_scripts_footer_str())
 
-        # Атрибуты body
-        attrs = self.get_attributes_string()
+        return super().get_html(content="\n".join(parts))
 
-        return f"<body {attrs}>{self.input_styles.render()}\n{all_content}\n</body>"
-
-    def get_html(self) -> str:
-        """Алиас для render"""
-        return self.render()
+    def get_styles(self) -> dict:
+        css_styles: dict = {}
+        css_styles.update(super().get_styles())
+        for element in self.elements:
+            css_styles.update(element.get_styles())
+        return css_styles
 
     def __str__(self) -> str:
-        return self.render()
+        return self.get_html()
 
     def __repr__(self) -> str:
         return f"Body(elements={len(self.elements)}, content_length={len(self.content)})"

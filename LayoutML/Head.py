@@ -1,10 +1,8 @@
 from typing import List, Dict, Optional, Any
-
-from .base.css import CSSInput
-from .base import HTMLElement
+from .base import BaseElement
 
 
-class Head(HTMLElement):
+class Head(BaseElement):
     """
     Класс для HTML head элемента
     """
@@ -12,10 +10,9 @@ class Head(HTMLElement):
     object_type: str
 
     def __init__(self, title: str = "", object_name=None, **kwargs):
-        super().__init__(object_name=object_name, **kwargs)
+        super().__init__(tag="head", object_name=object_name, **kwargs)
 
         self.object_type = "Head"
-        self.input_styles = CSSInput()
 
         self.title = title
         self.meta_tags: List[Dict] = []
@@ -58,16 +55,6 @@ class Head(HTMLElement):
         """
         link_attrs = {"rel": rel, "href": href, **attributes}
         self.links.append(link_attrs)
-        return self
-
-    def add_style_css(self, css: str) -> "Head":
-        """
-        Добавить встроенные стили
-
-        Пример:
-        add_style("body { margin: 0; }")
-        """
-        self.styles_css.append(css)
         return self
 
     def add_script(self, src: Optional[str] = None, content: Optional[str] = None, **attributes) -> "Head":
@@ -124,7 +111,7 @@ class Head(HTMLElement):
         self.add_link(rel="preload", href=href, as_=as_type, **attributes)
         return self
 
-    def _render_meta(self) -> str:
+    def _get_meta_str(self) -> str:
         """Рендеринг мета-тегов"""
         meta_tags = []
         for meta in self.meta_tags:
@@ -132,7 +119,7 @@ class Head(HTMLElement):
             meta_tags.append(f"<meta {attrs}>")
         return "\n    ".join(meta_tags)
 
-    def _render_links(self) -> str:
+    def _get_links_str(self) -> str:
         """Рендеринг link тегов"""
         links = []
         for link in self.links:
@@ -148,7 +135,7 @@ class Head(HTMLElement):
                 links.append(f"<link {attrs}>")
         return "\n    ".join(links)
 
-    def _render_scripts(self) -> str:
+    def _get_scripts_str(self) -> str:
         """Рендеринг script тегов"""
         scripts = []
         for script in self.scripts:
@@ -161,56 +148,38 @@ class Head(HTMLElement):
                 scripts.append(f"<script {attrs}></script>")
         return "\n    ".join(scripts)
 
-    def _render_styles(self) -> str:
-        """Рендеринг встроенных стилей"""
-        if not self.styles_css:
-            return ""
+    def get_css_text(self) -> str:
+        css_styles: dict = self.selectors_styles.get_styles()
+        css_text: str = ""
+        for selector_name, css in css_styles.items():
+            css_text += f"{selector_name} " + "{" + css + "}\n"
+        return f"\n<style>\n {css_text}\n</style>\n"
 
-        style_content = "\n".join(self.styles_css)
-        return f"<style>\n{style_content}\n</style>"
+    def get_html(self) -> str:
+        """Получение Html"""
 
-    def render(self) -> str:
-        """Рендеринг всего head"""
         parts = []
-
-        # Заголовок
         if self.title:
-            parts.append(f"<title>{self.title}</title>")
-
-        # Мета-теги
-        meta_tags = self._render_meta()
+            parts.append(f"\n    <title>{self.title}</title>")
+            # Мета-теги
+        meta_tags = self._get_meta_str()
         if meta_tags:
             parts.append(meta_tags)
 
         # Link теги (включая base)
-        links = self._render_links()
-        if links:
-            parts.append(links)
+        if self.links:
+            parts.append(self._get_links_str())
 
-        # Встроенные стили
-        styles = self._render_styles()
-        if styles:
-            parts.append(styles)
-
-        # Script теги в head
-        scripts = self._render_scripts()
+        scripts = self._get_scripts_str()
         if scripts:
             parts.append(scripts)
-        # Атрибуты самого head
-        attrs = self.get_attributes_string()
-        if attrs:
-            content = "\n    ".join(parts)
-            return f"<head {attrs}>{self.input_styles.render()}\n    {content}\n</head>"
-        else:
-            content = "\n    ".join(parts)
-            return f"<head>{self.input_styles.render()}\n    {content}\n</head>"
+        if self.selectors_styles:
+            parts.append(self.get_css_text())
 
-    def get_html(self) -> str:
-        """Алиас для render"""
-        return self.render()
+        return super().get_html(content="\n    ".join(parts))
 
     def __str__(self) -> str:
-        return self.render()
+        return self.get_html()
 
     def __repr__(self) -> str:
         return f'Head(title="{self.title}", meta_count={len(self.meta_tags)})'
