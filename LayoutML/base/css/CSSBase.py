@@ -6,7 +6,7 @@ class CSSBase:
 
     styles: dict
 
-    def __init__(self, type="tag", style=None):
+    def __init__(self, type=None, style=None):
         self.styles: Dict[str, str] = {}
         self.type = type
 
@@ -901,7 +901,7 @@ class CSSBase:
 
         for style_name, style_value in self.styles.items():
             if space:
-                style_str_list.append(f"\t{style_name}:{style_value};\n")
+                style_str_list.append(f"  {style_name}: {style_value};\n")
             else:
                 style_str_list.append(f"{style_name}:{style_value};")
         return " ".join(style_str_list)
@@ -909,3 +909,33 @@ class CSSBase:
     def copy_styles(self) -> Dict[str, str]:
         """Создать копию стилей"""
         return self.styles.copy()
+
+    def items(self):
+        return self.styles.items()
+
+    # def __repr__(self):
+    #     return self
+
+    #     return str(self.styles)
+
+    def __iter__(self):
+        return iter(self.styles.items())
+
+    def __getitem__(self, key):
+        return self.styles.get(key, None)
+
+    def __setitem__(self, key, value):
+        self.styles[key] = value
+
+    def __delitem__(self, key):
+        if key in self.styles:
+            del self.styles[key]
+
+    def __len__(self):
+        return len(self.styles)
+
+    def __bool__(self):
+        return bool(self.styles)
+
+    def __call__(self, *args, **kwds):
+        return self
