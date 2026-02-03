@@ -1,6 +1,6 @@
 # CSSBase
 
-`CSSBase` - это базовый класс для управления CSS-стилями HTML элементов. Класс предоставляет методы для установки, получения и управления всеми основными CSS свойствами в объектно-ориентированном стиле.
+`CSSBase` - это Python класс для работы с CSS стилями HTML элементов. Класс предоставляет методы для удобного управления CSS свойствами через цепочку вызовов (method chaining) и позволяет конвертировать стили между строковым представлением и словарём.
 
 ---
 
@@ -28,6 +28,50 @@ from LayoutML.base.css import CSSBase
 element = CSSBase()
 # С начальными стилями
 element = CSSBase(style="width: 100px; height: 200px; color: #333;")
+```
+
+## Основные методы
+
+### parse_style_string(style_str: str) -> dict
+
+Парсит CSS строку стилей в словарь.
+Параметры:
+
+- style_str: CSS строка стилей (например, "color: red; font-size: 16px;")
+
+Возвращает:
+
+- Словарь с ключами-стилями и значениями
+
+Пример:
+
+```python
+
+css = CSSBase()
+parsed = css.parse_style_string("color: red; font-size: 16px;")
+# Результат: {'color': 'red', 'font-size': '16px'}
+```
+
+### get_styles_string(space=False) -> str
+
+Возвращает строковое представление стилей.
+
+Параметры:
+
+- space (bool): Если True, форматирует с пробелами и переносами строк
+
+Пример:
+
+```python
+
+css = CSSBase(style="color: red; font-size: 16px;")
+print(css.get_styles_string())
+# Результат: "color:red;font-size:16px;"
+
+print(css.get_styles_string(space=True))
+# Результат:
+# "  color: red;
+#   font-size: 16px;"
 ```
 
 ## Методы CSS-свойств
@@ -234,4 +278,30 @@ element.set_css_variable("main-color", "#ff0000")
 element.set_css_variable("padding-size", "20px")
 # Получение CSS переменной
 color = element.get_css_variable("main-color")  # "#ff0000"
+```
+
+## Примеры использования
+
+### Пример 1: Базовое использование
+
+```python
+css = CSSBase()
+css.set_width("100px")\
+   .set_height("200px")\
+   .set_background_color("#f0f0f0")\
+   .set_margin("10px")\
+   .set_padding("20px")
+
+print(css.get_styles_string())
+# Результат: "width:100px;height:200px;background-color:#f0f0f0;margin:10px;padding:20px;"
+```
+
+### Пример 2: Работа с CSS переменными
+
+```python
+css = CSSBase()
+css.set_css_variable("primary-color", "#007bff")\
+   .set_css_variable("border-radius", "4px")
+
+color = css.get_css_variable("primary-color")  # Возвращает "#007bff"
 ```
