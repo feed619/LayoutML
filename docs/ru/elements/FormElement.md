@@ -1,15 +1,31 @@
 # FormElement
 
-`FormElement` - является специализированным наследником базового класса HTMLElement, предназначенным для создания элементов HTML форм с поддержкой всех типов полей ввода, определенных в стандарте HTML5. Этот класс предоставляет удобный объектно-ориентированный интерфейс для работы с элементами форм, автоматически обрабатывая специфические атрибуты и особенности каждого типа.
+`FormElement` - это специализированный класс для создания HTML элементов форм. Наследуется от [BaseElement](../base/BaseElement.md) и предназначен для упрощенного создания полей ввода, кнопок и других элементов форм с автоматической установкой типа и поддержкой специфических атрибутов форм.
 
 ---
 
 ## Импорт
 
 ```python
-from LayoutML.elements import FormElement
+from layoutML.elements import FormElement
 # FormElement наследует от HTMLElement, поэтому доступны все его возможности
 ```
+
+## Наследование
+
+- Родительский класс: BaseElement
+- Наследует: Все методы и атрибуты BaseElement и HTMLElement
+- Специализация: Элементы HTML форм (<input>, <textarea>, <select> и др.)
+
+## Атрибуты класса
+
+| Атрибут      | Тип  | Описание                                                  | Наследование  |
+| ------------ | ---- | --------------------------------------------------------- | ------------- |
+| form_type    | str  | Тип элемента формы (text, email, password, submit и т.д.) | Новый         |
+| object_type  | str  | Тип объекта (всегда "FormElement")                        | Переопределён |
+| tag          | str  | HTML тег (всегда "input") Из                              | BaseElement   |
+| self_closing | bool | Флаг самозакрывающегося тега (всегда True) Из             | BaseElement   |
+| object_name  | str  | Имя объекта Из                                            | BaseElement   |
 
 ## Конструктор
 
@@ -31,13 +47,6 @@ from LayoutML.elements import FormElement
 - Автоматически устанавливает HTML тег как "input"
 - Добавляет атрибут type с указанным значением form_type.Все возможные значения находятся в классе [FormTypes](../types/FormTypes.md)
 - Наследует все возможности родительского класса HTMLElement (классы, стили, события, ARIA, data-атрибуты)
-
-## Атрибуты класса
-
-| Константа | Тип | По умолчанию                                                   |
-| --------- | --- | -------------------------------------------------------------- |
-| tag       | str | HTML тег элемента "input"                                      |
-| form_type | str | Тип элемента формы (определяет поведение и внешний вид) "text" |
 
 ### Примечание: Класс также наследует все атрибуты от HTMLElement:
 
@@ -63,13 +72,6 @@ from LayoutML.elements import FormElement
 ```text
 type="email" class="form-control" id_="emailInput" name="email" required placeholder="Введите email" aria-label="Электронная почта" data-validation="email"
 ```
-
-### render()
-
-Создает полный HTML код элемента формы, включая открывающий и закрывающий теги.
-Возвращает:
-
-- str: Полный HTML тег элемента с атрибутами
 
 ## Примеры инициализации:
 
@@ -142,8 +144,4 @@ submit_button = FormElement(
     class_="btn btn-primary"
 )
 
-# Рендеринг
-print(text_field.render())   # <input type="text" id_="name" name="full_name" placeholder="Иван Иванов">
-print(email_field.render())  # <input type="email" id_="email" name="email" required>
-print(submit_button.render()) # <input type="submit" value="Отправить" class="btn btn-primary">
 ```
