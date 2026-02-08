@@ -37,11 +37,8 @@ class BaseElement(HTMLElement):
 
     def get_styles(self, space: bool = True):
         if self.object_styles:
-            if not self.object_name:
-                self.object_name = self.object_type
             if not self.class_:
-                self.add_class(self.object_name)
-
+                self.add_class(self.get_object_name())
             class_name = " ".join(self.class_)
             if not self.selectors_styles.selector_exists(name=class_name):
                 self.selectors_styles.add_selector(name=class_name, selector_type="class")
