@@ -1,14 +1,20 @@
 # Head
 
-`Head` - является специализированным наследником базового класса [HTMLElement](base/HTMLElement.md), предназначенным для создания HTML <head> элемента с полным набором мета-тегов, стилей, скриптов и других ресурсов, необходимых для веб-страницы. Этот класс предоставляет удобный объектно-ориентированный интерфейс для управления мета-информацией и ресурсами страницы.
+`Head` - является специализированным наследником базового класса [BaseElement](base/BaseElement.md), предназначенным для создания HTML <head> элемента с полным набором мета-тегов, стилей, скриптов и других ресурсов, необходимых для веб-страницы. Этот класс предоставляет удобный объектно-ориентированный интерфейс для управления мета-информацией и ресурсами страницы.
 
 ---
 
 ## Импорт
 
 ```python
-from LayoutML import Head
+from layoutml import Head
 ```
+
+## Наследование
+
+- Родительский класс: BaseElement
+- Тип элемента: head
+- Назначение: Управление метаданными и ресурсами HTML страницы
 
 ## Конструктор
 
@@ -24,21 +30,38 @@ from LayoutML import Head
 | object_name | str  | None         | Уникальный идентификатор элемента                     |
 | \*\*kwargs  | dict | -            | Дополнительные атрибуты для тега <head>               |
 
-Автоматически добавляемые мета-теги:
+Автоматически устанавливаемые свойства:
 
-- `<meta charset="UTF-8">` - кодировка UTF-8
-- `<meta name="viewport" content="width=device-width, initial-scale=1.0">` - адаптивность для мобильных устройств
+- Тег: head
+- Кодировка: UTF-8 (<meta charset="UTF-8">)
+- Viewport: адаптивный (<meta name="viewport" content="width=device-width, initial-scale=1.0">)
+
+Примеры:
+
+```python
+# Простой head
+head = Head()
+# Head с заголовком
+head = Head(title="Мой сайт")
+# Head с дополнительными атрибутами
+head = Head(
+    title="Документация",
+    object_name="pageHead",
+    lang="ru"
+)
+```
 
 ## Атрибуты класса
 
-| Атрибут    | Тип           | Описание                                       |
-| ---------- | ------------- | ---------------------------------------------- |
-| title      | str           | Заголовок страницы                             |
-| meta_tags  | List[Dict]    | Список словарей с атрибутами мета-тегов        |
-| links      | List[Dict]    | Список словарей с атрибутами link тегов        |
-| scripts    | List[Dict]    | Список словарей с атрибутами script тегов      |
-| styles_css | List[str]     | Список строк с CSS кодом для встроенных стилей |
-| base_url   | Optional[str] | Базовый URL для страницы                       |
+| Атрибут     | Тип           | Описание                                 | Значение по умолчанию       |
+| ----------- | ------------- | ---------------------------------------- | --------------------------- |
+| title       | str           | Заголовок страницы (тег <title>)         | Пустая строка               |
+| meta_tags   | List[Dict]    | Список мета-тегов                        | Содержит charset и viewport |
+| links       | List[Dict]    | Список link тегов (стили, иконки и т.д.) | Пустой список               |
+| scripts     | List[Dict]    | Список script тегов                      | Пустой список               |
+| styles_css  | List[str]     | Список inline CSS стилей                 | Пустой список               |
+| base_url    | Optional[str] | Базовый URL для относительных путей      | None                        |
+| object_type | str           | Тип объекта (всегда "Head")              | "Head"                      |
 
 ## Методы
 
@@ -50,17 +73,14 @@ from LayoutML import Head
 
 - title (str): Новый заголовок страницы
   Возвращает:
-- self: Позволяет использовать цепочки вызовов
 
 Примеры:
 
 ```python
 # Установка заголовка при создании
 head = Head(title="Исходный заголовок")
-
 # Изменение заголовка
 head.set_title("Новый заголовок страницы")
-
 # Цепочка вызовов
 head.set_title("Продукты").add_meta(name="description", content="Каталог продукции")
 ```
@@ -98,31 +118,56 @@ head.add_meta(
 
 ### add_link(rel: str, href: str, \*\*attributes) -> "Head"
 
-Добавляет тег <link> с указанными атрибутами.
+Добавляет link тег для подключения внешних ресурсов.
 
 Параметры:
 
-- rel (str): Тип отношения между текущим документом и ссылаемым ресурсом
-- href (str): URL ресурса
+- rel: Отношение ресурса (stylesheet, icon, canonical и т.д.)
+- href: URL ресурса
 - \*\*attributes: Дополнительные атрибуты
-
-Возвращает:
-
-- self: Позволяет использовать цепочки вызовов
 
 Примеры:
 
 ```python
+
+head = Head()
+
 # CSS стили
-head.add_link(rel="stylesheet", href="/css/main.css")
-head.add_link(rel="stylesheet", href="/css/print.css", media="print")
-# Иконки (favicon)
-head.add_link(rel="icon", href="/favicon.ico", type="image/x-icon")
-head.add_link(rel="icon", href="/icon.svg", type="image/svg+xml")
-# Канонические ссылки
-head.add_link(rel="canonical", href="https://example.com/original-page")
-# Предварительная загрузка
-head.add_link(rel="preload", href="/fonts/roboto.woff2", as_="font", type="font/woff2", crossorigin="anonymous")
+head.add_link(rel="stylesheet", href="style.css")
+head.add_link(rel="stylesheet", href="mobile.css", media="(max-width: 768px)")
+
+# Иконки
+head.add_link(rel="icon", href="favicon.ico", type="image/x-icon")
+head.add_link(rel="apple-touch-icon", href="apple-touch-icon.png")
+
+# Канонический URL
+head.add_link(rel="canonical", href="https://example.com/page")
+
+# Предзагрузка шрифтов
+head.add_link(rel="preload", href="font.woff2", as_="font", type="font/woff2", crossorigin=True)
+
+# RSS feed
+head.add_link(rel="alternate", href="rss.xml", type="application/rss+xml", title="RSS")
+```
+
+### add_stylesheet(href: str, media: str = "all") -> "Head"
+
+Упрощенный метод для добавления CSS файлов.
+
+```python
+head = Head()
+head.add_stylesheet("style.css")
+head.add_stylesheet("print.css", media="print")
+```
+
+### add_icon(href: str, type: str = "image/x-icon") -> "Head"
+
+Упрощенный метод для добавления фавиконки.
+
+```python
+head = Head()
+head.add_icon("favicon.ico")
+head.add_icon("icon.png", type="image/png")
 ```
 
 ### add_script(src: Optional[str] = None, content: Optional[str] = None, \*\*attributes) -> "Head"
@@ -162,242 +207,42 @@ head.add_script(
 
 ```
 
-### add_style_css(css: str) -> "Head"
+### get_css_text() -> str
 
-Добавляет встроенные CSS стили.
-
-Параметры:
-
-- css (str): CSS код
-
-Возвращает:
-
-- self: Позволяет использовать цепочки вызовов
-
-Примеры:
+Генерирует текст inline CSS стилей из selectors_styles.
 
 ```python
-# Простые стили
-head.add_style_css("body { margin: 0; padding: 0; }")
-# Критические стили для ускорения загрузки
-head.add_style_css("""
-    .critical { display: block; }
-    .hidden { display: none; }
-    * { box-sizing: border-box; }
-""")
-# Анимации
-head.add_style_css("""
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-    .fade-in { animation: fadeIn 0.5s ease-in; }
-""")
-
+head = Head()
+head.object_styles.set_background_color("red")
+css_text = head.get_css_text()  # Генерирует <style>...</style>
 ```
-
-## Специализированные методы
-
-### set_base(url: str, target: str = "\_blank") -> "Head"
-
-Устанавливает базовый URL для всех относительных ссылок на странице.
-
-Параметры:
-
-- url (str): Базовый URL
-- target (str): Целевое окно по умолчанию
-
-Возвращает:
-
-- self: Позволяет использовать цепочки вызовов
-
-Примеры:
-
-```python
-# Установка базового URL
-head.set_base("https://example.com/")
-# С указанием target
-head.set_base("https://example.com/", target="_self")
-```
-
-### add_icon(href: str, type: str = "image/x-icon") -> "Head"
-
-Добавляет фавиконку (иконку сайта).
-
-Параметры:
-
-- href (str): Путь к иконке
-- type (str): MIME-тип иконки
-
-Возвращает:
-
-- self: Позволяет использовать цепочки вызовов
-
-Примеры:
-
-```python
-# Стандартная favicon
-head.add_icon("/favicon.ico")
-# SVG иконка
-head.add_icon("/icon.svg", type="image/svg+xml")
-# PNG иконка
-head.add_icon("/icon-32x32.png", type="image/png")
-
-```
-
-### add_stylesheet(href: str, media: str = "all") -> "Head"
-
-Добавляет внешнюю CSS таблицу стилей.
-
-Параметры:
-
-- href (str): Путь к CSS файлу
-- media (str): Медиа-запрос для применения стилей
-
-Возвращает:
-
-- self: Позволяет использовать цепочки вызовов
-
-Примеры:
-
-```python
-# Основной CSS файл
-head.add_stylesheet("/css/main.css")
-# CSS для печати
-head.add_stylesheet("/css/print.css", media="print")
-# CSS для мобильных устройств
-head.add_stylesheet("/css/mobile.css", media="(max-width: 768px)")
-```
-
-### add_preconnect(url: str) -> "Head"
-
-Добавляет предварительное подключение к домену для ускорения загрузки ресурсов.
-
-Параметры:
-
-- url (str): URL домена для предварительного подключения
-
-Возвращает:
-
-- self: Позволяет использовать цепочки вызовов
-
-Примеры:
-
-```python
-# Предварительное подключение к CDN
-head.add_preconnect("https://fonts.googleapis.com")
-head.add_preconnect("https://fonts.gstatic.com")
-# Для API
-head.add_preconnect("https://api.example.com")
-# Для аналитики
-head.add_preconnect("https://www.google-analytics.com")
-```
-
-### add_preload(href: str, as_type: str, \*\*attributes) -> "Head"
-
-Добавляет предзагрузку важных ресурсов для ускорения отображения страницы.
-
-Параметры:
-
-- href (str): Путь к ресурсу
-- as_type (str): Тип ресурса (font, style, script, image, etc.)
-- \*\*attributes: Дополнительные атрибуты
-
-Возвращает:
-
-- self: Позволяет использовать цепочки вызовов
-
-Примеры:
-
-```python
-# Предзагрузка шрифтов
-head.add_preload(
-    href="/fonts/roboto.woff2",
-    as_type="font",
-    type="font/woff2",
-    crossorigin="anonymous"
-)
-# Предзагрузка критического CSS
-head.add_preload(
-    href="/css/critical.css",
-    as_type="style"
-)
-# Предзагрузка изображений для hero-секции
-head.add_preload(
-    href="/images/hero-banner.jpg",
-    as_type="image",
-    imagesrcset="hero-banner-320w.jpg 320w, hero-banner-640w.jpg 640w",
-    imagesizes="100vw"
-)
-# Предзагрузка JavaScript
-head.add_preload(
-    href="/js/main.js",
-    as_type="script"
-)
-```
-
-### render() -> str
-
-Создает полный HTML код элемента <head> со всем содержимым.
-
-Возвращает:
-
-- str: Полный HTML тег <head> с содержимым
-
-Порядок рендеринга:
-
-- Заголовок <title>
-- Мета-теги
-- Link теги (включая <base>)
-- Встроенные стили <style>
-- Script теги
-- Атрибуты самого тега <head>
 
 ### get_html() -> str
 
-Вызывает метода render().
-
-Возвращает:
-str: Полный HTML тег <head> с содержимым
-
-## Практические примеры
+Генерирует полный HTML код секции <head>.
 
 ```python
-from LayoutML import Head
+head = Head(title="Страница")
+html = head.get_html()  # <head>...</head>
+```
 
-head = Head(
-    title="Интернет-магазин электроники",
-    lang="ru"
-)
-# Мета-теги для SEO
-head.add_meta(
-    name="description",
-    content="Купить смартфоны, ноутбуки, телевизоры и другую электронику по выгодным ценам"
-)
-head.add_meta(
-    name="keywords",
-    content="электроника, смартфоны, ноутбуки, телевизоры, купить, цена"
-)
-head.add_meta(name="author", content="ООО 'Электроник'")
-# Open Graph для социальных сетей
-head.add_meta(property="og:title", content="Интернет-магазин электроники")
-head.add_meta(property="og:type", content="website")
-head.add_meta(property="og:url", content="https://electronics-shop.ru")
-head.add_meta(property="og:image", content="https://electronics-shop.ru/og-image.jpg")
+## Примеры
+
+### Пример 1: Базовая страница
+
+```python
+head = Head(title="Добро пожаловать на мой сайт")
+# Мета-теги
+head.add_meta(name="description", content="Личный блог о программировании и технологиях")
+head.add_meta(name="keywords", content="программирование, python, блог, технологии")
+head.add_meta(name="author", content="Иван Петров")
 # Стили
-head.add_stylesheet("/css/bootstrap.min.css")
-head.add_stylesheet("/css/main.css")
-head.add_stylesheet("/css/responsive.css", media="(max-width: 768px)")
+head.add_stylesheet("css/main.css")
+head.add_stylesheet("css/mobile.css", media="(max-width: 768px)")
 # Иконки
-head.add_icon("/favicon.ico")
-head.add_link(rel="apple-touch-icon", href="/apple-touch-icon.png")
+head.add_icon("favicon.ico")
+head.add_link(rel="apple-touch-icon", href="apple-touch-icon.png")
 # Скрипты
-head.add_script(src="/js/jquery.min.js", defer=True)
-head.add_script(src="/js/main.js", defer=True)
-# Критические стили для ускорения загрузки
-head.add_style_css("""
-    * { box-sizing: border-box; }
-    body { margin: 0; font-family: Arial, sans-serif; }
-    .loader { display: none; }
-""")
+head.add_script(src="js/app.js", defer=True)
+print(head.get_html())
 ```
