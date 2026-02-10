@@ -11,7 +11,7 @@
 ## Импорт
 
 ```python
-from LayoutML.types import DocTypes
+from layoutml.types import DocTypes
 ```
 
 ## Полный справочник констант
@@ -30,8 +30,8 @@ from LayoutML.types import DocTypes
 
 ```python
 # Импорт всего класса
-from LayoutML.types import DocTypes
-from LayoutML import Document
+from layoutml.types import DocTypes
+from layoutml import Document
 # Создание документа с HTML5 DOCTYPE
 document = Document(doctype=DocTypes.HTML5)
 # Создание документа со строгим XHTML DOCTYPE
