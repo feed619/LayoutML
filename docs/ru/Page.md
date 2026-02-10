@@ -1,49 +1,66 @@
 # Page
 
-`Page` - является специализированным наследником базового класса [HTMLElement](base/HTMLElement.md), предназначенным для создания HTML <body> элемента с управлением основным содержимым страницы. Этот класс предоставляет удобный объектно-ориентированный интерфейс для добавления элементов, скриптов и управления фоном веб-страницы.
+`Page` - является специализированным наследником базового класса [BaseElement](base/BaseElement.md), для создания полных HTML документов. Класс объединяет компоненты Head и Body в единую структуру и предоставляет методы для рендеринга, сохранения и управления всем HTML документом.
 
 ---
 
 ## Импорт
 
 ```python
-from LayoutML import Page
+from layoutml import Page
 ```
+
+## Наследование
+
+- Родительский класс: BaseElement
+- Тип элемента: html (корневой элемент документа)
+- Назначение: Создание полных HTML страниц со всей необходимой структурой
+
+## Атрибуты класса
+
+| Атрибут     | Тип  | Описание                    | Значение по умолчанию             |
+| ----------- | ---- | --------------------------- | --------------------------------- |
+| doctype     | str  | Тип HTML документа          | "html"                            |
+| head        | Head | Объект секции head          | Создаётся с заголовком "LayoutML" |
+| body        | Body | Объект секции body          | Пустой объект Body                |
+| object_type | str  | Тип объекта (всегда "Page") | "Page"                            |
 
 ## Конструктор
 
-### def **init**(self, doctype: str = "html",object_name=None \*\*kwargs)
+### **init**(doctype: str = "html", title: str = "LayoutML", lang="ru", object_name=None, \*\*kwargs)
 
-Инициализирует новый [Body](Body.md) элемент с начальным содержимым и атрибутами.
+Создаёт новую HTML страницу с базовыми настройками.
 
 Параметры:
 
-- doctype (str) - тип документа. Все возможные значения находятся в классе [DocTypes](types/FormTypes.md).
-- object_name Уникальный идентификатор элемента |
-- \*\*kwargs - дополнительные аргументы, передаваемые в родительский класс HTMLElement
+- doctype (str): Тип документа. По умолчанию "html" (HTML5). Поддерживаемые значения можно получить из файла [DocTypes](types/DocTypes.md)
+- title (str): Заголовок страницы. По умолчанию "LayoutML"
+- lang (str): Язык документа. По умолчанию "ru"
+- object_name (опционально): Имя/идентификатор страницы
+- \*\*kwargs: Дополнительные атрибуты HTML элемента
 
-| Атрибуты      | Тип           | По умолчанию | Описание                                                   |
-| ------------- | ------------- | ------------ | ---------------------------------------------------------- |
-| doctype       | str           | "html"       | Тип HTML документа                                         |
-| head          | Head          | Head()       | Объект заголовка. Документация к типу [Head](Head.md)      |
-| body          | Body          | Body()       | Объект тела документа. Документация к типу [Body](Body.md) |
-| custom_prefix | Optional[str] | None         | Пользовательский HTML префикс                              |
-| custom_suffix | Optional[str] | None         | Пользовательский HTML суффикс                              |
+Автоматически создаваемые компоненты:
 
-Примеры инициализации:
+- Объект Head с указанным заголовком
+- Объект Body для основного содержимого
+- Устанавливается тег html с указанным языком
+
+Примеры:
 
 ```python
-# Простой документ
-doc = Page()
-
-# Документ с кастомным doctype
-doc = Page(doctype="xhtml")
-
-# Документ с атрибутами
-doc = Page(
-    doctype="html5",
-    class_="no-js",
+# Простая страница
+page = Page()
+# Страница с кастомизацией
+page = Page(
+    title="Мой сайт",
     lang="ru",
+    doctype="html5",
+    object_name="homePage"
+)
+# Страница с дополнительными атрибутами
+page = Page(
+    title="Документация",
+    class_="documentation",
     data_theme="dark"
 )
 ```
@@ -52,93 +69,141 @@ doc = Page(
 
 ### set_head(head: Head) -> "Page"
 
-Устанавливает заголовок документа.
+Заменяет объект head страницы на пользовательский.
 
 ```python
-head = Head(title="Мой сайт")
-doc.set_head(head)
+custom_head = Head(title="Кастомный заголовок")
+page = Page()
+page.set_head(custom_head)
 ```
 
 ### set_body(body: Body) -> "Page"
 
-Устанавливает тело документа.
+Заменяет объект body страницы на пользовательский.
 
 ```python
-body = Body()
-body.add_element("<h1>Привет мир!</h1>")
-doc.set_body(body)
+custom_body = Body()
+custom_body.add_content("<h1>Привет!</h1>")
+page = Page()
+page.set_body(custom_body)
 ```
 
 ### set_doctype(doctype: str) -> "Page"
 
-Устанавливает тип документа (DOCTYPE).
+Устанавливает тип документа.
 
 ```python
-doc.set_doctype("html5")      # <!DOCTYPE html>
-doc.set_doctype("xhtml")      # <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" ...>
-doc.set_doctype("strict")     # <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" ...>
-doc.set_doctype("transitional") # <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" ...>
+page = Page()
+page.set_doctype("html5")      # HTML5
+page.set_doctype("xhtml")      # XHTML 1.0 Transitional
+page.set_doctype("strict")     # HTML 4.01 Strict
+page.set_doctype("transitional")  # HTML 4.01 Transitional
 ```
 
 ### set_language(lang: str) -> "Page"
 
-Устанавливает язык документа. Добавляет атрибут lang к тегу <html>.
+Устанавливает язык документа (атрибут lang тега <html>).
 
 ```python
-doc.set_language("ru")    # <html lang="ru">
-doc.set_language("en")    # <html lang="en">
-doc.set_language("de")    # <html lang="de">
+page = Page()
+page.set_language("en")    # Английский
+page.set_language("ru")    # Русский
+page.set_language("es")    # Испанский
 ```
 
-### add_prefix(html: str) -> "Page"
+### get_html() -> str
 
-Добавляет пользовательский HTML код перед документом (например, комментарии, условия для IE).
-
-```python
-doc.add_prefix("<!--[if IE]><![endif]-->")
-doc.add_prefix("<!-- Built with LayoutML -->")
-```
-
-### add_suffix(html: str) -> "Page"
-
-Добавляет пользовательский HTML код после документа.
+Генерирует полный HTML код документа.
 
 ```python
-doc.add_suffix("<!-- Google Analytics -->")
-doc.add_suffix("<script>console.log('Page loaded')</script>")
+page = Page(title="Тестовая страница")
+html = page.get_html()  # Полный HTML документ
 ```
 
 ### render() -> str
 
-Генерирует полный HTML документ в виде строки.
+Рендерит полный HTML документ с автоматическим созданием CSS файла.
+
+Особенности:
+
+- Собирает CSS стили из всех компонентов
+- Создает CSS файл в папке styles/
+- Добавляет ссылку на созданный CSS файл в head
+- Возвращает полный HTML документ
 
 ```python
-html = doc.render()
+page = Page()
+page.body.add_element(BaseElement(tag="div", object_name="test"))
+html = page.render()  # Создает CSS файл и возвращает HTML
 ```
 
-Структура вывода:
+### get_css_text() -> str
 
-- Пользовательский префикс (если есть)
-- DOCTYPE
-- Открывающий тег <html> с атрибутами
-- Заголовок (<head>)
-- Тело (<body>)
-- Закрывающий тег </html>
-- Пользовательский суффикс (если есть)
-
-### get_html() -> str
-
-Алиас для метода render().
+Генерирует текст CSS стилей из всех компонентов страницы.
 
 ```python
-html = doc.get_html()
+page = Page()
+css_text = page.get_css_text()  # Все CSS стили в одной строке
+```
+
+### get_styles() -> dict
+
+Собирает CSS стили из всех компонентов страницы в словарь.
+
+```python
+page = Page()
+styles = page.get_styles()  # Словарь {селектор: стили}
 ```
 
 ### save(filename: str, encoding: str = "utf-8") -> None
 
-Сохраняет документ в файл.
+Сохраняет HTML документ в файл.
 
 ```python
-doc.save("index.html")                 # Сохраняет с кодировкой UTF-8
-doc.save("page.html", encoding="cp1251") # Сохраняет с другой кодировкой
+page = Page(title="Моя страница")
+page.save("index.html")               # Сохраняет в index.html
+page.save("page.html", encoding="utf-8-sig")  # С указанной кодировкой
+```
+
+## Примеры использования
+
+### Пример 1: Простая HTML страница
+
+```python
+# Создание базовой страницы
+page = Page(
+    title="Добро пожаловать на мой сайт",
+    lang="ru",
+    doctype="html5"
+)
+
+# Настройка head
+page.head.add_meta(
+    name="description",
+    content="Личный сайт о программировании и технологиях"
+)
+page.head.add_stylesheet("css/style.css")
+page.head.add_script(src="js/app.js", defer=True)
+
+# Добавление содержимого в body
+page.body.add_content("""
+    <header>
+        <h1>Привет, мир!</h1>
+    </header>
+
+    <main>
+        <p>Это моя первая страница, созданная с помощью LayoutML.</p>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Мой сайт</p>
+    </footer>
+""")
+
+# Сохранение в файл
+page.save("index.html")
+
+# Или получение HTML кода
+html_code = page.get_html()
+print(html_code)
 ```
