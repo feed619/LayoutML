@@ -104,7 +104,7 @@ body.add_content("""
 
 - Объекты BaseElement и его наследники
 - Объекты Layout, HorizontalLayout, VerticalLayout
-- Объекты FormElement
+- Объекты Form
 - Любые другие объекты с методом get_html()
 - Строки (сырой HTML)
 
@@ -112,7 +112,7 @@ body.add_content("""
 body = Body()
 # Добавление различных типов элементов
 body.add_element(BaseElement(tag="div", object_name="container"))
-body.add_element(FormElement(form_type="text", object_name="search"))
+body.add_element(Form(form_type="text", object_name="search"))
 body.add_element(Layout(object_name="mainLayout"))
 ```
 

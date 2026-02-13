@@ -1,14 +1,14 @@
-# FormElement
+# Form
 
-`FormElement` - это специализированный класс для создания HTML элементов форм. Наследуется от [BaseElement](../base/BaseElement.md) и предназначен для упрощенного создания полей ввода, кнопок и других элементов форм с автоматической установкой типа и поддержкой специфических атрибутов форм.
+`Form` - это специализированный класс для создания HTML элементов форм. Наследуется от [BaseElement](../base/BaseElement.md) и предназначен для упрощенного создания полей ввода, кнопок и других элементов форм с автоматической установкой типа и поддержкой специфических атрибутов форм.
 
 ---
 
 ## Импорт
 
 ```python
-from layoutML.elements import FormElement
-# FormElement наследует от HTMLElement, поэтому доступны все его возможности
+from layoutML.elements import Form
+# Form наследует от HTMLElement, поэтому доступны все его возможности
 ```
 
 ## Наследование
@@ -22,7 +22,7 @@ from layoutML.elements import FormElement
 | Атрибут      | Тип  | Описание                                                  | Наследование  |
 | ------------ | ---- | --------------------------------------------------------- | ------------- |
 | form_type    | str  | Тип элемента формы (text, email, password, submit и т.д.) | Новый         |
-| object_type  | str  | Тип объекта (всегда "FormElement")                        | Переопределён |
+| object_type  | str  | Тип объекта (всегда "Form")                               | Переопределён |
 | tag          | str  | HTML тег (всегда "input") Из                              | BaseElement   |
 | self_closing | bool | Флаг самозакрывающегося тега (всегда True) Из             | BaseElement   |
 | object_name  | str  | Имя объекта Из                                            | BaseElement   |
@@ -77,7 +77,7 @@ type="email" class="form-control" id_="emailInput" name="email" required placeho
 
 ```python
 # Простое текстовое поле
-text_field = FormElement(
+text_field = Form(
     form_type="text",
     id_="username",
     name="username",
@@ -85,7 +85,7 @@ text_field = FormElement(
 )
 
 # Поле email с валидацией
-email_field = FormElement(
+email_field = Form(
     form_type="email",
     id_="user_email",
     name="email",
@@ -94,7 +94,7 @@ email_field = FormElement(
 )
 
 # Поле пароля с дополнительными атрибутами
-password_field = FormElement(
+password_field = Form(
     form_type="password",
     boolean_attributes=["required"],
     id_="user_password",
@@ -105,7 +105,7 @@ password_field = FormElement(
 )
 
 # Чекбокс с предварительным выбором
-newsletter_checkbox = FormElement(
+newsletter_checkbox = Form(
     form_type="checkbox",
     boolean_attributes=["checked"],
     id_="subscribe",
@@ -114,7 +114,7 @@ newsletter_checkbox = FormElement(
 )
 
 # Поле даты с ограничениями
-birthday_field = FormElement(
+birthday_field = Form(
     form_type="date",
     id_="birth_date",
     name="birthday",
@@ -124,21 +124,21 @@ birthday_field = FormElement(
 )
 
 # Создание и рендеринг элементов
-text_field = FormElement(
+text_field = Form(
     form_type="text",
     id_="name",
     name="full_name",
     placeholder="Иван Иванов"
 )
 
-email_field = FormElement(
+email_field = Form(
     form_type="email",
     id_="email",
     name="email",
     required=True
 )
 
-submit_button = FormElement(
+submit_button = Form(
     form_type="submit",
     value="Отправить",
     class_="btn btn-primary"

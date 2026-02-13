@@ -11,9 +11,9 @@
 from LayoutML.types import FormTypes
 
 # Использование констант
-text_field = FormElement(form_type=FormTypes.TEXT)
-email_field = FormElement(form_type=FormTypes.EMAIL)
-submit_button = FormElement(form_type=FormTypes.SUBMIT)
+text_field = Form(form_type=FormTypes.TEXT)
+email_field = Form(form_type=FormTypes.EMAIL)
+submit_button = Form(form_type=FormTypes.SUBMIT)
 ```
 
 ## Полный справочник констант

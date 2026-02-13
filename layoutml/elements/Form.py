@@ -1,7 +1,7 @@
 from layoutml.base import BaseElement
 
 
-class FormElement(BaseElement):
+class Form(BaseElement):
 
     def __init__(self, form_type: str = "text", object_name=None, style=None, boolean_attributes=[], **kwargs):
         """ """
