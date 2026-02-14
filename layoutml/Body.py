@@ -28,9 +28,6 @@ class Body(BaseElement):
     def add_element(self, element: Any) -> "Body":
         """
         Добавить HTML элемент
-
-        Пример:
-        body.add_element(FormElement)
         """
         self.elements.append(element)
         return self
