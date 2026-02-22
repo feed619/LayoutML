@@ -10,7 +10,7 @@
 from layoutML.elements import Article
 ```
 
-Наследование
+## Наследование
 
 - Родительский класс: BaseElement
 - Тип элемента: article (не самозакрывающийся тег)

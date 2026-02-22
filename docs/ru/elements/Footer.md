@@ -10,7 +10,7 @@
 from layoutML.elements import Footer
 ```
 
-Наследование
+## Наследование
 
 - Родительский класс: BaseElement
 - Тип элемента: footer (не самозакрывающийся тег)

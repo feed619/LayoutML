@@ -10,7 +10,7 @@
 from layoutML.elements import Aside
 ```
 
-Наследование
+## Наследование
 
 - Родительский класс: BaseElement
 - Тип элемента: aside (не самозакрывающийся тег)
