@@ -42,23 +42,23 @@
 
 ### Семантические элементы
 
-- [Header](docs\ru\elements\Header.md) - Семантический элемент шапки <header>
-- [Main](docs\ru\elements\Main.md) - Семантический элемент основного содержимого <main>
-- [Footer](docs\ru\elements\Footer.md) - Семантический элемент подвала <footer>
-- [Nav](docs\ru\elements\Nav.md) - Семантический элемент навигации <nav>
-- [Section](docs\ru\elements\Section.md) - Семантический элемент секции <section>
-- [Article](docs\ru\elements\Article.md) - Семантический элемент статьи <article>
-- [Aside](docs\ru\elements\Aside.md) - Семантический элемент боковой панели <aside>
+- [Header](docs\ru\elements\Header.md) - Семантический элемент шапки `<header>`
+- [Main](docs\ru\elements\Main.md) - Семантический элемент основного содержимого `<main>`
+- [Footer](docs\ru\elements\Footer.md) - Семантический элемент подвала `<footer>`
+- [Nav](docs\ru\elements\Nav.md) - Семантический элемент навигации `<nav>`
+- [Section](docs\ru\elements\Section.md) - Семантический элемент секции `<section>`
+- [Article](docs\ru\elements\Article.md) - Семантический элемент статьи `<article>`
+- [Aside](docs\ru\elements\Aside.md) - Семантический элемент боковой панели `<aside>`
 
 ### Текстовые элементы
 
-- [Paragraph](docs\ru\elements\Paragraph.md) - Элемент параграфа <p>
-- [Span](docs\ru\elements\Span.md) - Строчный контейнер <span>
-- [Anchor](docs\ru\elements\Anchor.md) - Элемент ссылки <a>
-- [Heading](docs\ru\elements\Heading.md) - Элементы заголовков <h1>-<h6>
+- [Paragraph](docs\ru\elements\Paragraph.md) - Элемент параграфа `<p>`
+- [Span](docs\ru\elements\Span.md) - Строчный контейнер `<span>`
+- [Anchor](docs\ru\elements\Anchor.md) - Элемент ссылки `<a>`
+- [Heading](docs\ru\elements\Heading.md) - Элементы заголовков `<h1>-<h6>`
 - [ListElement](docs\ru\elements\list\ListElement.md) - Базовый класс для списков
-- [UnorderedList](docs\ru\elements\list\UnorderedList.md) - Маркированный список <ul>
-- [OrderedList](docs\ru\elements\list\OrderedList.md) - Нумерованный список <ol>
+- [UnorderedList](docs\ru\elements\list\UnorderedList.md) - Маркированный список `<ul>`
+- [OrderedList](docs\ru\elements\list\OrderedList.md) - Нумерованный список `<ol>`
 
 ### Медиа элементы
 
