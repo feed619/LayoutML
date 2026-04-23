@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="ico\ico3x.png" style="width: 50%; max-width: 300px;" />
+  <img src="ico\logo.png" style="width: 50%; max-width: 300px;" />
 </p>
 <h2><p align="center">LayoutML — Layout Markup Library</p></h2>
 
