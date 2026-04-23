@@ -32,68 +32,67 @@
 ### Основные классы
 
 - [CSSBase](docs\ru\base\css\CSSBase.md) - Базовый класс для работы с CSS стилями
-
 - [CSSInline](docs\ru\base\css\CSSInline.md) - Класс для работы с inline стилями
-
 - [CSSSelectors](docs\ru\base\css\CSSSelectors.md) - Класс для управления CSS селекторами
 
 ### Базовые элементы
 
-[BaseElement](docs\ru\base\BaseElement.md) - Базовый класс всех HTML элементов
-[HTMLElement](docs\ru\base\HTMLElement.md) - Класс для работы с HTML атрибутами
+- [BaseElement](docs\ru\base\BaseElement.md) - Базовый класс всех HTML элементов
+- [HTMLElement](docs\ru\base\HTMLElement.md) - Класс для работы с HTML атрибутами
 
 ### Семантические элементы
 
-[Header](docs\ru\elements\Header.md) - Семантический элемент шапки <header>
-[Footer](docs\ru\elements\Footer.md) - Семантический элемент подвала <footer>
-[Nav](docs\ru\elements\Nav.md) - Семантический элемент навигации <nav>
-[Section](docs\ru\elements\Section.md) - Семантический элемент секции <section>
-[Article](docs\ru\elements\Article.md) - Семантический элемент статьи <article>
-[Aside](docs\ru\elements\Aside.md) - Семантический элемент боковой панели <aside>
+- [Header](docs\ru\elements\Header.md) - Семантический элемент шапки <header>
+- [Main](docs\ru\elements\Main.md) - Семантический элемент основного содержимого <main>
+- [Footer](docs\ru\elements\Footer.md) - Семантический элемент подвала <footer>
+- [Nav](docs\ru\elements\Nav.md) - Семантический элемент навигации <nav>
+- [Section](docs\ru\elements\Section.md) - Семантический элемент секции <section>
+- [Article](docs\ru\elements\Article.md) - Семантический элемент статьи <article>
+- [Aside](docs\ru\elements\Aside.md) - Семантический элемент боковой панели <aside>
 
 ### Текстовые элементы
 
-[Paragraph](docs\ru\elements\Paragraph.md) - Элемент параграфа <p>
-[Span](docs\ru\elements\Span.md) - Строчный контейнер <span>
-[Anchor](docs\ru\elements\Anchor.md) - Элемент ссылки <a>
-[Heading](docs\ru\elements\Heading.md) - Элементы заголовков <h1>-<h6>
-[ListElement](docs\ru\elements\list\ListElement.md) - Базовый класс для списков
-[UnorderedList](docs\ru\elements\list\UnorderedList.md) - Маркированный список <ul>
-[OrderedList](docs\ru\elements\list\OrderedList.md) - Нумерованный список <ol>
+- [Paragraph](docs\ru\elements\Paragraph.md) - Элемент параграфа <p>
+- [Span](docs\ru\elements\Span.md) - Строчный контейнер <span>
+- [Anchor](docs\ru\elements\Anchor.md) - Элемент ссылки <a>
+- [Heading](docs\ru\elements\Heading.md) - Элементы заголовков <h1>-<h6>
+- [ListElement](docs\ru\elements\list\ListElement.md) - Базовый класс для списков
+- [UnorderedList](docs\ru\elements\list\UnorderedList.md) - Маркированный список <ul>
+- [OrderedList](docs\ru\elements\list\OrderedList.md) - Нумерованный список <ol>
 
 ### Медиа элементы
 
-[Image](docs\ru\elements\Image.md) - Элемент изображения <img>
+- [Image](docs\ru\elements\Image.md) - Элемент изображения <img>
 
 ### Элементы форм
 
-[Form](docs\ru\elements\Form.md) - Базовый класс для элементов форм
-[FormElement](docs\ru\elements\FormElement.md) - Элемент формы <input>
-[Input](docs\ru\elements\Input.md) - Специализированный элемент ввода
-[Label](docs\ru\elements\Label.md) - Элемент метки <label>
-[Button](docs\ru\elements\Button.md) - Элемент кнопки <button>
-[Select](docs\ru\elements\Select.md) - Элемент выпадающего списка <select>
-[Textarea](docs\ru\elements\Textarea.md) - Многострочное текстовое поле <textarea>
+- [Form](docs\ru\elements\Form.md) - Базовый класс для элементов форм
+- [FormElement](docs\ru\elements\FormElement.md) - Элемент формы <input>
+- [Input](docs\ru\elements\Input.md) - Специализированный элемент ввода
+- [Label](docs\ru\elements\Label.md) - Элемент метки <label>
+- [Button](docs\ru\elements\Button.md) - Элемент кнопки <button>
+- [Select](docs\ru\elements\Select.md) - Элемент выпадающего списка <select>
+- [Textarea](docs\ru\elements\Textarea.md) - Многострочное текстовое поле <textarea>
 
 ### Компоновка (Layout)
 
-[Layout](docs\ru\layout\Layout.md) - Базовый класс для layout'ов (Flexbox)
-[HorizontalLayout](docs\ru\layout\HorizontalLayout.md) - Горизонтальный layout
-[VerticalLayout](docs\ru\layout\VerticalLayout.md) - Вертикальный layout
+- [Layout](docs\ru\layout\Layout.md) - Базовый класс для layout'ов (Flexbox)
+- [HorizontalLayout](docs\ru\layout\HorizontalLayout.md) - Горизонтальный layout
+- [VerticalLayout](docs\ru\layout\VerticalLayout.md) - Вертикальный layout
 
 ### Структура документа
 
-[Head](docs\ru\Head.md) - Элемент заголовка страницы <head>
-[Body](docs\ru\Body.md) - Элемент тела страницы <body>
-[Page](docs\ru\Page.md) - Полный HTML документ
+- [Head](docs\ru\Head.md) - Элемент заголовка страницы <head>
+- [Body](docs\ru\Body.md) - Элемент тела страницы <body>
+- [Page](docs\ru\Page.md) - Полный HTML документ
 
 ### Маршрутизация
 
-[Router](docs\ru\base\router\Router.md) - Класс для маршрутизации URL
+- [Router](docs\ru\base\router\Router.md) - Класс для маршрутизации URL
 
 ### Приложение
 
-[LayoutML](docs\ru\LayoutML.md) - Главный класс приложения
+[- LayoutML](docs\ru\LayoutML.md) - Главный класс приложения
 
 ## Быстрый старт
 
