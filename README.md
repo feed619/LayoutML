@@ -31,9 +31,9 @@
 
 ### Основные классы
 
-[CSSBase](docs\ru\base\css\CSSBase.md) - Базовый класс для работы с CSS стилями
-[CSSInline](docs\ru\base\css\CSSInline.md) - Класс для работы с inline стилями
-[CSSSelectors](docs\ru\base\css\CSSSelectors.md) - Класс для управления CSS селекторами
+- [CSSBase](docs\ru\base\css\CSSBase.md) - Базовый класс для работы с CSS стилями
+- [CSSInline](docs\ru\base\css\CSSInline.md) - Класс для работы с inline стилями
+- [CSSSelectors](docs\ru\base\css\CSSSelectors.md) - Класс для управления CSS селекторами
 
 ### Базовые элементы
 
