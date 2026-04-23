@@ -92,7 +92,7 @@
 
 ### Приложение
 
-[- LayoutML](docs\ru\LayoutML.md) - Главный класс приложения
+- [LayoutML](docs\ru\LayoutML.md) - Главный класс приложения
 
 ## Быстрый старт
 
@@ -131,6 +131,8 @@ def home():
 # Запуск приложения
 app.start()
 ```
+
+Запуск приложения с использованием uvicorn
 
 ```python
 import uvicorn
