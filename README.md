@@ -62,17 +62,17 @@
 
 ### Медиа элементы
 
-- [Image](docs\ru\elements\Image.md) - Элемент изображения <img>
+- [Image](docs\ru\elements\Image.md) - Элемент изображения `<img>`
 
 ### Элементы форм
 
 - [Form](docs\ru\elements\Form.md) - Базовый класс для элементов форм
-- [FormElement](docs\ru\elements\FormElement.md) - Элемент формы <input>
+- [FormElement](docs\ru\elements\FormElement.md) - Элемент формы `<input>`
 - [Input](docs\ru\elements\Input.md) - Специализированный элемент ввода
-- [Label](docs\ru\elements\Label.md) - Элемент метки <label>
-- [Button](docs\ru\elements\Button.md) - Элемент кнопки <button>
-- [Select](docs\ru\elements\Select.md) - Элемент выпадающего списка <select>
-- [Textarea](docs\ru\elements\Textarea.md) - Многострочное текстовое поле <textarea>
+- [Label](docs\ru\elements\Label.md) - Элемент метки `<label>`
+- [Button](docs\ru\elements\Button.md) - Элемент кнопки `<button>`
+- [Select](docs\ru\elements\Select.md) - Элемент выпадающего списка `<select>`
+- [Textarea](docs\ru\elements\Textarea.md) - Многострочное текстовое поле `<textarea>`
 
 ### Компоновка (Layout)
 
@@ -82,8 +82,8 @@
 
 ### Структура документа
 
-- [Head](docs\ru\Head.md) - Элемент заголовка страницы <head>
-- [Body](docs\ru\Body.md) - Элемент тела страницы <body>
+- [Head](docs\ru\Head.md) - Элемент заголовка страницы `<head>`
+- [Body](docs\ru\Body.md) - Элемент тела страницы `<body>`
 - [Page](docs\ru\Page.md) - Полный HTML документ
 
 ### Маршрутизация
