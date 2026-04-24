@@ -3,6 +3,7 @@
   <img src="ico\label.png" style="width: 70%; max-width: 400px" />
   <h2 style="display: inline; margin: 0;">LayoutML — Layout Markup Library</h2>
 </p>
+<p align="center">быстрый и удобный инструмент для создания файлов</p></h2>
 ---
 
 ## LayoutML — это простой и расширяемый Python-фреймворк для декларативного создания HTML и CSS с использованием классов и объектов Python.
