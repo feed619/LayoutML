@@ -1,6 +1,6 @@
 <p align="center">
-  <img src="ico\logo.ico" style="width: 50%"/>
-  <img src="ico\label.png"  />
+  <img src="ico\logo.ico" style="width: 50%; max-width: 100px"/>
+  <img src="ico\label.png" style="width: 50%; max-width: 400px" />
   <h2 style="display: inline; margin: 0;">LayoutML — Layout Markup Library</h2>
 </p>
 ---
