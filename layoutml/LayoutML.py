@@ -35,11 +35,8 @@ class LayoutML:
     def include_router(self, router: Router, prefix: str = ""):
         self._router.include_router(router=router, prefix=prefix)
 
-    def endpoint(self, endpoint: str):
-        self._router.add(endpoint=endpoint)
-
-    def add_element(self, element):
-        self.document.body.add_element(element)
+    def route(self, endpoint: str):
+        return self._router.route(endpoint)
 
     def set_error_page(self, page: Page):
         self.error_page = page

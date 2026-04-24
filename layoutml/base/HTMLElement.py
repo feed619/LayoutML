@@ -191,13 +191,15 @@ class HTMLElement:
             for key, value in self.aria_attrs.items():
                 attrs.append(f'aria-{key}="{value}"')
         for key, value in self.value_attributes.items():
-            try:
-                atr_name = getattr(ValueAttributes, key)
-            except AttributeError:
-                raise AttributeError(
-                    f"Attribute '{key}' not found in HTMLElementAttributes class. "
-                    f"Available attributes are defined in the HTMLElementAttributes class."
-                )
-            attrs.append(f'{atr_name}="{value}"')
+            if key == "class_":
+                key = "class"
+            # try:
+            #     atr_name = getattr(ValueAttributes, key)
+            # except AttributeError:
+            #     raise AttributeError(
+            #         f"Attribute '{key}' not found in HTMLElementAttributes class. "
+            #         f"Available attributes are defined in the HTMLElementAttributes class."
+            #     )
+            attrs.append(f'{key}="{value}"')
 
         return " ".join(attrs)

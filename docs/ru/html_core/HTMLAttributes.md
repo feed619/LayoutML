@@ -14,13 +14,13 @@ ValueAttributes - Атрибуты со значениями
 
 | Атрибут        | Описание                          | Пример                                                     |
 | -------------- | --------------------------------- | ---------------------------------------------------------- |
-| id\_           | Уникальный идентификатор элемента | HTMLElement(id\_="main-header")                            |
+| id             | Уникальный идентификатор элемента | HTMLElement(id\_="main-header")                            |
 | name           | Имя элемента для форм и скриптов  | HTMLElement(name="username")                               |
 | title          | Всплывающая подсказка             | HTMLElement(title="Нажмите для подробностей")              |
 | lang           | Язык содержимого элемента         | HTMLElement(lang="ru")                                     |
 | dir            | Направление текста                | HTMLElement(dir="ltr")                                     |
 | translate      | Разрешить перевод                 | HTMLElement(translate="no")                                |
-| class\_        | строк CSS классы                  | HTMLElement(class\_="btn btn-primary")                     |
+| class          | строк CSS классы                  | HTMLElement(class\_="btn btn-primary")                     |
 | style          | Встроенные стили                  | HTMLElement(style="color: red; font-size: 14px;")          |
 | href           | Гиперссылка                       | HTMLElement(href="/page.html")                             |
 | src            | Источник медиа                    | HTMLElement(src="image.jpg")                               |

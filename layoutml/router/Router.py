@@ -7,7 +7,7 @@ class Router:
     def __init__(self, prefix: str = ""):
         self.routes: Dict[str, Dict] = {}
         self.prefix = prefix.rstrip("/")
-        self._child_routers: Dict[str, "Router"] = {}  # Для хранения дочерних роутеров
+        self._child_routers: Dict[str, "Router"] = {}
 
     def route(self, path: str):
         def decorator(func: Callable):

@@ -2,7 +2,7 @@ class ValueAttributes:
     """Атрибуты, требующие значения через '='"""
 
     # Базовые атрибуты
-    id_ = "id"
+    id = "id"
     name = "name"
     title = "title"
     lang = "lang"

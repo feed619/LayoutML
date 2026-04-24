@@ -1,3 +1,5 @@
+from typing import Any, Optional
+
 from layoutml.base import BaseElement
 from .Body import Body
 from .Head import Head
@@ -41,6 +43,23 @@ class Page(BaseElement):
     def set_language(self, lang: str) -> "Page":
         """Установить язык документа"""
         self.add_attributes(lang=lang)
+        return self
+
+    def add_script(self, src: Optional[str] = None, content: Optional[str] = None, **attributes) -> "Page":
+        """
+        Добавить script тег а атрибут Head
+        Примеры:
+        - add_script(src="app.js", defer=True)
+        - add_script(content="console.log('Hello');", type="module")
+        """
+        self.head.add_script(src=src, content=content, **attributes)
+        return self
+
+    def add_element(self, element: Any) -> "Body":
+        """
+        Добавить HTML элемент для body
+        """
+        self.body.add_element(element)
         return self
 
     def _get_doctype(self) -> str:

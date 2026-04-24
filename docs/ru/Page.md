@@ -111,6 +111,47 @@ page.set_language("ru")    # Русский
 page.set_language("es")    # Испанский
 ```
 
+### add_element(element)
+
+Добавляет элемент в body документа.
+
+Параметры:
+
+- element (BaseElement): HTML элемент для добавления
+
+Примечание: Этот метод предназначен для совместимости со старым кодом и работает с атрибутом document, который должен быть установлен.
+
+```python
+from layoutml import Paragraph
+
+app = LayoutML()
+app.add_element(Paragraph(text="Привет, мир!"))
+```
+
+### add_script(src: Optional[str] = None, content: Optional[str] = None, \*\*attributes) -> "Page"
+
+Добавляет script тег в секцию head.
+
+Параметры:
+
+- src (опционально): URL внешнего скрипта
+- content (опционально): Inline JavaScript код
+- \*\*attributes: Дополнительные атрибуты (defer, async, type и т.д.)
+
+```python
+page = Page()
+# Внешний скрипт
+page.add_script(src="app.js", defer=True)
+# Inline скрипт
+page.add_script(content="console.log('Page loaded');")
+# Скрипт с кастомными атрибутами
+page.add_script(
+    src="https://cdn.example.com/library.js",
+    integrity="sha256-abc123",
+    crossorigin="anonymous"
+)
+```
+
 ### get_html() -> str
 
 Генерирует полный HTML код документа.
