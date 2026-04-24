@@ -160,14 +160,14 @@ head.add_stylesheet("style.css")
 head.add_stylesheet("print.css", media="print")
 ```
 
-### add_icon(href: str, type: str = "image/x-icon") -> "Head"
+### set_icon(href: str, type: str = "image/x-icon") -> "Head"
 
 Упрощенный метод для добавления фавиконки.
 
 ```python
 head = Head()
-head.add_icon("favicon.ico")
-head.add_icon("icon.png", type="image/png")
+head.set_icon("favicon.ico")
+head.set_icon("icon.png", type="image/png")
 ```
 
 ### add_script(src: Optional[str] = None, content: Optional[str] = None, \*\*attributes) -> "Head"
@@ -240,7 +240,7 @@ head.add_meta(name="author", content="Иван Петров")
 head.add_stylesheet("css/main.css")
 head.add_stylesheet("css/mobile.css", media="(max-width: 768px)")
 # Иконки
-head.add_icon("favicon.ico")
+head.set_icon("favicon.ico")
 head.add_link(rel="apple-touch-icon", href="apple-touch-icon.png")
 # Скрипты
 head.add_script(src="js/app.js", defer=True)

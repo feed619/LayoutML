@@ -31,6 +31,16 @@ class Head(BaseElement):
         self.title = title
         return self
 
+    def set_icon(self, href: str, type: str = "image/x-icon") -> "Head":
+        """Добавить фавиконку"""
+        for i in range(len(self.links)):
+            link_attrs = {"rel": "icon", "href": href, "type": type}
+            if self.links[i]["rel"] == "icon":
+                self.links[i] = link_attrs
+                return self
+        self.add_link(rel="icon", href=href, type=type)
+        return self
+
     def add_meta(self, **attributes) -> "Head":
         """
         Добавить мета-тег
@@ -89,11 +99,6 @@ class Head(BaseElement):
         self.base_url = href
         # Base обычно один, но храним в links для унификации
         self.links.append({"rel": "base", "href": href, "target": target})
-        return self
-
-    def add_icon(self, href: str, type: str = "image/x-icon") -> "Head":
-        """Добавить фавиконку"""
-        self.add_link(rel="icon", href=href, type=type)
         return self
 
     def add_stylesheet(self, href: str, media: str = "all") -> "Head":

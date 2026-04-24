@@ -117,7 +117,7 @@ from layoutml.elements import Header, Paragraph, Button
 class BasePage(Page):
     def __init__(self, doctype="html", title="LayoutML", lang="ru", object_name=None, **kwargs):
         super().__init__(doctype, title, lang, object_name, **kwargs)
-        self.head.add_icon("ico/logo.ico")
+        self.head.set_icon("ico/logo.ico")
 
 
 # Создание приложения

@@ -24,7 +24,7 @@ class Page(BaseElement):
         self.doctype = doctype
         self.head = Head(title=title)
         self.body = Body()
-        self.head.add_icon("ico/logo.png")
+        self.head.set_icon("ico/logo.png")
 
     def set_head(self, head: Head) -> "Page":
         self.head = head
