@@ -38,6 +38,9 @@ class LayoutML:
     def route(self, endpoint: str):
         return self._router.route(endpoint)
 
+    def print_routes(self):
+        self._router.print_routes()
+
     def set_error_page(self, page: Page):
         self.error_page = page
 
@@ -181,7 +184,7 @@ class LayoutML:
         print(self.stylesheet_files)
 
     # Совместимость со старым кодом
-    def start(self, host: str = "localhost", port=5005):
+    def start(self, host: str = "localhost", port=3700):
         """Запуск в режиме совместимости (без Uvicorn)"""
         self.ensure_css_generated()
         import asyncio

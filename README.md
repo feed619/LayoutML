@@ -104,11 +104,19 @@ pip install layoutml
 
 ## Пример использования
 
+В этом разделе представлены примеры создания веб-приложений с использованием библиотеки LayoutML. Вы узнаете, как создавать страницы, добавлять элементы и запускать сервер.
+
+### Обычный запуск
+
+Самый простой способ запустить приложение LayoutML:
+
 ```python
 from layoutml import LayoutML, Page
 from layoutml.elements import Header, Paragraph, Button
+
 # Создание приложения
 app = LayoutML()
+
 # Определение маршрута
 @app._router.route("/")
 def home():
@@ -128,33 +136,153 @@ def home():
     page.body.add_element(button)
 
     return page
+
 # Запуск приложения
-app.start()
+if __name__ == "main":
+    app.start(host="localhost", port=3700)
 ```
 
-Запуск приложения с использованием uvicorn
+После запуска сервер будет доступен по адресу http://localhost:3700
+
+### Запуск через Uvicorn из командной строки
+
+Вы можете запустить приложение с помощью Uvicorn из терминала:
+
+```bash
+uvicorn test:app --host localhost --port 3700 --reload
+```
+
+Где `test` - имя вашего Python файла, `app` - имя экземпляра приложения LayoutML.
+
+### Запуск через Uvicorn из Python кода
+
+Вы также можете запустить Uvicorn непосредственно из Python скрипта:
 
 ```python
-import uvicorn
-from layoutml import LayoutML, Page
-from layoutml.elements import Header, Paragraph, Button
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+```
 
-# Создание приложения
+### Создание нескольких маршрутов
+
+Пример приложения с несколькими страницами:
+
+```python
+from layoutml import LayoutML, Page
+from layoutml.elements import Header, Paragraph, Button, Anchor
+
 app = LayoutML()
-# Определение маршрута
-@app._router.route("/")
+
+@app.route("/")
 def home():
     page = Page(title="Главная")
 
-    # Создание элементов
     header = Header()
-    header.get_html(content="<h1>Добро пожаловать!</h1>")
+    header.get_html(content="<h1>Главная страница</h1>")
 
-    paragraph = Paragraph(text="Это пример использования LayoutML")
+    paragraph = Paragraph(text="Добро пожаловать на наш сайт!")
 
-    button = Button(text="Нажми меня", onclick="alert('Hello!')")
+    link = Anchor(href="/about", text="О нас")
 
-    # Добавление элементов на страницу
+    page.body.add_element(header)
+    page.body.add_element(paragraph)
+    page.body.add_element(link)
+
+    return page
+
+@app.route("/about")
+def about():
+    page = Page(title="О нас")
+
+    header = Header()
+    header.get_html(content="<h1>О нашей компании</h1>")
+
+    paragraph = Paragraph(text="Мы создаём веб-приложения с помощью LayoutML")
+
+    back_link = Anchor(href="/", text="На главную")
+
+    page.body.add_element(header)
+    page.body.add_element(paragraph)
+    page.body.add_element(back_link)
+
+    return page
+
+if __name__ == "__main__":
+    app.start()
+```
+
+### Использование параметров маршрута
+
+Вы можете создавать динамические страницы с параметрами в URL:
+
+```python
+from layoutml import LayoutML, Page
+from layoutml.elements import Header, Paragraph
+
+app = LayoutML()
+
+@app._router.route("/user/<username>")
+def user_profile(username: str):
+    page = Page(title=f"Профиль {username}")
+
+    header = Header()
+    header.get_html(content=f"<h1>Профиль пользователя: {username}</h1>")
+
+    paragraph = Paragraph(text=f"Добро пожаловать, {username}!")
+
+    page.body.add_element(header)
+    page.body.add_element(paragraph)
+
+    return page
+
+if __name__ == "__main__":
+    app.start()
+```
+
+### Добавление CSS стилей
+
+Пример страницы с кастомными стилями:
+
+```python
+from layoutml import LayoutML, Page
+from layoutml.elements import Header, Paragraph, Button
+
+app = LayoutML()
+
+@app.route("/")
+def styled_page():
+    page = Page(title="Стилизованная страница")
+
+    # Создание элемента с CSS классами
+    header = Header(class_="main-header")
+    header.get_html(content="<h1>Стилизованная страница</h1>")
+
+    paragraph = Paragraph(
+        text="Этот текст стилизован с помощью CSS",
+        class_="highlight-text"
+    )
+
+    button = Button(
+        text="Стильная кнопка",
+        class_="custom-button",
+        style="padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 5px;"
+    )
+
+    # Добавление CSS стилей через объект head
+    page.head.selectors_styles.add_selector(".main-header")\
+        .set_background_color("#f8f9fa")\
+        .set_padding("20px")\
+        .set_text_align("center")
+
+    page.head.selectors_styles.add_selector(".highlight-text")\
+        .set_color("#007bff")\
+        .set_font_size("18px")\
+        .set_font_weight("bold")
+
+    page.head.selectors_styles.add_selector(".custom-button:hover")\
+        .set_background_color("#0056b3")\
+        .set_transform("scale(1.05)")
+
     page.body.add_element(header)
     page.body.add_element(paragraph)
     page.body.add_element(button)
@@ -162,7 +290,131 @@ def home():
     return page
 
 if __name__ == "__main__":
-  uvicorn.run(app, host="0.0.0.0", port=8000)
+    app.start()
+```
+
+### Использование макетов (Layouts)
+
+Создание страницы с помощью горизонтальных и вертикальных макетов:
+
+```python
+from layoutml import LayoutML, Page
+from layoutml.elements import Header, Paragraph, Button
+from layoutml.layout import HorizontalLayout, VerticalLayout
+
+app = LayoutML()
+
+@app.route("/")
+def layout_example():
+    page = Page(title="Пример макетов")
+
+    # Вертикальный макет для всей страницы
+    main_layout = VerticalLayout(object_name="mainLayout")
+    main_layout.object_styles.set_gap("20px").set_padding("20px")
+
+    # Горизонтальный макет для навигации
+    nav_layout = HorizontalLayout(object_name="navLayout")
+    nav_layout.object_styles.set_justify_content("space-between")
+
+    nav_layout.add_element(Button(text="Главная"))
+    nav_layout.add_element(Button(text="О нас"))
+    nav_layout.add_element(Button(text="Контакты"))
+
+    # Горизонтальный макет для карточек
+    cards_layout = HorizontalLayout(object_name="cardsLayout")
+    cards_layout.object_styles.set_gap("20px").set_justify_content("center")
+
+    for i in range(3):
+        card = VerticalLayout(object_name=f"card{i}")
+        card.object_styles.set_border("1px solid #ddd")\
+                          .set_padding("15px")\
+                          .set_border_radius("8px")\
+                          .set_width("200px")
+
+        card.add_element(Paragraph(text=f"Карточка {i+1}"))
+        card.add_element(Button(text="Подробнее"))
+        cards_layout.add_element(card)
+
+    main_layout.add_elements(nav_layout, cards_layout)
+    page.body.add_element(main_layout)
+
+    return page
+
+if __name__ == "__main__":
+    app.start()
+```
+
+### Обработка форм
+
+Пример создания страницы с формой и обработкой данных:
+
+```python
+from layoutml import LayoutML, Page
+from layoutml.elements import Input, Button, Label, Paragraph
+
+app = LayoutML()
+
+@app.route("/contact", methods=["GET", "POST"])
+def contact_page():
+    page = Page(title="Контакты")
+
+    page.body.add_element(Paragraph(text="Свяжитесь с нами"))
+
+    # Создание формы
+    form = BaseElement(tag="form", method="post", action="/submit")
+
+    # Поле имени
+    form.add_element(Label(for_id="name", text="Имя:"))
+    form.add_element(Input(id="name", name="name", required=True))
+
+    # Поле email
+    form.add_element(Label(for_id="email", text="Email:"))
+    form.add_element(Input(type="email", id="email", name="email", required=True))
+
+    # Кнопка отправки
+    form.add_element(Button(text="Отправить", type="submit"))
+
+    page.body.add_element(form)
+
+    return page
+
+if __name__ == "__main__":
+    app.start()
+```
+
+## Советы по разработке
+
+1. Режим разработки: Используйте флаг --reload при запуске через Uvicorn для автоматической перезагрузки при изменениях кода.
+2. Отладка: Вы можете выводить информацию о маршрутах с помощью метода print_routes():
+
+```python
+app.print_routes()
+```
+
+3. Структурирование кода: Для больших приложений рекомендуется разделять маршруты по модулям:
+
+```python
+# routes.py
+from layoutml import LayoutML
+app = LayoutML()
+# Импорт маршрутов из других модулей
+
+from .home_routes import home_router
+from .api_routes import api_router
+
+app.include_router(home_router)
+app.include_router(api_router, prefix="/api")
+```
+
+4. Асинхронные обработчики: LayoutML поддерживает асинхронные функции для обработки маршрутов:
+
+```python
+@app.route("/async-data")
+async def async_data():
+  data = await fetch_data_from_db()
+  page = Page(title="Данные")
+  page.body.add_element(Paragraph(text=str(data)))
+  return page
 ```
 
 ## Статус проекта
@@ -171,8 +423,15 @@ LayoutML находится в активной разработке.
 
 ## 📄 Лицензия
 
-MIT License
+[MIT License](LICENSE)
 
-# Запуск приложение в решиби разработки
+## Обратная связь:
 
-uvicorn main:app --reload --port 5005
+Я всегда рад вашим отзывам и предложениям по улучшению LayoutML. Пожалуйста, оставляйте свои комментарии.
+Электронная почта
+
+- [Email](mailto:feed619pro@gmail.com)
+
+```
+
+```

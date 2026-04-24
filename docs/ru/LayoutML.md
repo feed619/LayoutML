@@ -82,7 +82,22 @@ def home():
     page = Page(title="Главная страница")
     page.body.get_html(content="<h1>Добро пожаловать!</h1>")
     return page
+```
 
+### print_routes()
+
+Выводит все маршруты в читаемом формате
+
+```python
+from layoutml import LayoutML, Page, Body, Paragraph
+# Создание приложения
+app = LayoutML()
+@app.route("/")
+def home():
+    page = Page(title="Главная страница")
+    page.body.get_html(content="<h1>Добро пожаловать!</h1>")
+    return page
+app.print_routes()
 ```
 
 ### include_router(router: Router, prefix: str = "")
@@ -108,7 +123,6 @@ def get_users():
 app = LayoutML()
 app.include_router(api_router)
 ```
-
 
 ### set_error_page(page: Page)
 
