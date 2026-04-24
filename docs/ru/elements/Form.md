@@ -70,7 +70,7 @@ from layoutML.elements import Form
 Формат вывода:
 
 ```text
-type="email" class="form-control" id_="emailInput" name="email" required placeholder="Введите email" aria-label="Электронная почта" data-validation="email"
+type="email" class="form-control" id="emailInput" name="email" required placeholder="Введите email" aria-label="Электронная почта" data-validation="email"
 ```
 
 ## Примеры инициализации:
@@ -79,7 +79,7 @@ type="email" class="form-control" id_="emailInput" name="email" required placeho
 # Простое текстовое поле
 text_field = Form(
     form_type="text",
-    id_="username",
+    id="username",
     name="username",
     placeholder="Введите имя"
 )
@@ -87,7 +87,7 @@ text_field = Form(
 # Поле email с валидацией
 email_field = Form(
     form_type="email",
-    id_="user_email",
+    id="user_email",
     name="email",
     required=True,
     pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$"
@@ -97,7 +97,7 @@ email_field = Form(
 password_field = Form(
     form_type="password",
     boolean_attributes=["required"],
-    id_="user_password",
+    id="user_password",
     name="password",
     minlength="8",
     autocomplete="new-password",
@@ -108,7 +108,7 @@ password_field = Form(
 newsletter_checkbox = Form(
     form_type="checkbox",
     boolean_attributes=["checked"],
-    id_="subscribe",
+    id="subscribe",
     name="newsletter",
     value="yes"
 )
@@ -116,7 +116,7 @@ newsletter_checkbox = Form(
 # Поле даты с ограничениями
 birthday_field = Form(
     form_type="date",
-    id_="birth_date",
+    id="birth_date",
     name="birthday",
     min="1900-01-01",
     max="2024-12-31",
@@ -126,14 +126,14 @@ birthday_field = Form(
 # Создание и рендеринг элементов
 text_field = Form(
     form_type="text",
-    id_="name",
+    id="name",
     name="full_name",
     placeholder="Иван Иванов"
 )
 
 email_field = Form(
     form_type="email",
-    id_="email",
+    id="email",
     name="email",
     required=True
 )
