@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="ico\logo.png" style="width: 50%; max-width: 300px;" />
+  <img src="ico\label_logo.png" style="width: 50%; max-width: 300px;" />
 </p>
 <h2><p align="center">LayoutML — Layout Markup Library</p></h2>
 
@@ -114,13 +114,19 @@ pip install layoutml
 from layoutml import LayoutML, Page
 from layoutml.elements import Header, Paragraph, Button
 
+class BasePage(Page):
+    def __init__(self, doctype="html", title="LayoutML", lang="ru", object_name=None, **kwargs):
+        super().__init__(doctype, title, lang, object_name, **kwargs)
+        self.head.add_icon("ico/logo.ico")
+
+
 # Создание приложения
 app = LayoutML()
 
 # Определение маршрута
 @app._router.route("/")
 def home():
-    page = Page(title="Главная")
+    page = BasePage(title="Главная")
 
     # Создание элементов
     header = Header()
