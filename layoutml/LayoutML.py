@@ -185,7 +185,6 @@ class LayoutML:
 
     # Совместимость со старым кодом
     def start(self, host: str = "localhost", port=3700):
-        """Запуск в режиме совместимости (без Uvicorn)"""
         self.ensure_css_generated()
         import asyncio
 
@@ -198,7 +197,6 @@ class LayoutML:
         asyncio.run(run_server())
 
     async def _handle_client_compat(self, reader, writer):
-        """Совместимость со старым handle_client"""
         request = await reader.read(1024)
         request = request.decode()
 
