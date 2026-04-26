@@ -20,7 +20,7 @@ ValueAttributes - Атрибуты со значениями
 | lang           | Язык содержимого элемента         | HTMLElement(lang="ru")                                     |
 | dir            | Направление текста                | HTMLElement(dir="ltr")                                     |
 | translate      | Разрешить перевод                 | HTMLElement(translate="no")                                |
-| class          | строк CSS классы                  | HTMLElement(class\_="btn btn-primary")                     |
+| class\_        | строк CSS классы                  | HTMLElement(class\_="btn btn-primary")                     |
 | style          | Встроенные стили                  | HTMLElement(style="color: red; font-size: 14px;")          |
 | href           | Гиперссылка                       | HTMLElement(href="/page.html")                             |
 | src            | Источник медиа                    | HTMLElement(src="image.jpg")                               |
