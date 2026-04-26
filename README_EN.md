@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="ico\full_logo.png" alt="LayoutML"></a>
+  <img src="ico/full_logo.png" alt="LayoutML">
 </p>
 <p align="center">
     <em>LayoutML (Layout Markup Library) is a library that allows you to describe the structure of web pages directly in code, turning Python into a markup language for web interfaces.</em>
