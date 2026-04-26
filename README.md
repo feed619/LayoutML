@@ -122,7 +122,7 @@ class BasePage(Page):
 app = LayoutML()
 
 # Определение маршрута
-@app._router.route("/")
+@app.route("/")
 def home():
     page = BasePage(title="Главная")
 
@@ -142,7 +142,7 @@ def home():
     return page
 
 # Запуск приложения
-if __name__ == "main":
+if __name__ == "__main__":
     app.start(host="localhost", port=3700)
 ```
 
@@ -153,10 +153,11 @@ if __name__ == "main":
 Вы можете запустить приложение с помощью Uvicorn из терминала:
 
 ```bash
-uvicorn test:app --host localhost --port 3700 --reload
+pip install uvicorn
+uvicorn main:app --host localhost --port 3700 --reload
 ```
 
-Где `test` - имя вашего Python файла, `app` - имя экземпляра приложения LayoutML.
+Где `main` - имя вашего Python файла, `app` - имя экземпляра приложения LayoutML.
 
 ### Запуск через Uvicorn из Python кода
 
@@ -164,7 +165,8 @@ uvicorn test:app --host localhost --port 3700 --reload
 
 ```python
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="localhost", port=3700)
+
 ```
 
 ### Создание нескольких маршрутов
@@ -225,7 +227,7 @@ from layoutml.elements import Header, Paragraph
 
 app = LayoutML()
 
-@app._router.route("/user/<username>")
+@app.route("/user/<username>")
 def user_profile(username: str):
     page = Page(title=f"Профиль {username}")
 

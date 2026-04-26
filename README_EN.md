@@ -120,7 +120,7 @@ class BasePage(Page):
 app = LayoutML()
 
 # Define a route
-@app._router.route("/")
+@app.route("/")
 def home():
     page = BasePage(title="Home")
 
@@ -149,10 +149,11 @@ if __name__ == "__main__":
 You can run the application using Uvicorn from the terminal:
 
 ```bash
-uvicorn test:app --host localhost --port 3700 --reload
+pip install uvicorn
+uvicorn main:app --host localhost --port 3700 --reload
 ```
 
-Where `test` is the name of your Python file, and `app` is the name of your LayoutML application instance.
+Where `main` is the name of your Python file, and `app` is the name of your LayoutML application instance.
 
 ### Running via Uvicorn from Python Code
 
@@ -160,7 +161,7 @@ You can also run Uvicorn directly from a Python script:
 
 ```python
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="localhost", port=3700)
 ```
 
 ### Creating Multiple Routes
@@ -221,7 +222,7 @@ from layoutml.elements import Header, Paragraph
 
 app = LayoutML()
 
-@app._router.route("/user/<username>")
+@app.route("/user/<username>")
 def user_profile(username: str):
     page = Page(title=f"Profile {username}")
 
