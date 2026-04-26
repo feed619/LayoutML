@@ -4,16 +4,9 @@
 <p align="center">
     <em>LayoutML(layout markup library) — это библиотека которая позволяет описывать структуру веб-страниц напрямую через код, превращая Python в язык разметки для web-интерфейсов.</em>
 </p>
-<p align="center">
-<a href="https://pypi.org/project/layoutml">
-    <img src="https://img.shields.io/pypi/v/fastapi?color=%2334D058&label=pypi%20package" alt="Package version">
-</a>
-<a href="https://pypi.org/project/fastapi">
-    <img src="https://img.shields.io/pypi/pyversions/fastapi.svg?color=%2334D058" alt="Supported Python versions">
-</a>
-</p>
 
-## ✨ Основные возможности
+
+## Основные возможности
 
 - Создание HTML-элементов через Python-классы
 - Описание CSS-стилей программным способом
