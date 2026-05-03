@@ -190,6 +190,34 @@ layout.add_elements(button1, button2, button3)
 layout.remove_element(1)  # Удаляет button2
 ```
 
+### remove_element_by_name(object_name: str) -> None
+
+Удаляет элемент по имени объекта.
+
+Параметры:
+- object_name (str): Имя объекта для удаления
+
+```python
+layout.remove_element("myButton")
+```
+
+### get_element(object_name: str) -> Any
+
+Находит и возвращает элемент по его имени.
+
+Параметры:
+- object_name (str): Имя искомого элемента
+
+Возвращает:
+- Найденный элемент
+
+Исключения:
+- AttributeError: Если элемент не найден
+
+```python
+element = layout.get_element("submitButton")
+```
+
 ### Генерация HTML и CSS
 
 #### get_html() -> str

@@ -67,8 +67,6 @@ class Layout(BaseElement):
 
         return self
 
-    # ============ МЕТОДЫ ДЛЯ ЭЛЕМЕНТОВ ============
-
     def add_element(self, element: Any) -> "Layout":
         """Добавить элемент в layout"""
         self.elements.append(element)
@@ -88,12 +86,6 @@ class Layout(BaseElement):
     def insert_element(self, index: int, element: Any) -> "Layout":
         """Вставить элемент по индексу"""
         self.elements.insert(index, element)
-        return self
-
-    def remove_element(self, index: int) -> "Layout":
-        """Удалить элемент по индексу"""
-        if 0 <= index < len(self.elements):
-            del self.elements[index]
         return self
 
     def get_html(self) -> str:
@@ -127,3 +119,20 @@ class Layout(BaseElement):
     def __delitem__(self, index: int) -> None:
         """Удалить элемент по индексу"""
         del self.elements[index]
+
+    def get_element(self, object_name: str) -> Any:
+        for element in self.elements:
+            if element.get_object_name() == object_name:
+                return element
+        raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{object_name}'")
+
+    def remove_element_by_name(self, object_name: str) -> None:
+        for index in range(len(self.elements)):
+            if self.elements[index].get_object_name() == object_name:
+                return self.elements.pop(index)
+
+    def remove_element_(self, index: int) -> "Layout":
+        """Удалить элемент по индексу"""
+        if 0 <= index < len(self.elements):
+            del self.elements[index]
+        return self

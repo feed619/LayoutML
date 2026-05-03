@@ -43,6 +43,8 @@ class LayoutML:
         page_index = 1
 
         for page in self._pages:
+            if not page.render_css_file:
+                continue
             page_styles: dict = page.get_styles()
             if not page_styles:
                 continue
@@ -58,7 +60,7 @@ class LayoutML:
                 f.write(css_text)
             page.head.add_stylesheet(css_file_name)
 
-        if self.error_page:
+        if self.error_page and self.error_page.render_css_file:
             page_styles: dict = self.error_page.get_styles()
             if page_styles:
                 page_name = self.error_page.get_object_name()
@@ -71,8 +73,7 @@ class LayoutML:
                 css_file_name = f"{self.styles_dirname}/{page_name}.css"
                 with open(css_file_name, "w") as f:
                     f.write(css_text)
-
-            self.error_page.head.add_stylesheet(css_file_name)
+                self.error_page.head.add_stylesheet(css_file_name)
 
     def ensure_css_generated(self):
         if not self._css_generated:
@@ -118,6 +119,7 @@ class LayoutML:
                 status_code=200,
                 headers={"content-type": "text/html; charset=utf-8"},
             )
+            return response
 
         else:
             response = HTMLResponse(
@@ -138,26 +140,34 @@ class LayoutML:
             response.body = response.render(html_content)
             response.headers["content-length"] = str(len(response.body))
 
-        return response
+            return response
 
     async def _serve_static_file(self, request: Request):
         file_path = "." + request.url.path
+
+        # Безопасность: предотвращаем выход из корневой директории
+        if ".." in file_path or not os.path.abspath(file_path).startswith(os.getcwd()):
+            return Response(content=b"", status_code=403, headers={"content-type": "text/plain"})
+
+        # Определяем content-type
         content_type = "text/plain"
         for ext, mime_type in self._static_dirs.items():
             if request.url.path.endswith(ext):
                 content_type = mime_type
                 break
 
-        if os.path.exists(file_path):
-            try:
-                with open(file_path, "rb") as f:
-                    content = f.read()
-                return Response(content=content, status_code=200, headers={"content-type": content_type})
-            except Exception as e:
-                print(f"Error serving static file: {e}")
-                return Response(content="Internal Server Error", status_code=500)
-        else:
-            return Response(content="404 Not Found", status_code=404)
+        if not os.path.exists(file_path):
+            return Response(content=b"", status_code=404, headers={"content-type": "text/plain"})
+
+        if not os.access(file_path, os.R_OK):
+            return Response(content=b"", status_code=403, headers={"content-type": "text/plain"})
+
+        try:
+            with open(file_path, "rb") as f:
+                content = f.read()
+            return Response(content=content, status_code=200, headers={"content-type": content_type})
+        except Exception:
+            return Response(content=b"", status_code=500, headers={"content-type": "text/plain"})
 
     async def _serve_404(self, request: Request):
         return Response(content="404 Not Found", status_code=404, headers={"content-type": "text/plain; charset=utf-8"})
@@ -197,7 +207,7 @@ class LayoutML:
             except Exception as e:
                 return Response(
                     status_code=500,
-                    content=str({"detail": "Internal Server Error"}),
+                    content=str({"detail": e}),
                     headers={"Content-Type": "application/json"},
                 )
         elif self._is_static_file(request.url.path):
@@ -239,25 +249,26 @@ class LayoutML:
             return {"type": "http.request", "body": body.encode() if body else b"", "more_body": False}
 
         request = Request(scope=scope)
-        try:
-            response: Response = await self(request)
-            if not isinstance(response, Response):
-                response = Response(content=response)
-            logger.info(f"{method} {path_part} → {response.status_code}")
-            if response is not None:
-                status_line = f"HTTP/1.1 {response.status_code} OK\r\n".encode()
-                headers = b""
-                for key, value in response.headers.items():
-                    headers += f"{key}: {value}\r\n".encode()
-                writer.write(status_line + headers + b"\r\n")
-                body = response.body if hasattr(response, "body") else b""
-                if body:
-                    writer.write(body if isinstance(body, bytes) else body.encode())
-                await writer.drain()
+        response: Response = await self(request)
 
-        except Exception as e:
-            logger.error(f"{method} {path_part} → ERROR: {e} ")
-        finally:
+        if not isinstance(response, Response):
+            response = Response(content=response)
+        if not self._is_static_file(request.url.path):
+            logger.info(f"{method} {path_part} → {response.status_code}")
+        if response is not None:
+            status_line = f"HTTP/1.1 {response.status_code} OK\r\n".encode()
+            headers = b""
+            for key, value in response.headers.items():
+                headers += f"{key}: {value}\r\n".encode()
+            writer.write(status_line + headers + b"\r\n")
+            body = response.body if hasattr(response, "body") else b""
+            if body:
+                writer.write(body if isinstance(body, bytes) else body.encode())
+            await writer.drain()
+
+            # except Exception as e:
+            #     logger.error(f"{method} {path_part} → ERROR: {e} ")
+            # finally:
             writer.close()
 
     def start(self, host: str = "localhost", port=3700):

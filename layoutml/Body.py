@@ -98,6 +98,5 @@ class Body(BaseElement):
         return f"Body(elements={len(self.elements)}, content_length={len(self.content)})"
 
     def __iadd__(self, other: Any) -> "Body":
-        """Перегрузка оператора += для удобного добавления"""
         self.add_element(other)
         return self

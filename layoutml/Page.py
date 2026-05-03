@@ -2,6 +2,7 @@ import copy
 from typing import Any, Optional
 
 from layoutml.base import BaseElement
+from layoutml.layout import Layout
 from .Body import Body
 from .Head import Head
 
@@ -25,6 +26,8 @@ class Page(BaseElement):
         self.doctype = doctype
         self.head = Head(title=title)
         self.body = Body()
+
+        self.render_css_file = True
 
         self.head.set_icon("https://raw.githubusercontent.com/feed619/LayoutML/refs/heads/main/ico/logo.ico")
 
@@ -52,6 +55,11 @@ class Page(BaseElement):
         self.add_attributes(lang=lang)
         return self
 
+    def add_stylesheet(self, href: str, media: str = "all") -> "Head":
+        """Добавить CSS файл"""
+        self.head.add_link(rel="stylesheet", href=href, media=media)
+        return self
+
     def add_script(self, src: Optional[str] = None, content: Optional[str] = None, **attributes) -> "Page":
         """
         Добавить script тег а атрибут Head
@@ -68,6 +76,17 @@ class Page(BaseElement):
         """
         self.body.add_element(element)
         return self
+
+    def get_element(self, object_name: str) -> Layout | BaseElement:
+        for element in self.body.elements:
+            if element.get_object_name() == object_name:
+                return element
+        raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{object_name}'")
+
+    def remove_element(self, object_name: str) -> None:
+        for index in range(len(self.body.elements)):
+            if self.body.elements[index].get_object_name() == object_name:
+                return self.body.elements.pop(index)
 
     def _get_doctype(self) -> str:
         """Получить строку doctype"""

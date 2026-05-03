@@ -1,6 +1,7 @@
+````md id="7f3k2n"
 # LayoutML
 
-`LayoutML` is the core class of the framework that combines routing, style generation, and HTTP request handling. It provides an ASGI-compatible interface for building web applications with automatic CSS file generation based on styles defined in pages.
+`LayoutML` is the core class of the framework that combines routing, style generation, and HTTP request handling. The class provides an ASGI-compatible interface for building web applications with automatic CSS file generation based on styles defined within pages.
 
 ---
 
@@ -9,13 +10,14 @@
 ```python
 from layoutml import LayoutML
 ```
+````
 
 ## Purpose
 
-- **Routing:** Handles HTTP requests and calls the appropriate handlers
-- **CSS Generation:** Automatically creates CSS files from styles defined in components
-- **Static Files:** Serves static resources (images, CSS, JS)
-- **ASGI Compatibility:** Supports the asynchronous ASGI interface for integration with servers such as Uvicorn and Hypercorn
+- Routing: Handling HTTP requests and calling the appropriate handlers
+- CSS Generation: Automatic creation of CSS files from styles defined in components
+- Static Files: Serving static resources (images, CSS, JS)
+- ASGI Compatibility: Support for the asynchronous ASGI interface for integration with servers (Uvicorn, Hypercorn)
 
 ## Constructor
 
@@ -23,7 +25,7 @@ from layoutml import LayoutML
 
 Parameters:
 
-- styles_dirname (str): Directory for storing generated CSS files. Defaults to `"styles"`
+- styles_dirname (str): Directory for storing generated CSS files. Default is `"styles"`
 
 Example:
 
@@ -33,14 +35,14 @@ app = LayoutML(styles_dirname="assets/css")
 
 ### Attributes
 
-| Attribute       | Type   | Description                         |
-| --------------- | ------ | ----------------------------------- |
-| router          | Router | Router object for handling requests |
-| error_page      | Page   | Page displayed for 404 errors       |
-| \_pages         | list   | List of registered pages            |
-| \_static_dirs   | dict   | MIME types for static files         |
-| styles_dirname  | str    | Directory for CSS files             |
-| \_css_generated | bool   | CSS file generation flag            |
+| Attribute       | Type   | Description                        |
+| --------------- | ------ | ---------------------------------- |
+| router          | Router | Router object for request handling |
+| error_page      | Page   | Page displayed for 404 errors      |
+| \_pages         | list   | List of registered pages           |
+| \_static_dirs   | dict   | MIME types for static files        |
+| styles_dirname  | str    | Directory for CSS files            |
+| \_css_generated | bool   | CSS file generation flag           |
 
 ## Methods
 
@@ -62,17 +64,17 @@ from layoutml import Page
 main_page = Page(title="Home")
 main_page.body.add_content("<h1>Welcome!</h1>")
 
-app.include_page(main_page)  # Registering the page
+app.include_page(main_page) # Registering page
 ```
 
 ### include_router(router: Router, prefix: str = "")
 
-Includes a sub-router in the main application.
+Includes a sub-router into the main application.
 
 Parameters:
 
 - router (Router): Router instance to include
-- prefix (str): Prefix for all sub-router routes
+- prefix (str): Prefix for all routes in the sub-router
 
 Example:
 
@@ -90,15 +92,14 @@ Parameters:
 - endpoint (str): Route path
 
 Returns:
-
-- A decorator for the handler function
+A decorator for the handler function
 
 Example:
 
 ```python
 @app.route("/user")
 async def get_user(request: Request, response: Response, user_id: int):
-    page = main_page.copy()  # Important: always copy the page!
+    page = main_page.copy() # Important: always copy the page!
     page.body.add_content(f"<h1>User {user_id}</h1>")
     return page
 ```
@@ -118,11 +119,10 @@ app.print_routes()
 
 ### set_error_page(page: Page)
 
-Sets a custom 404 error page.
+Sets a custom page for 404 errors.
 
 Parameters:
-
-- page (Page): Error page instance
+page (Page): Error page
 
 Example:
 
@@ -146,45 +146,4 @@ Example:
 ```python
 if __name__ == "__main__":
     app.start(host="0.0.0.0", port=8000)
-```
-
-## Best Practices
-
-### 1. Always Copy Pages
-
-```python
-# Always copy the page inside handlers
-@app.route("/profile")
-def profile_handler(request: Request, response: Response):
-    page = base_page.copy()  # ✅
-    return page
-```
-
-### 2. Register All Pages
-
-```python
-# Register all pages used in the application
-app.include_page(home_page)
-app.include_page(about_page)
-app.include_page(contact_page)
-```
-
-### 3. Use a Base Page Class to Set a Shared Icon for All Pages
-
-```python
-class AppPage(Page):
-    def __init__(self, title="App", **kwargs):
-        super().__init__(title=title, **kwargs)
-        self.head.set_icon("/static/favicon.ico")
-        self.head.add_stylesheet("/static/app.css")
-```
-
-### 4. Handle Errors Properly
-
-```python
-@app.route("/protected")
-async def protected(request: Request, response: Response):
-    if not request.headers.get("Authorization"):
-        raise HTTPException(status_code=401, detail="Unauthorized")
-    return page.copy()
 ```

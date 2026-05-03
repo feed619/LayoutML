@@ -18,12 +18,13 @@ from layoutml import Page
 
 ## Атрибуты класса
 
-| Атрибут     | Тип  | Описание                    | Значение по умолчанию             |
-| ----------- | ---- | --------------------------- | --------------------------------- |
-| doctype     | str  | Тип HTML документа          | "html"                            |
-| head        | Head | Объект секции head          | Создаётся с заголовком "LayoutML" |
-| body        | Body | Объект секции body          | Пустой объект Body                |
-| object_type | str  | Тип объекта (всегда "Page") | "Page"                            |
+| Атрибут         | Тип  | Описание                    | Значение по умолчанию             |
+| --------------- | ---- | --------------------------- | --------------------------------- |
+| doctype         | str  | Тип HTML документа          | "html"                            |
+| head            | Head | Объект секции head          | Создаётся с заголовком "LayoutML" |
+| body            | Body | Объект секции body          | Пустой объект Body                |
+| object_type     | str  | Тип объекта (всегда "Page") | "Page"                            |
+| render_css_file | bool | Флаг генерации CSS файла    |
 
 ## Конструктор
 
@@ -111,6 +112,26 @@ page.set_language("ru")    # Русский
 page.set_language("es")    # Испанский
 ```
 
+### get_element(object_name: str) -> Layout | BaseElement
+
+Находит и возвращает элемент по его имени.
+
+Исключения:
+
+- AttributeError: Если элемент не найден
+
+```python
+element = page.get_element("submitButton")
+```
+
+### remove_element(object_name: str) -> None
+
+Удаляет элемент из body по имени объекта.
+
+```python
+page.remove_element("oldButton")
+```
+
 ### add_element(element)
 
 Добавляет элемент в body документа.
@@ -126,6 +147,15 @@ from layoutml import Paragraph
 
 app = LayoutML()
 app.add_element(Paragraph(text="Привет, мир!"))
+```
+
+### add_stylesheet(href: str, media: str = "all") -> Head
+
+Добавляет CSS файл в секцию head.
+
+```python
+page.add_stylesheet("css/style.css")
+page.add_stylesheet("css/print.css", media="print")
 ```
 
 ### add_script(src: Optional[str] = None, content: Optional[str] = None, \*\*attributes) -> "Page"

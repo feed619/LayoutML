@@ -2,7 +2,6 @@ from .Head import Head
 from .Body import Body
 from .Page import Page
 from .LayoutML import LayoutML
-from .LayoutML import CopyPage
 from starlette.responses import Response, HTMLResponse, PlainTextResponse, JSONResponse
 from starlette.requests import Request
 from starlette.exceptions import HTTPException
