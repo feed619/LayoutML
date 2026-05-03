@@ -27,68 +27,68 @@
 
 ### Core Classes
 
-- [CSSBase](docs\en\base\css\CSSBase.md) - Base class for working with CSS styles
-- [CSSInline](docs\en\base\css\CSSInline.md) - Class for inline styles
-- [CSSSelectors](docs\en\base\css\CSSSelectors.md) - Class for managing CSS selectors
+- [CSSBase](docs/en/base/css/CSSBase.md) - Base class for working with CSS styles
+- [CSSInline](docs/en/base/css/CSSInline.md) - Class for inline styles
+- [CSSSelectors](docs/en/base/css/CSSSelectors.md) - Class for managing CSS selectors
 
 ### Base Elements
 
-- [BaseElement](docs\en\base\BaseElement.md) - Base class for all HTML elements
-- [HTMLElement](docs\en\base\HTMLElement.md) - Class for handling HTML attributes
+- [BaseElement](docs/en/base/BaseElement.md) - Base class for all HTML elements
+- [HTMLElement](docs/en/base/HTMLElement.md) - Class for handling HTML attributes
 
 ### Semantic Elements
 
-- [Header](docs\en\elements\Header.md) - Semantic `<header>` element
-- [Main](docs\en\elements\Main.md) - Semantic `<main>` element
-- [Footer](docs\en\elements\Footer.md) - Semantic `<footer>` element
-- [Nav](docs\en\elements\Nav.md) - Semantic `<nav>` element
-- [Section](docs\en\elements\Section.md) - Semantic `<section>` element
-- [Article](docs\en\elements\Article.md) - Semantic `<article>` element
-- [Aside](docs\en\elements\Aside.md) - Semantic `<aside>` element
+- [Header](docs/en/elements/Header.md) - Semantic `<header>` element
+- [Main](docs/en/elements/Main.md) - Semantic `<main>` element
+- [Footer](docs/en/elements/Footer.md) - Semantic `<footer>` element
+- [Nav](docs/en/elements/Nav.md) - Semantic `<nav>` element
+- [Section](docs/en/elements/Section.md) - Semantic `<section>` element
+- [Article](docs/en/elements/Article.md) - Semantic `<article>` element
+- [Aside](docs/en/elements/Aside.md) - Semantic `<aside>` element
 
 ### Text Elements
 
-- [Paragraph](docs\en\elements\Paragraph.md) - `<p>` element
-- [Span](docs\en\elements\Span.md) - Inline container `<span>`
-- [Anchor](docs\en\elements\Anchor.md) - Link `<a>`
-- [Heading](docs\en\elements\Heading.md) - Headings `<h1>-<h6>`
-- [ListElement](docs\en\elements\list\ListElement.md) - Base class for lists
-- [UnorderedList](docs\en\elements\list\UnorderedList.md) - `<ul>`
-- [OrderedList](docs\en\elements\list\OrderedList.md) - `<ol>`
+- [Paragraph](docs/en/elements/Paragraph.md) - `<p>` element
+- [Span](docs/en/elements/Span.md) - Inline container `<span>`
+- [Anchor](docs/en/elements/Anchor.md) - Link `<a>`
+- [Heading](docs/en/elements/Heading.md) - Headings `<h1>-<h6>`
+- [ListElement](docs/en/elements/list/ListElement.md) - Base class for lists
+- [UnorderedList](docs/en/elements/list/UnorderedList.md) - `<ul>`
+- [OrderedList](docs/en/elements/list/OrderedList.md) - `<ol>`
 
 ### Media Elements
 
-- [Image](docs\en\elements\Image.md) - `<img>`
+- [Image](docs/en/elements/Image.md) - `<img>`
 
 ### Form Elements
 
-- [Form](docs\en\elements\Form.md) - Base form class
-- [FormElement](docs\en\elements\FormElement.md) - `<input>`
-- [Input](docs\en\elements\Input.md) - Specialized input
-- [Label](docs\en\elements\Label.md) - `<label>`
-- [Button](docs\en\elements\Button.md) - `<button>`
-- [Select](docs\en\elements\Select.md) - `<select>`
-- [Textarea](docs\en\elements\Textarea.md) - `<textarea>`
+- [Form](docs/en/elements/Form.md) - Base form class
+- [FormElement](docs/en/elements/FormElement.md) - `<input>`
+- [Input](docs/en/elements/Input.md) - Specialized input
+- [Label](docs/en/elements/Label.md) - `<label>`
+- [Button](docs/en/elements/Button.md) - `<button>`
+- [Select](docs/en/elements/Select.md) - `<select>`
+- [Textarea](docs/en/elements/Textarea.md) - `<textarea>`
 
 ### Layout
 
-- [Layout](docs\en\layout\Layout.md) - Base layout (Flexbox)
-- [HorizontalLayout](docs\en\layout\HorizontalLayout.md) - Horizontal layout
-- [VerticalLayout](docs\en\layout\VerticalLayout.md) - Vertical layout
+- [Layout](docs/en/layout/Layout.md) - Base layout (Flexbox)
+- [HorizontalLayout](docs/en/layout/HorizontalLayout.md) - Horizontal layout
+- [VerticalLayout](docs/en/layout/VerticalLayout.md) - Vertical layout
 
 ### Document Structure
 
-- [Head](docs\en\Head.md) - `<head>`
-- [Body](docs\en\Body.md) - `<body>`
-- [Page](docs\en\Page.md) - Full HTML document
+- [Head](docs/en/Head.md) - `<head>`
+- [Body](docs/en/Body.md) - `<body>`
+- [Page](docs/en/Page.md) - Full HTML document
 
 ### Routing
 
-- [Router](docs\en\router\Router.md) - URL routing class
+- [Router](docs/en/router/Router.md) - URL routing class
 
 ### Application
 
-- [LayoutML](docs\en\LayoutML.md) - Main application class
+- [LayoutML](docs/en/LayoutML.md) - Main application class
 
 ## Quick Start
 
