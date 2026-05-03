@@ -1,9 +1,11 @@
 <p align="center">
     <img src="ico/full_logo.png" alt="LayoutML">
 </p>
+<p align="center">
 <a href="https://pypi.org/project/layoutml">
-    <img src="https://img.shields.io/pypi/v/fastapi?color=%2334D058&label=pypi%20package" alt="Package version">
+    <img src="https://img.shields.io/badge/pypi-v1.05-blue" alt="Package version">
 </a>
+</p>
 <p align="center">
     <em>LayoutML(layout markup library) — это библиотека которая позволяет описывать структуру веб-страниц напрямую через код, превращая Python в язык разметки для web-интерфейсов.</em>
 </p>
