@@ -6,8 +6,6 @@
     <em>LayoutML (Layout Markup Library) is a library that allows you to describe the structure of web pages directly through code, turning Python into a markup language for web interfaces.</em>
 </p>
 
-[English version](README_EN.md)
-
 ## Key Features
 
 - Creating HTML elements through Python classes
