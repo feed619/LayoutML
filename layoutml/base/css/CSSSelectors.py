@@ -17,7 +17,7 @@ class CSSSelectors:
             self.selectors[name] = CSSBase()
         return self.selectors[name]
 
-    def add_selector(self, name, selector_type="class", style: str | CSSBase = None):
+    def add_selector(self, name, selector_type=None, style: str | CSSBase = None):
         """параметры type может принимать class, id, tag"""
         if name not in self.selectors:
             if type(style) is CSSBase:

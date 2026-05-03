@@ -1,3 +1,4 @@
+import copy
 from typing import Any, Optional
 
 from layoutml.base import BaseElement
@@ -17,7 +18,7 @@ class Page(BaseElement):
     head: Head
     body: Body
 
-    def __init__(self, doctype: str = "html", title: str = "LayoutML", lang="ru", object_name=None, **kwargs):
+    def __init__(self, object_name, doctype: str = "html", title: str = "LayoutML", lang="ru", **kwargs):
         super().__init__(tag="html", object_name=object_name, lang=lang, **kwargs)
 
         self.object_type = "Page"
@@ -26,6 +27,10 @@ class Page(BaseElement):
         self.body = Body()
 
         self.head.set_icon("https://raw.githubusercontent.com/feed619/LayoutML/refs/heads/main/ico/logo.ico")
+
+    def copy(self) -> "Page":
+        """Создать глубокую копию страницы"""
+        return copy.deepcopy(self)
 
     def set_head(self, head: Head) -> "Page":
         self.head = head
@@ -94,9 +99,6 @@ class Page(BaseElement):
             self.head.add_stylesheet(css_file_name)
 
         return self.get_html()
-
-    def create_css(self):
-        pass
 
     def get_styles(self):
 

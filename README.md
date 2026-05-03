@@ -80,17 +80,17 @@
 
 ### Структура документа
 
-- [Head](docs\ru\Head.md) - Элемент заголовка страницы `<head>`
-- [Body](docs\ru\Body.md) - Элемент тела страницы `<body>`
-- [Page](docs\ru\Page.md) - Полный HTML документ
+- [Head](docs/ru/Head.md) - Элемент заголовка страницы `<head>`
+- [Body](docs/ru/Body.md) - Элемент тела страницы `<body>`
+- [Page](docs/ru/Page.md) - Полный HTML документ
 
 ### Маршрутизация
 
-- [Router](docs\ru\base\router\Router.md) - Класс для маршрутизации URL
+- [Router](docs/ru/router/Router.md) - Класс для маршрутизации URL
 
 ### Приложение
 
-- [LayoutML](docs\ru\LayoutML.md) - Главный класс приложения
+- [LayoutML](docs/ru/LayoutML.md) - Главный класс приложения
 
 ## Быстрый старт
 
