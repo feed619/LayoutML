@@ -16,7 +16,7 @@ class CSSInline(CSSBase):
         else:
             return ""
 
-    def copy(self, copy_element: "CSSInline") -> "CSSInline":
+    def copy(self, copy_element: "CSSInline" = None) -> "CSSInline":
         if not copy_element:
             copy_element = CSSInline()
         super().copy(copy_element=copy_element)

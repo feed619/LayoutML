@@ -14,7 +14,7 @@ class CSSBase:
         if style:
             self.styles = self.parse_style_string(style)
 
-    def copy(self, copy_element: "CSSBase") -> "CSSBase":
+    def copy(self, copy_element: "CSSBase" = None) -> "CSSBase":
         if not copy_element:
             copy_element = CSSBase(type=self.type)
         copy_element.styles = deepcopy(self.styles)

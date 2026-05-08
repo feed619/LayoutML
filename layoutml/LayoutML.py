@@ -195,21 +195,21 @@ class LayoutML:
     async def __call__(self, request: Request) -> None:
         self.ensure_css_generated()
         if request.url.path in self.router.routes:
-            # try:
-            response = await self._serve_html(request)
-            return response
-            # except HTTPException as e:
-            #     return Response(
-            #         status_code=e.status_code,
-            #         content=str({"detail": e.detail}),
-            #         headers={"Content-Type": "application/json"},
-            #     )
-            # except Exception as e:
-            #     return Response(
-            #         status_code=500,
-            #         content=str({"detail": e}),
-            #         headers={"Content-Type": "application/json"},
-            #     )
+            try:
+                response = await self._serve_html(request)
+                return response
+            except HTTPException as e:
+                return Response(
+                    status_code=e.status_code,
+                    content=str({"detail": e.detail}),
+                    headers={"Content-Type": "application/json"},
+                )
+            except Exception as e:
+                return Response(
+                    status_code=500,
+                    content=str({"detail": e}),
+                    headers={"Content-Type": "application/json"},
+                )
         elif self._is_static_file(request.url.path):
             return await self._serve_static_file(request)
         else:
@@ -250,7 +250,6 @@ class LayoutML:
 
         request = Request(scope=scope)
         response: Response = await self(request)
-
         if not isinstance(response, Response):
             response = Response(content=response)
         if not self._is_static_file(request.url.path):
