@@ -46,7 +46,7 @@ class Input(Form):
         return " ".join(attrs) + " " + attrs_str
 
     def copy(self, copy_element: "Input" = None) -> "Input":
-        if not copy_element:
+        if copy_element is None:
             copy_element = Input(object_name=self.object_name)
         super().copy(copy_element=copy_element)
         copy_element.placeholder = self.placeholder

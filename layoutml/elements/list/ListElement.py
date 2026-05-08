@@ -39,7 +39,7 @@ class ListElement(BaseElement):
         return super().get_html(content=content, tab=tab)
 
     def copy(self, copy_element: "ListElement" = None) -> "ListElement":
-        if not copy_element:
+        if copy_element is None:
             copy_element = ListElement(object_name=self.object_name)
         super().copy(copy_element=copy_element)
         copy_element.items = deepcopy(self.items)

@@ -28,7 +28,7 @@ class Image(BaseElement):
         return " ".join(attrs) + " " + attrs_str
 
     def copy(self, copy_element: "Image" = None) -> "Image":
-        if not copy_element:
+        if copy_element is None:
             copy_element = Image(object_name=self.object_name)
         super().copy(copy_element=copy_element)
         copy_element.src = self.src

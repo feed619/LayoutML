@@ -35,8 +35,7 @@ class VerticalLayout(Layout):
         return self
 
     def copy(self, copy_element: "VerticalLayout" = None) -> "VerticalLayout":
-        if not copy_element:
+        if copy_element is None:
             copy_element = VerticalLayout(object_name=self.object_name)
         super().copy(copy_element=copy_element)
-        copy_element.object_styles = deepcopy(self.object_styles)
         return copy_element

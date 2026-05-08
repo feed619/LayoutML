@@ -32,7 +32,7 @@ class Anchor(BaseElement):
         return super().get_html(content=self.text, tab=tab)
 
     def copy(self, copy_element: "Anchor" = None) -> "Anchor":
-        if not copy_element:
+        if copy_element is None:
             copy_element = Anchor(object_name=self.object_name)
         super().copy(copy_element=copy_element)
         copy_element.href = self.href

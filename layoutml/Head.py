@@ -197,7 +197,7 @@ class Head(BaseElement):
         return f'Head(title="{self.title}", meta_count={len(self.meta_tags)})'
 
     def copy(self, copy_element: "Head" = None) -> "Head":
-        if not copy_element:
+        if copy_element is None:
             copy_element = Head(object_name=self.object_name)
         super().copy(copy_element=copy_element)
 

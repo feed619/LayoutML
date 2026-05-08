@@ -140,11 +140,10 @@ class Layout(BaseElement):
         return self
 
     def copy(self, copy_element: "Layout" = None) -> "Layout":
-        if not copy_element:
+        if copy_element is None:
             copy_element = Layout(object_name=self.object_name)
         super().copy(copy_element=copy_element)
         copy_element.is_stretched = self.is_stretched
-        copy_element.object_styles = deepcopy(self.object_styles)
 
         for element in self.elements:
             copy_element.add_element(element.copy())

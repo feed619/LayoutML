@@ -18,7 +18,7 @@ class Nav(BaseElement):
         self.object_type = "NavElement"
 
     def copy(self, copy_element: "Nav" = None) -> "Nav":
-        if not copy_element:
+        if copy_element is None:
             copy_element = Nav(object_name=self.object_name)
         super().copy(copy_element=copy_element)
         return copy_element

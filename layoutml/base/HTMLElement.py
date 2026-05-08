@@ -208,7 +208,7 @@ class HTMLElement:
         return " ".join(attrs)
 
     def copy(self, copy_element: "HTMLElement" = None):
-        if not copy_element:
+        if copy_element is None:
             copy_element = HTMLElement(object_name=self.object_name)
         copy_element.object_name = self.object_name
         copy_element.inline_styles = self.inline_styles.copy()

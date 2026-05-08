@@ -26,7 +26,7 @@ class BaseElement(HTMLElement):
         self.object_styles: CSSBase = CSSBase()
 
     def copy(self, copy_element: "BaseElement" = None) -> "BaseElement":
-        if not copy_element:
+        if copy_element is None:
             copy_element = BaseElement(
                 tag=self.tag,
                 self_closing=self.self_closing,

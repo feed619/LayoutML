@@ -33,7 +33,7 @@ class Page(BaseElement):
         self.head.set_icon("https://raw.githubusercontent.com/feed619/LayoutML/refs/heads/main/ico/logo.ico")
 
     def copy(self, copy_element: "Page" = None) -> "Page":
-        if not copy_element:
+        if copy_element is None:
             copy_element = Page(object_name=self.object_name)
         super().copy(copy_element=copy_element)
 

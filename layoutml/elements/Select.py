@@ -59,7 +59,7 @@ class Select(BaseElement):
         return super().get_html(content=content, tab=tab)
 
     def copy(self, copy_element: "Select" = None) -> "Select":
-        if not copy_element:
+        if copy_element is None:
             copy_element = Select(object_name=self.object_name)
         super().copy(copy_element=copy_element)
         copy_element.options = deepcopy(self.options)

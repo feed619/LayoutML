@@ -18,7 +18,7 @@ class Header(BaseElement):
         self.object_type = "HeaderElement"
 
     def copy(self, copy_element: "Header" = None) -> "Header":
-        if not copy_element:
+        if copy_element is None:
             copy_element = Header(object_name=self.object_name)
         super().copy(copy_element=copy_element)
         return copy_element

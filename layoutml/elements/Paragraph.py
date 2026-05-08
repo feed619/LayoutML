@@ -24,7 +24,7 @@ class Paragraph(BaseElement):
         return super().get_html(content=content, tab=tab)
 
     def copy(self, copy_element: "Paragraph" = None) -> "Paragraph":
-        if not copy_element:
+        if copy_element is None:
             copy_element = Paragraph(object_name=self.object_name)
         super().copy(copy_element=copy_element)
         copy_element.text = self.text

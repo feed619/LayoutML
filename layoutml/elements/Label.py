@@ -33,7 +33,7 @@ class Label(BaseElement):
         return super().get_html(content=content, tab=tab)
 
     def copy(self, copy_element: "Label" = None) -> "Label":
-        if not copy_element:
+        if copy_element is None:
             copy_element = Label(object_name=self.object_name)
         super().copy(copy_element=copy_element)
         copy_element.text = self.text

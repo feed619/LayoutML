@@ -27,7 +27,7 @@ class Form(BaseElement):
         return " ".join(attrs) + " " + attrs_str
 
     def copy(self, copy_element: "Form" = None) -> "Form":
-        if not copy_element:
+        if copy_element is None:
             copy_element = Form(object_name=self.object_name)
         super().copy(copy_element=copy_element)
         copy_element.form_type = self.form_type

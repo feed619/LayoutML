@@ -22,7 +22,7 @@ class Button(BaseElement):
         return super().get_html(content=self.text, tab=tab)
 
     def copy(self, copy_element: "Button" = None) -> "Button":
-        if not copy_element:
+        if copy_element is None:
             copy_element = Button(object_name=self.object_name)
         super().copy(copy_element=copy_element)
         copy_element.text = self.text

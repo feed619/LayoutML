@@ -33,8 +33,8 @@ class HorizontalLayout(Layout):
         return self
 
     def copy(self, copy_element: "HorizontalLayout" = None) -> "HorizontalLayout":
-        if not copy_element:
+        if copy_element is None:
             copy_element = HorizontalLayout(object_name=self.object_name)
         super().copy(copy_element=copy_element)
-        copy_element.object_styles = deepcopy(self.object_styles)
+        # copy_element.object_styles = deepcopy(self.object_styles)
         return copy_element

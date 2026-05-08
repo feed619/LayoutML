@@ -104,7 +104,7 @@ class Body(BaseElement):
         return self
 
     def copy(self, copy_element: "Body" = None) -> "Body":
-        if not copy_element:
+        if copy_element is None:
             copy_element = Body(object_name=self.object_name)
         super().copy(copy_element=copy_element)
 

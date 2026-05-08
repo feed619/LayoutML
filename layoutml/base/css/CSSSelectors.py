@@ -29,7 +29,7 @@ class CSSSelectors:
         return self.selectors[name]
 
     def copy(self, copy_element: "CSSSelectors" = None):
-        if not copy_element:
+        if copy_element is None:
             copy_element = CSSSelectors()
         for selector_name, selector in self.selectors.items():
             copy_element.add_selector(name=selector_name, selector_type=selector.type, style=selector.copy())
