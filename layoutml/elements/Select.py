@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 from layoutml.base import BaseElement
 
 
@@ -32,15 +34,12 @@ class Select(BaseElement):
         self.id = id
 
     def add_option(self, value, text, selected=False):
-        """
-        Добавляет опцию в список
-        """
+
         self.options.append({"value": value, "text": text, "selected": selected})
 
     def get_attributes_string(self):
         attrs = []
         attrs_str = super().get_attributes_string()
-
         if self.name:
             attrs.append(f'name="{self.name}"')
         if self.id:
@@ -48,7 +47,6 @@ class Select(BaseElement):
         return " ".join(attrs) + " " + attrs_str
 
     def get_html(self, content: str = "", tab: int = 0):
-        # Формируем опции
         options_html = ""
         for option in self.options:
             selected = ""
@@ -59,3 +57,13 @@ class Select(BaseElement):
         if options_html:
             content = f"\n{options_html}{'    '*tab}"
         return super().get_html(content=content, tab=tab)
+
+    def copy(self, copy_element: "Select" = None) -> "Select":
+        if not copy_element:
+            copy_element = Select(object_name=self.object_name)
+        super().copy(copy_element=copy_element)
+        copy_element.options = deepcopy(self.options)
+        copy_element.selected_value = self.selected_value
+        copy_element.name = self.name
+        copy_element.id = self.id
+        return copy_element

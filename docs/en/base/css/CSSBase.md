@@ -37,6 +37,23 @@ element = CSSBase(style="width: 100px; height: 200px; color: #333;")
 
 ## Core Methods
 
+### copy(copy_element: "CSSBase") -> CSSBase
+
+Creates a deep copy of the CSSBase object with full cloning of all styles and attributes.
+
+Example:
+
+```python id="l7o0eq"
+# Create the original object
+original = CSSBase(type="class")
+original.set_width("100px")
+original.set_height("200px")
+original.set_color("red")
+
+# Create a copy
+copy_obj = original.copy()
+```
+
 ### parse_style_string(style_str: str) -> dict
 
 Parses a CSS style string into a dictionary.

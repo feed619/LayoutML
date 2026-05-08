@@ -208,6 +208,28 @@ print(css_inline.get_styles_str())
 # </style>
 ```
 
+### copy(copy_element: "CSSSelectors" = None) -> "CSSSelectors"
+
+Создает глубокую копию объекта CSSSelectors со всеми селекторами и стилями.
+
+Параметры:
+
+- copy_element (CSSSelectors, optional): Существующий объект для копирования
+
+Возвращает:
+
+- Копию текущего объекта
+
+Пример:
+
+```python
+original = CSSSelectors()
+original.add_selector("btn", "class").set_color("red")
+
+copy_obj = original.copy()
+copy_obj["btn"].set_color("blue")
+```
+
 ## Специальные методы Python
 
 ### Динамический доступ к селекторам через атрибуты

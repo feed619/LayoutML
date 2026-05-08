@@ -190,6 +190,15 @@ body.add_element(div)
 styles = body.get_styles()  # Dictionary of styles
 ```
 
+### copy(copy_element: "Body" = None) -> "Body"
+
+Creates a deep copy of the body with all elements.
+
+```python id="m4q9zp"
+original = Body(content="<h1>Hello</h1>")
+copy_body = original.copy()
+```
+
 ## Special Python Methods
 
 ### **str**() -> str

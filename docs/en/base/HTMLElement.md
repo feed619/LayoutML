@@ -261,6 +261,28 @@ print(f'<button {element.get_attributes_string()}>Send</button>')
 
 ---
 
+### copy(copy_element: "HTMLElement" = None) -> HTMLElement
+
+Creates a deep copy of an HTML element with full cloning of all attributes and styles.
+
+| Parameter    | Type                   | Description                                                  |
+| ------------ | ---------------------- | ------------------------------------------------------------ |
+| copy_element | HTMLElement (optional) | Existing object. If not specified, a new instance is created |
+
+Example:
+
+```python
+# Create the original element
+original = HTMLElement(object_name="btn")
+original.add_class("primary")
+original.add_event("onclick", "alert('Click!')")
+original.value_attributes["id"] = "submit-btn"
+
+# Create a copy
+copy_element = original.copy()
+```
+---
+
 ## Examples
 
 ### Example 1: Form input

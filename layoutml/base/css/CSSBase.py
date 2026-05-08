@@ -1,4 +1,5 @@
 from typing import Dict, Any, Optional, Union, List
+from copy import deepcopy
 
 
 class CSSBase:
@@ -12,6 +13,12 @@ class CSSBase:
 
         if style:
             self.styles = self.parse_style_string(style)
+
+    def copy(self, copy_element: "CSSBase") -> "CSSBase":
+        if not copy_element:
+            copy_element = CSSBase(type=self.type)
+        copy_element.styles = deepcopy(self.styles)
+        return copy_element
 
     def parse_style_string(self, style_str: str) -> dict:
         """Парсит CSS-строку стилей в словарь."""

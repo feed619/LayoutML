@@ -1,5 +1,3 @@
-
-
 # CSSSelectors
 
 `CSSSelectors` is a container class for managing a collection of CSS selectors and their styles. The class allows you to conveniently work with multiple selectors (classes, IDs, tags, media queries) and generate full CSS styles from them.
@@ -8,10 +6,10 @@
 
 ## Architecture
 
-* Selector container: stores a collection of CSSBase objects
-* Dynamic creation: selectors are created automatically on access
-* Flexible configuration: supports classes, IDs, tags, and media queries
-* Two output modes: raw CSS or HTML `<style>` tag
+- Selector container: stores a collection of CSSBase objects
+- Dynamic creation: selectors are created automatically on access
+- Flexible configuration: supports classes, IDs, tags, and media queries
+- Two output modes: raw CSS or HTML `<style>` tag
 
 ---
 
@@ -31,7 +29,7 @@ Creates a new CSS selector container.
 
 Parameters:
 
-* inline (bool): If True, `get_styles_str()` wraps CSS in a `<style>` tag. Default is False.
+- inline (bool): If True, `get_styles_str()` wraps CSS in a `<style>` tag. Default is False.
 
 Examples:
 
@@ -62,13 +60,13 @@ Explicitly adds a selector with a given type and initial styles.
 
 Parameters:
 
-* name (str): Selector name
-* type (str): Selector type. Allowed: `"class"`, `"id"`, `"tag"` (default: `"class"`)
-* style (str, optional): Initial CSS style string
+- name (str): Selector name
+- type (str): Selector type. Allowed: `"class"`, `"id"`, `"tag"` (default: `"class"`)
+- style (str, optional): Initial CSS style string
 
 Returns:
 
-* CSSBase: Instance of the added selector
+- CSSBase: Instance of the added selector
 
 Examples:
 
@@ -94,7 +92,7 @@ Removes a selector from `self.selectors`.
 
 Parameters:
 
-* name (str): Name of the selector to remove
+- name (str): Name of the selector to remove
 
 Example:
 
@@ -138,11 +136,11 @@ Checks whether a selector exists in `self.selectors`.
 
 Parameters:
 
-* name (str): Selector name to check
+- name (str): Selector name to check
 
 Returns:
 
-* Tuple (bool, str): whether the selector exists and its type
+- Tuple (bool, str): whether the selector exists and its type
 
 Example:
 
@@ -162,8 +160,8 @@ Adds styles to an existing selector in `self.selectors`.
 
 Parameters:
 
-* selector_name (str): Selector name
-* styles (dict | CSSBase): Styles to add
+- selector_name (str): Selector name
+- styles (dict | CSSBase): Styles to add
 
 Example:
 
@@ -187,11 +185,11 @@ Generates a dictionary of styles for all selectors in `self.selectors`.
 
 Parameters:
 
-* space (bool): If True, formats with indentation and line breaks
+- space (bool): If True, formats with indentation and line breaks
 
 Returns:
 
-* Dictionary where keys are selectors with prefixes, values are CSS strings
+- Dictionary where keys are selectors with prefixes, values are CSS strings
 
 Example:
 
@@ -217,9 +215,9 @@ Generates a CSS string. Uses the `inline` attribute to determine output format.
 
 Logic:
 
-* Retrieves styles via `self.get_styles()`
-* Builds CSS blocks per selector
-* If `inline == True`, wraps result in `<style>` tag
+- Retrieves styles via `self.get_styles()`
+- Builds CSS blocks per selector
+- If `inline == True`, wraps result in `<style>` tag
 
 Examples:
 
@@ -251,6 +249,30 @@ print(css_inline.get_styles_str())
 
 ---
 
+### copy(copy_element: "CSSSelectors" = None) -> "CSSSelectors"
+
+Creates a deep copy of the `CSSSelectors` object with all selectors and styles.
+
+Parameters:
+
+- `copy_element` (`CSSSelectors`, optional): Existing object to copy
+
+Returns:
+
+- A copy of the current object
+
+Example:
+
+```python id="q4m8zk"
+original = CSSSelectors()
+original.add_selector("btn", "class").set_color("red")
+
+copy_obj = original.copy()
+copy_obj["btn"].set_color("blue")
+```
+
+---
+
 ## Python Special Methods
 
 ### Dynamic selector access via attributes
@@ -258,7 +280,7 @@ print(css_inline.get_styles_str())
 ```python
 css = CSSSelectors()
 
-css.container.set_width("100%")  
+css.container.set_width("100%")
 css.header.set_background_color("blue")
 
 print(css.selectors.keys())

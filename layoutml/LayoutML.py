@@ -24,7 +24,7 @@ class LayoutML:
     ):
         self.router: Router = Router()
         self.error_page: Page = get_404_page()
-        self._pages = []
+        self._pages: list[Page] = []
         self._static_dirs = {
             ".js": "application/javascript",
             ".css": "text/css",
@@ -195,21 +195,21 @@ class LayoutML:
     async def __call__(self, request: Request) -> None:
         self.ensure_css_generated()
         if request.url.path in self.router.routes:
-            try:
-                response = await self._serve_html(request)
-                return response
-            except HTTPException as e:
-                return Response(
-                    status_code=e.status_code,
-                    content=str({"detail": e.detail}),
-                    headers={"Content-Type": "application/json"},
-                )
-            except Exception as e:
-                return Response(
-                    status_code=500,
-                    content=str({"detail": e}),
-                    headers={"Content-Type": "application/json"},
-                )
+            # try:
+            response = await self._serve_html(request)
+            return response
+            # except HTTPException as e:
+            #     return Response(
+            #         status_code=e.status_code,
+            #         content=str({"detail": e.detail}),
+            #         headers={"Content-Type": "application/json"},
+            #     )
+            # except Exception as e:
+            #     return Response(
+            #         status_code=500,
+            #         content=str({"detail": e}),
+            #         headers={"Content-Type": "application/json"},
+            #     )
         elif self._is_static_file(request.url.path):
             return await self._serve_static_file(request)
         else:

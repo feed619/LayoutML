@@ -47,6 +47,36 @@ css.set_width("100px").set_background_color("blue")
 
 ## Core Methods
 
+### copy(copy_element: "CSSInline") -> "CSSInline"
+
+Creates a deep copy of the CSSInline object.
+
+Parameters:
+
+- copy_element (CSSInline): Existing object to copy (optional)
+
+Returns:
+
+- A copy of the current CSSInline object
+
+Example:
+
+```python id="zjkh7m"
+# Create the original object
+original = CSSInline(style="color: red; padding: 10px;")
+original.set_margin("20px")
+
+# Create a copy
+copy_obj = original.copy()
+
+# Modifying the copy does not affect the original
+copy_obj.set_color("blue")
+copy_obj.set_margin("30px")
+
+print(original.get_styles_string())  # 'color:red;padding:10px;margin:20px;'
+print(copy_obj.get_styles_string())  # 'color:blue;padding:10px;margin:30px;'
+```
+
 ### get_styles_str(space=False) -> str
 
 Generates a ready-to-use HTML `style` attribute string.

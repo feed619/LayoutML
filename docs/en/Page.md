@@ -70,6 +70,17 @@ page = Page(
 
 ## Methods
 
+### copy(copy_element: "Page" = None) -> "Page"
+
+Creates a deep copy of the page with all elements.
+
+Important: When using one page for multiple routes, the page should be copied to avoid conflicts.
+
+```python id="x8n4ql"
+base_page = Page(object_name="base")
+page_copy = base_page.copy()
+```
+
 ### set_head(head: Head) -> "Page"
 
 Replaces the page head object with a custom one.
@@ -160,6 +171,14 @@ page.add_stylesheet("css/style.css")
 page.add_stylesheet("css/print.css", media="print")
 ```
 
+### del_stylesheet(href: str)
+
+Removes a CSS file from the head section by URL.
+
+```python id="d3m7kp"
+page.del_stylesheet("css/style.css")
+```
+
 ### add_script(src: Optional[str] = None, content: Optional[str] = None, \*\*attributes) -> "Page"
 
 Adds a script tag to the head section.
@@ -213,22 +232,21 @@ page.body.add_element(BaseElement(tag="div", object_name="test"))
 html = page.render()  # Creates CSS file and returns HTML
 ```
 
-### get_css_text() -> str
+### get_css_file(styles_type: StyleType = StyleType.EXTERNAL) -> str
 
-Generates the CSS text from all page components.
+Generates the complete CSS file for the specified style type.
 
-```python
-page = Page()
-css_text = page.get_css_text()  # All CSS styles in one string
+```python id="n5v2xt"
+css = page.get_css_file()
+css_global = page.get_css_file(styles_type=StyleType.GLOBAL)
 ```
 
-### get_styles() -> dict
+### get_styles(styles_type: StyleType = StyleType.EXTERNAL) -> dict
 
 Collects CSS styles from all page components into a dictionary.
 
-```python
-page = Page()
-styles = page.get_styles()  # Dictionary {selector: styles}
+```python id="q7w4mb"
+styles = page.get_styles()  # {selector: styles}
 ```
 
 ### save(filename: str, encoding: str = "utf-8") -> None

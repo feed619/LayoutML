@@ -16,3 +16,9 @@ class Main(BaseElement):
             **kwargs,
         )
         self.object_type = "MainElement"
+
+    def copy(self, copy_element: "Main" = None) -> "Main":
+        if not copy_element:
+            copy_element = Main(object_name=self.object_name)
+        super().copy(copy_element=copy_element)
+        return copy_element

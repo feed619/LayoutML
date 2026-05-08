@@ -176,6 +176,15 @@ body.add_element(div)
 styles = body.get_styles()  # Словарь со стилями
 ```
 
+### copy(copy_element: "Body" = None) -> "Body"
+
+Создает глубокую копию body со всеми элементами.
+
+```python
+original = Body(content="<h1>Привет</h1>")
+copy_body = original.copy()
+```
+
 ## Специальные методы Python
 
 ### **str**() -> str

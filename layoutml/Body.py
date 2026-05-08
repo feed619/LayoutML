@@ -1,5 +1,7 @@
+from copy import deepcopy
 from typing import List, Dict, Optional, Any
 from layoutml.base import BaseElement
+from layoutml.base.css.CSSSelectors import StyleType
 from .base import BaseElement
 
 
@@ -14,8 +16,8 @@ class Body(BaseElement):
     def __init__(self, content: str = "", object_name=None, **kwargs):
         super().__init__(tag="body", object_name=object_name, **kwargs)
 
-        self.links = {}
         self.object_type = "Body"
+        self.links = {}
         self.content = content
         self.elements: List[BaseElement] = []
         self.scripts_footer: List[Dict] = []
@@ -84,11 +86,11 @@ class Body(BaseElement):
 
         return super().get_html(content="\n".join(parts))
 
-    def get_styles(self) -> dict:
+    def get_styles(self, styles_type: StyleType = StyleType.EXTERNAL) -> dict:
         css_styles: dict = {}
-        css_styles.update(super().get_styles())
+        css_styles.update(super().get_styles(styles_type=styles_type))
         for element in self.elements:
-            css_styles.update(element.get_styles())
+            css_styles.update(element.get_styles(styles_type=styles_type))
         return css_styles
 
     def __str__(self) -> str:
@@ -100,3 +102,16 @@ class Body(BaseElement):
     def __iadd__(self, other: Any) -> "Body":
         self.add_element(other)
         return self
+
+    def copy(self, copy_element: "Body" = None) -> "Body":
+        if not copy_element:
+            copy_element = Body(object_name=self.object_name)
+        super().copy(copy_element=copy_element)
+
+        copy_element.content = self.content
+        copy_element.links = deepcopy(self.links)
+        copy_element.scripts_footer = deepcopy(self.scripts_footer)
+
+        for element in self.elements:
+            copy_element.add_element(element.copy())
+        return copy_element

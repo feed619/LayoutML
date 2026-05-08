@@ -16,3 +16,9 @@ class UnorderedList(ListElement):
             **kwargs,
         )
         self.object_type = "UnorderedListElement"
+
+    def copy(self, copy_element: "UnorderedList" = None) -> "UnorderedList":
+        if not copy_element:
+            copy_element = UnorderedList(object_name=self.object_name)
+        super().copy(copy_element=copy_element)
+        return copy_element

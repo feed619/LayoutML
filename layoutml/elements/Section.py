@@ -16,3 +16,9 @@ class Section(BaseElement):
             **kwargs,
         )
         self.object_type = "SectionElement"
+
+    def copy(self, copy_element: "Section" = None) -> "Section":
+        if not copy_element:
+            copy_element = Section(object_name=self.object_name)
+        super().copy(copy_element=copy_element)
+        return copy_element

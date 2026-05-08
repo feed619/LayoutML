@@ -1,11 +1,13 @@
 from layoutml.html_core.HTMLAttributes import ValueAttributes
 from .css import CSSInline
+from copy import deepcopy
 
 
 class HTMLElement:
 
     object_name: str
     object_type: str
+    inline_styles: CSSInline
 
     class_: list[str]
     events: dict
@@ -174,6 +176,7 @@ class HTMLElement:
         if self.class_:
             attrs.append(f'class="{" ".join(self.class_)}"')
         if self.inline_styles:
+
             attrs.append(self.inline_styles.get_styles_str())
         if self.events:
             for event, handler in self.events.items():
@@ -203,3 +206,18 @@ class HTMLElement:
             attrs.append(f'{key}="{value}"')
 
         return " ".join(attrs)
+
+    def copy(self, copy_element: "HTMLElement" = None):
+        if not copy_element:
+            copy_element = HTMLElement(object_name=self.object_name)
+        copy_element.object_name = self.object_name
+        copy_element.inline_styles = self.inline_styles.copy()
+
+        copy_element.custom_attributes = deepcopy(self.custom_attributes)
+        copy_element.events = deepcopy(self.events)
+        copy_element.class_ = deepcopy(self.class_)
+        copy_element.boolean_attributes = deepcopy(self.boolean_attributes)
+        copy_element.aria_attrs = deepcopy(self.aria_attrs)
+        copy_element.data_attrs = deepcopy(self.data_attrs)
+        copy_element.value_attributes = deepcopy(self.value_attributes)
+        return copy_element

@@ -86,6 +86,24 @@ layout.set_reverse(True)
 print(layout.object_styles["flex-direction"]) # "row-reverse"
 ```
 
+### copy(copy_element: "HorizontalLayout" = None) -> "HorizontalLayout"
+
+Создает глубокую копию горизонтального layout.
+
+Параметры:
+
+- copy_element (HorizontalLayout, optional): Существующий объект для копирования
+
+Возвращает: Глубокую копию текущего объекта
+
+```python
+original = HorizontalLayout(object_name="menu")
+original.add_element(Button(text="Кнопка"))
+
+copy_menu = original.copy()
+copy_menu.object_name = "menu-copy"
+```
+
 ## Наследованные методы
 
 HorizontalLayout наследует все методы из Layout, включая:

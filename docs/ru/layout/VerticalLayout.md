@@ -93,6 +93,24 @@ layout.set_reverse(True)
 print(layout.object_styles["flex-direction"])  # "column-reverse"
 ```
 
+### copy(copy_element: "VerticalLayout" = None) -> "VerticalLayout"
+
+Создает глубокую копию вертикального layout.
+
+Параметры:
+
+- copy_element (VerticalLayout, optional): Существующий объект для копирования
+
+Возвращает: Глубокую копию текущего объекта
+
+```python
+original = VerticalLayout(object_name="form")
+original.add_element(Input(placeholder="Имя"))
+
+copy_form = original.copy()
+copy_form.object_name = "form-copy"
+```
+
 ## Наследованные методы
 
 VerticalLayout наследует все методы из Layout, включая:

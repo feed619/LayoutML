@@ -150,6 +150,16 @@ head.add_link(rel="preload", href="font.woff2", as_="font", type="font/woff2", c
 head.add_link(rel="alternate", href="rss.xml", type="application/rss+xml", title="RSS")
 ```
 
+### del_link(href: str) -> "Head"
+
+Удаляет link тег по URL.
+
+```python
+head = Head()
+head.add_link(rel="stylesheet", href="style.css")
+head.del_link("style.css")  # Удаляет ссылку
+```
+
 ### add_stylesheet(href: str, media: str = "all") -> "Head"
 
 Упрощенный метод для добавления CSS файлов.
@@ -207,23 +217,33 @@ head.add_script(
 
 ```
 
-### get_css_text() -> str
+### get_css_global(styles: dict = {}) -> str
 
-Генерирует текст inline CSS стилей из selectors_styles.
+Генерирует текст inline CSS стилей.
 
 ```python
 head = Head()
-head.object_styles.set_background_color("red")
-css_text = head.get_css_text()  # Генерирует <style>...</style>
+head.selectors_styles.add_selector("body").set_margin("0")
+css_text = head.get_css_global()
 ```
 
-### get_html() -> str
+### get_html(styles: dict = {}) -> str
 
 Генерирует полный HTML код секции <head>.
 
 ```python
 head = Head(title="Страница")
 html = head.get_html()  # <head>...</head>
+```
+
+### copy(copy_element: "Head" = None) -> "Head"
+
+Создает глубокую копию head со всеми элементами.
+
+```python
+original = Head(title="Оригинал")
+copy_head = original.copy()
+copy_head.set_title("Копия")
 ```
 
 ## Примеры

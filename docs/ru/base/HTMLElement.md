@@ -326,6 +326,27 @@ class="class1 class2" style="property:value; property2:value2;"
 onclick="handler()" disabled readonly id="elementId" name="fieldName"
 ```
 
+### copy(copy_element: "HTMLElement" = None) -> HTMLElement
+
+Создает глубокую копию HTML элемента с полным клонированием всех атрибутов и стилей.
+
+| Параметр     | Тип                       | Описание                                                       |
+| ------------ | ------------------------- | -------------------------------------------------------------- |
+| copy_element | HTMLElement (опционально) | Существующий объект. Если не указан, создается новый экземпляр |
+
+Пример:
+
+```python
+# Создание исходного элемента
+original = HTMLElement(object_name="btn")
+original.add_class("primary")
+original.add_event("onclick", "alert('Click!')")
+original.value_attributes["id"] = "submit-btn"
+
+# Создание копии
+copy_element = original.copy()
+```
+
 ## Примеры использования
 
 ### Пример 1: Базовый элемент с атрибутами

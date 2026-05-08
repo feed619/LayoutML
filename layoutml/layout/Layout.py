@@ -1,5 +1,7 @@
+from copy import deepcopy
 from typing import Any, List
 from layoutml.base import BaseElement
+from layoutml.base.css.CSSSelectors import StyleType
 
 
 class Layout(BaseElement):
@@ -97,11 +99,11 @@ class Layout(BaseElement):
                 elements_html += f"\n\t\t{element}"
         return super().get_html(content=elements_html, tab=2)
 
-    def get_styles(self) -> str:
+    def get_styles(self, styles_type: StyleType = StyleType.EXTERNAL) -> str:
 
-        css_styles: dict = super().get_styles()
+        css_styles: dict = super().get_styles(styles_type=styles_type)
         for element in self.elements:
-            css_styles.update(element.get_styles())
+            css_styles.update(element.get_styles(styles_type=styles_type))
         return css_styles
 
     def __len__(self) -> int:
@@ -136,3 +138,15 @@ class Layout(BaseElement):
         if 0 <= index < len(self.elements):
             del self.elements[index]
         return self
+
+    def copy(self, copy_element: "Layout" = None) -> "Layout":
+        if not copy_element:
+            copy_element = Layout(object_name=self.object_name)
+        super().copy(copy_element=copy_element)
+        copy_element.is_stretched = self.is_stretched
+        copy_element.object_styles = deepcopy(self.object_styles)
+
+        for element in self.elements:
+            copy_element.add_element(element.copy())
+
+        return copy_element

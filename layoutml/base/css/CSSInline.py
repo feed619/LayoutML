@@ -15,3 +15,9 @@ class CSSInline(CSSBase):
             return f'style="{self.get_styles_string(space=space)}"'
         else:
             return ""
+
+    def copy(self, copy_element: "CSSInline") -> "CSSInline":
+        if not copy_element:
+            copy_element = CSSInline()
+        super().copy(copy_element=copy_element)
+        return copy_element

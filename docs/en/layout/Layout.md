@@ -246,32 +246,29 @@ html = layout.get_html()
 # </div>
 ```
 
-#### get_styles() -> dict
+#### get_styles(styles_type: StyleType = StyleType.EXTERNAL) -> dict
 
-Collects CSS styles of the layout and all child elements.
+Collects CSS styles of the layout and all child elements according to the specified style type.
 
-Features:
+Parameters:
 
-- Recursively collects styles from child elements
-- Merges all styles into one dictionary
-- Automatically processes nested layouts
-
-Example:
+- `styles_type` (`StyleType`): Type of requested styles
 
 ```python
-layout = Layout(object_name="container")
-layout.object_styles.set_background_color("red")
-
-child = BaseElement(tag="div", object_name="child")
-child.object_styles.set_width("100px")
-
-layout.add_element(child)
-
 styles = layout.get_styles()
-# Result: {
-#   '.container': 'background-color:red;...',
-#   '.child': 'width:100px;'
-# }
+```
+
+---
+
+#### copy(copy_element: "Layout" = None) -> "Layout"
+
+Creates a deep copy of the layout with all child elements.
+
+```python
+original = Layout(object_name="template")
+original.add_element(Button(text="Button"))
+
+copy_layout = original.copy()
 ```
 
 ### Special Python Methods

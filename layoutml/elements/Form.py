@@ -19,16 +19,16 @@ class Form(BaseElement):
         self.form_type = form_type
 
     def get_attributes_string(self):
-        """
-        Генерирует строку специфических атрибутов формы.
-
-        Returns
-        -------
-        Строку html атрибутов
-        """
         attrs = []
         attrs_str = super().get_attributes_string()
 
         if self.form_type:
             attrs.append(f'type="{self.form_type}"')
         return " ".join(attrs) + " " + attrs_str
+
+    def copy(self, copy_element: "Form" = None) -> "Form":
+        if not copy_element:
+            copy_element = Form(object_name=self.object_name)
+        super().copy(copy_element=copy_element)
+        copy_element.form_type = self.form_type
+        return copy_element

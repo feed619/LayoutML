@@ -52,7 +52,18 @@ class Textarea(BaseElement):
         return " ".join(attrs) + " " + attrs_str
 
     def get_html(self, content: str = "", tab: int = 0):
-        # Для textarea содержимое - это значение между тегами
         if not content and self.value:
             content = self.value
         return super().get_html(content=content, tab=tab)
+
+    def copy(self, copy_element: "Textarea" = None) -> "Textarea":
+        if not copy_element:
+            copy_element = Textarea(object_name=self.object_name)
+        super().copy(copy_element=copy_element)
+        copy_element.placeholder = self.placeholder
+        copy_element.value = self.value
+        copy_element.rows = self.rows
+        copy_element.cols = self.cols
+        copy_element.name = self.name
+        copy_element.id = self.id
+        return copy_element

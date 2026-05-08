@@ -16,3 +16,9 @@ class Article(BaseElement):
             **kwargs,
         )
         self.object_type = "ArticleElement"
+
+    def copy(self, copy_element: "Article" = None) -> "Article":
+        if not copy_element:
+            copy_element = Article(object_name=self.object_name)
+        super().copy(copy_element=copy_element)
+        return copy_element

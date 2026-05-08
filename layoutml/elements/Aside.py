@@ -16,3 +16,9 @@ class Aside(BaseElement):
             **kwargs,
         )
         self.object_type = "AsideElement"
+
+    def copy(self, copy_element: "Aside" = None) -> "Aside":
+        if not copy_element:
+            copy_element = Aside(object_name=self.object_name)
+        super().copy(copy_element=copy_element)
+        return copy_element

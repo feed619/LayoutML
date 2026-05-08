@@ -39,6 +39,33 @@ css.set_width("100px").set_background_color("blue")
 
 ## Основные методы
 
+### copy(copy_element: "CSSInline") -> "CSSInline"
+
+Создает глубокую копию объекта CSSInline.
+
+Параметры:
+
+- copy_element (CSSInline): Существующий объект для копирования (опционально)
+
+Возвращает:
+
+- Копию текущего объекта CSSInline
+
+Пример:
+
+```python
+# Создание исходного объекта
+original = CSSInline(style="color: red; padding: 10px;")
+original.set_margin("20px")
+# Создание копии
+copy_obj = original.copy()
+# Изменение копии не влияет на оригинал
+copy_obj.set_color("blue")
+copy_obj.set_margin("30px")
+print(original.get_styles_string())  # 'color:red;padding:10px;margin:20px;'
+print(copy_obj.get_styles_string())  # 'color:blue;padding:10px;margin:30px;'
+```
+
 ### get_styles_str(space=False) -> str
 
 Генерирует готовую строку атрибута style для HTML тега.

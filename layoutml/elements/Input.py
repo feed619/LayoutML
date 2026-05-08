@@ -44,3 +44,13 @@ class Input(Form):
         if self.id:
             attrs.append(f'id="{self.id}"')
         return " ".join(attrs) + " " + attrs_str
+
+    def copy(self, copy_element: "Input" = None) -> "Input":
+        if not copy_element:
+            copy_element = Input(object_name=self.object_name)
+        super().copy(copy_element=copy_element)
+        copy_element.placeholder = self.placeholder
+        copy_element.value = self.value
+        copy_element.name = self.name
+        copy_element.id = self.id
+        return copy_element

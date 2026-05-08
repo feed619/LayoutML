@@ -81,6 +81,26 @@ Returns:
 
 - The HorizontalLayout instance for method chaining
 
+### copy(copy_element: "HorizontalLayout" = None) -> "HorizontalLayout"
+
+Creates a deep copy of the horizontal layout.
+
+Parameters:
+
+- `copy_element` (`HorizontalLayout`, optional): Existing object to copy
+
+Returns:
+
+- A deep copy of the current object
+
+```python id="r8p4tw"
+original = HorizontalLayout(object_name="menu")
+original.add_element(Button(text="Button"))
+
+copy_menu = original.copy()
+copy_menu.object_name = "menu-copy"
+```
+
 ### Examples:
 
 ```python

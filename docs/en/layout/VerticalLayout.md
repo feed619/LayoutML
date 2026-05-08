@@ -87,6 +87,26 @@ Returns:
 
 - The VerticalLayout instance for method chaining
 
+### copy(copy_element: "VerticalLayout" = None) -> "VerticalLayout"
+
+Creates a deep copy of the vertical layout.
+
+Parameters:
+
+- `copy_element` (`VerticalLayout`, optional): Existing object to copy
+
+Returns:
+
+- A deep copy of the current object
+
+```python
+original = VerticalLayout(object_name="form")
+original.add_element(Input(placeholder="Name"))
+
+copy_form = original.copy()
+copy_form.object_name = "form-copy"
+```
+
 ### Examples:
 
 ```python

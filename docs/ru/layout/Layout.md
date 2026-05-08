@@ -195,6 +195,7 @@ layout.remove_element(1)  # Удаляет button2
 Удаляет элемент по имени объекта.
 
 Параметры:
+
 - object_name (str): Имя объекта для удаления
 
 ```python
@@ -206,12 +207,15 @@ layout.remove_element("myButton")
 Находит и возвращает элемент по его имени.
 
 Параметры:
+
 - object_name (str): Имя искомого элемента
 
 Возвращает:
+
 - Найденный элемент
 
 Исключения:
+
 - AttributeError: Если элемент не найден
 
 ```python
@@ -242,32 +246,27 @@ html = layout.get_html()
 # </div>
 ```
 
-#### get_styles() -> dict
+#### get_styles(styles_type: StyleType = StyleType.EXTERNAL) -> dict
 
-Собирает CSS стили layout и всех дочерних элементов.
+Собирает CSS стили layout и всех дочерних элементов с учетом типа стилей.
 
-Особенности:
+Параметры:
 
-- Рекурсивно собирает стили из дочерних элементов
-- Объединяет все стили в один словарь
-- Автоматически обрабатывает вложенные layouts
-
-Пример:
+- styles_type (StyleType): Тип запрашиваемых стилей
 
 ```python
-layout = Layout(object_name="container")
-layout.object_styles.set_background_color("red")
-
-child = BaseElement(tag="div", object_name="child")
-child.object_styles.set_width("100px")
-
-layout.add_element(child)
-
 styles = layout.get_styles()
-# Результат: {
-#   '.container': 'background-color:red;...',
-#   '.child': 'width:100px;'
-# }
+```
+
+#### copy(copy_element: "Layout" = None) -> "Layout"
+
+Создает глубокую копию layout со всеми дочерними элементами.
+
+```python
+original = Layout(object_name="template")
+original.add_element(Button(text="Кнопка"))
+
+copy_layout = original.copy()
 ```
 
 ### Специальные методы Python

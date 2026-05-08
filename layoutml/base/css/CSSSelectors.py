@@ -1,12 +1,23 @@
+from copy import deepcopy
+from enum import Enum
+
 from .CSSBase import CSSBase
+
+
+class StyleType(str, Enum):
+    """Типы подключения стилей"""
+
+    GLOBAL = "global"
+    EXTERNAL = "external"
 
 
 class CSSSelectors:
     selectors: dict[CSSBase]
+    styles_type: StyleType
 
-    def __init__(self, inline: bool = False):
+    def __init__(self, styles_type: StyleType = StyleType.EXTERNAL):
 
-        self.inline = inline
+        self.styles_type: StyleType = styles_type
         self.selectors: dict[CSSBase] = {}
 
     def __repr__(self):
@@ -16,6 +27,14 @@ class CSSSelectors:
         if name not in self.selectors:
             self.selectors[name] = CSSBase()
         return self.selectors[name]
+
+    def copy(self, copy_element: "CSSSelectors" = None):
+        if not copy_element:
+            copy_element = CSSSelectors()
+        for selector_name, selector in self.selectors.items():
+            copy_element.add_selector(name=selector_name, selector_type=selector.type, style=selector.copy())
+        copy_element.styles_type = self.styles_type
+        return copy_element
 
     def add_selector(self, name, selector_type=None, style: str | CSSBase = None):
         """параметры type может принимать class, id, tag"""
@@ -74,8 +93,8 @@ class CSSSelectors:
         for selector_name, css in styles.items():
             styles_str += f"{selector_name} " + "{\n" + css + "}\n"
 
-        if self.inline:
-            return f"<style>\n{styles_str}</style>"
+        # if self.styles_type is StyleType.GLOBAL:
+        # return f"<style>\n{styles_str}</style>"
         return styles_str
 
     def __iter__(self):

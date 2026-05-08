@@ -1,4 +1,7 @@
+from copy import deepcopy
 from typing import List, Dict, Optional, Any
+
+from layoutml.base.css.CSSSelectors import StyleType
 from .base import BaseElement
 
 
@@ -15,14 +18,12 @@ class Head(BaseElement):
         self.object_type = "Head"
 
         self.title = title
+        self.base_url: Optional[str] = None
         self.meta_tags: List[Dict] = []
         self.links: List[Dict] = []
         self.scripts: List[Dict] = []
         self.styles_css: List[str] = []
 
-        self.base_url: Optional[str] = None
-
-        # Стандартные мета-теги по умолчанию
         self.add_meta(charset="UTF-8")
         self.add_meta(name="viewport", content="width=device-width, initial-scale=1.0")
 
@@ -65,6 +66,13 @@ class Head(BaseElement):
         """
         link_attrs = {"rel": rel, "href": href, **attributes}
         self.links.append(link_attrs)
+        return self
+
+    def del_link(self, href: str):
+        for i, link in enumerate(self.links):
+            if link["href"] == href:
+                del self.links[i]
+                return self
         return self
 
     def add_script(self, src: Optional[str] = None, content: Optional[str] = None, **attributes) -> "Head":
@@ -153,16 +161,15 @@ class Head(BaseElement):
                 scripts.append(f"<script {attrs}></script>")
         return "\n    ".join(scripts)
 
-    def get_css_text(self) -> str:
-        css_styles: dict = self.selectors_styles.get_styles()
+    def get_css_global(self, styles: dict = {}) -> str:
+        head_styles: dict = self.selectors_styles.get_styles()
+        global_styles = {**head_styles, **styles}
         css_text: str = ""
-        for selector_name, css in css_styles.items():
+        for selector_name, css in global_styles.items():
             css_text += f"{selector_name} " + "{" + css + "}\n"
         return f"\n<style>\n {css_text}\n</style>\n"
 
-    def get_html(self) -> str:
-        """Получение Html"""
-
+    def get_html(self, styles: dict = {}) -> str:
         parts = []
         if self.title:
             parts.append(f"\n    <title>{self.title}</title>")
@@ -178,8 +185,8 @@ class Head(BaseElement):
         scripts = self._get_scripts_str()
         if scripts:
             parts.append(scripts)
-        if self.selectors_styles:
-            parts.append(self.get_css_text())
+        if self.selectors_styles.selectors or styles:
+            parts.append(self.get_css_global(styles=styles))
 
         return super().get_html(content="\n    ".join(parts))
 
@@ -188,3 +195,17 @@ class Head(BaseElement):
 
     def __repr__(self) -> str:
         return f'Head(title="{self.title}", meta_count={len(self.meta_tags)})'
+
+    def copy(self, copy_element: "Head" = None) -> "Head":
+        if not copy_element:
+            copy_element = Head(object_name=self.object_name)
+        super().copy(copy_element=copy_element)
+
+        copy_element.title = self.title
+        copy_element.base_url = self.base_url
+        copy_element.meta_tags = deepcopy(self.meta_tags)
+        copy_element.links = deepcopy(self.links)
+        copy_element.scripts = deepcopy(self.scripts)
+        copy_element.styles_css = deepcopy(self.styles_css)
+
+        return copy_element

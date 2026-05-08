@@ -2,6 +2,7 @@ import copy
 from typing import Any, Optional
 
 from layoutml.base import BaseElement
+from layoutml.base.css.CSSSelectors import StyleType
 from layoutml.layout import Layout
 from .Body import Body
 from .Head import Head
@@ -31,9 +32,17 @@ class Page(BaseElement):
 
         self.head.set_icon("https://raw.githubusercontent.com/feed619/LayoutML/refs/heads/main/ico/logo.ico")
 
-    def copy(self) -> "Page":
-        """Создать глубокую копию страницы"""
-        return copy.deepcopy(self)
+    def copy(self, copy_element: "Page" = None) -> "Page":
+        if not copy_element:
+            copy_element = Page(object_name=self.object_name)
+        super().copy(copy_element=copy_element)
+
+        copy_element.doctype = self.doctype
+        copy_element.head = self.head.copy()
+        copy_element.body = self.body.copy()
+        copy_element.render_css_file = self.render_css_file
+
+        return copy_element
 
     def set_head(self, head: Head) -> "Page":
         self.head = head
@@ -58,6 +67,10 @@ class Page(BaseElement):
     def add_stylesheet(self, href: str, media: str = "all") -> "Head":
         """Добавить CSS файл"""
         self.head.add_link(rel="stylesheet", href=href, media=media)
+        return self
+
+    def del_stylesheet(self, href: str):
+        self.head.del_link(href=href)
         return self
 
     def add_script(self, src: Optional[str] = None, content: Optional[str] = None, **attributes) -> "Page":
@@ -99,18 +112,10 @@ class Page(BaseElement):
         }
         return doctypes.get(self.doctype, "<!DOCTYPE html>")
 
-    def get_css_text(self) -> str:
-        css_styles: dict = self.body.get_styles()
-        css_text: str = ""
-        for selector_name, css in css_styles.items():
-            css_text += f"{selector_name} " + "{\n" + css + "}\n"
-
-        return css_text
-
     def render(self) -> str:
         """Рендеринг полного HTML документа"""
 
-        css_text = self.get_css_text()
+        css_text = self.get_css_file()
         if css_text:
             css_file_name = f"styles/{self.body.object_name}.css" if self.body.object_name else f"styles/{self.body.object_type}.css"
             with open(css_file_name, "w") as f:
@@ -119,14 +124,18 @@ class Page(BaseElement):
 
         return self.get_html()
 
-    def get_styles(self):
-
+    def get_styles(self, styles_type: StyleType = StyleType.EXTERNAL):
         css_styles: dict = {}
-        css_styles.update(super().get_styles())
-        css_styles.update(self.head.get_styles())
-        css_styles.update(self.body.get_styles())
-
+        css_styles.update(super().get_styles(styles_type=styles_type))
+        css_styles.update(self.head.get_styles(styles_type=styles_type))
+        css_styles.update(self.body.get_styles(styles_type=styles_type))
         return css_styles
+
+    def get_css_file(self, styles_type: StyleType = StyleType.EXTERNAL):
+        css_text: str = ""
+        for selector_name, css in self.get_styles(styles_type=styles_type).items():
+            css_text += f"{selector_name} " + "{\n" + css + "}\n"
+        return css_text
 
     def get_html(self):
         parts = []
@@ -135,7 +144,8 @@ class Page(BaseElement):
         attrs = self.get_attributes_string()
         parts.append(f"<{self.tag} {attrs}>")
 
-        parts.append(self.head.get_html())
+        global_styles = self.body.get_styles(styles_type=StyleType.GLOBAL)
+        parts.append(self.head.get_html(styles=global_styles))
         parts.append(self.body.get_html())
 
         parts.append("</html>")

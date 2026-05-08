@@ -16,3 +16,9 @@ class Footer(BaseElement):
             **kwargs,
         )
         self.object_type = "FooterElement"
+
+    def copy(self, copy_element: "Footer" = None) -> "Footer":
+        if not copy_element:
+            copy_element = Footer(object_name=self.object_name)
+        super().copy(copy_element=copy_element)
+        return copy_element

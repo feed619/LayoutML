@@ -31,3 +31,11 @@ class Label(BaseElement):
         if not content and self.text:
             content = self.text
         return super().get_html(content=content, tab=tab)
+
+    def copy(self, copy_element: "Label" = None) -> "Label":
+        if not copy_element:
+            copy_element = Label(object_name=self.object_name)
+        super().copy(copy_element=copy_element)
+        copy_element.text = self.text
+        copy_element.for_id = self.for_id
+        return copy_element

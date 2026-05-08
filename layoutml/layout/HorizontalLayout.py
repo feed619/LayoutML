@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 from layoutml.layout import Layout
 
 
@@ -29,3 +31,10 @@ class HorizontalLayout(Layout):
         else:
             self.object_styles["flex-direction"] = "row"
         return self
+
+    def copy(self, copy_element: "HorizontalLayout" = None) -> "HorizontalLayout":
+        if not copy_element:
+            copy_element = HorizontalLayout(object_name=self.object_name)
+        super().copy(copy_element=copy_element)
+        copy_element.object_styles = deepcopy(self.object_styles)
+        return copy_element

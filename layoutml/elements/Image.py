@@ -26,3 +26,11 @@ class Image(BaseElement):
         attrs.append(f'src="{self.src}"')
         attrs.append(f'alt="{self.alt}"')
         return " ".join(attrs) + " " + attrs_str
+
+    def copy(self, copy_element: "Image" = None) -> "Image":
+        if not copy_element:
+            copy_element = Image(object_name=self.object_name)
+        super().copy(copy_element=copy_element)
+        copy_element.src = self.src
+        copy_element.alt = self.alt
+        return copy_element

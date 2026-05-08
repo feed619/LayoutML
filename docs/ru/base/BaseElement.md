@@ -60,6 +60,46 @@ button = BaseElement(
 
 ## Основные методы
 
+### copy(copy_element: "BaseElement" = None) -> "BaseElement"
+
+Создает глубокую копию элемента с полным клонированием всех атрибутов и стилей.
+
+Параметры:
+
+- copy_element (BaseElement, optional): Существующий объект для копирования
+
+Возвращает:
+
+- Копию текущего элемента
+
+```python
+original = BaseElement(tag="div")
+original.object_styles.set_width("100px")
+
+copy = original.copy()
+copy.object_styles.set_width("200px")  # Оригинал не изменится
+```
+
+### set_styles_mode(style_type: str) -> "BaseElement"
+
+Устанавливает режим генерации CSS стилей.
+
+Параметры:
+
+- style_type (str): Тип стилей. Возможные значения:
+  - "global" - глобальные стили (всегда применяются)
+  - "external" - внешние стили (только при явном запросе)
+
+Возвращает:
+
+- Экземпляр класса для цепочки вызовов
+
+```python
+element = BaseElement(tag="div")
+element.set_styles_mode("global")  # Глобальные стили
+element.set_styles_mode("external")  # Внешние стили
+```
+
 ### get_html(content: str = "", tab: int = 0) -> str
 
 Генерирует HTML строку элемента.
@@ -95,32 +135,33 @@ html = element.get_html(content="\n    <p>Content</p>\n", tab=1)
 #     </div>
 ```
 
-### get_styles(space: bool = True) -> dict
+### get_styles(styles_type: StyleType = StyleType.EXTERNAL, space: bool = True) -> dict
 
-Генерирует словарь CSS стилей для элемента и связывает их с классами.
+Генерирует CSS стили для элемента.
 
 Параметры:
 
-- space (bool): Если True, форматирует CSS с пробелами и переносами
+- styles_type (StyleType): Тип запрашиваемых стилей
+- space (bool): Форматирование с пробелами
 
 Возвращает:
 
-- Словарь CSS стилей в формате {селектор: css_стили}
+- Словарь CSS стилей
 
-Примеры:
+Особенности:
+
+- Возвращает пустой словарь, если тип стилей не соответствует установленному
+- Автоматически создает селектор для класса элемента
+- Добавляет стили из object_styles в selectors_styles
 
 ```python
-element = BaseElement(tag="div", object_name="myElement")
-# Добавление стилей через CSSBase
-element.object_styles.set_width("100px")\
- .set_height("100px")\
- .set_background_color("red")
+
+element = BaseElement(tag="div", object_name="card")
+element.object_styles.set_width("300px").set_padding("20px")
+
 # Получение стилей
 styles = element.get_styles()
-# Результат: {'.myElement': 'width:100px;height:100px;background-color:red;'}
-# С форматированием
-formatted_styles = element.get_styles(space=True)
-# Результат: {'.myElement': ' width: 100px;\n height: 100px;\n background-color: red;'}
+# {'.card': 'width:300px;padding:20px;'}
 ```
 
 ## Примеры использования

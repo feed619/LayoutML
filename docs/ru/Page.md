@@ -68,6 +68,17 @@ page = Page(
 
 ## Методы
 
+### copy(copy_element: "Page" = None) -> "Page"
+
+Создает глубокую копию страницы со всеми элементами.
+
+Важно: При использовании одной страницы для нескольких маршрутов необходимо копировать страницу, чтобы избежать конфликтов.
+
+```python
+base_page = Page(object_name="base")
+page_copy = base_page.copy()
+```
+
 ### set_head(head: Head) -> "Page"
 
 Заменяет объект head страницы на пользовательский.
@@ -158,6 +169,14 @@ page.add_stylesheet("css/style.css")
 page.add_stylesheet("css/print.css", media="print")
 ```
 
+### del_stylesheet(href: str)
+
+Удаляет CSS файл из секции head по URL.
+
+```python
+page.del_stylesheet("css/style.css")
+```
+
 ### add_script(src: Optional[str] = None, content: Optional[str] = None, \*\*attributes) -> "Page"
 
 Добавляет script тег в секцию head.
@@ -208,22 +227,21 @@ page.body.add_element(BaseElement(tag="div", object_name="test"))
 html = page.render()  # Создает CSS файл и возвращает HTML
 ```
 
-### get_css_text() -> str
+### get_css_file(styles_type: StyleType = StyleType.EXTERNAL) -> str
 
-Генерирует текст CSS стилей из всех компонентов страницы.
+Генерирует полный CSS файл для указанного типа стилей.
 
 ```python
-page = Page()
-css_text = page.get_css_text()  # Все CSS стили в одной строке
+css = page.get_css_file()
+css_global = page.get_css_file(styles_type=StyleType.GLOBAL)
 ```
 
-### get_styles() -> dict
+### get_styles(styles_type: StyleType = StyleType.EXTERNAL) -> dict
 
 Собирает CSS стили из всех компонентов страницы в словарь.
 
 ```python
-page = Page()
-styles = page.get_styles()  # Словарь {селектор: стили}
+styles = page.get_styles()  # {селектор: стили}
 ```
 
 ### save(filename: str, encoding: str = "utf-8") -> None

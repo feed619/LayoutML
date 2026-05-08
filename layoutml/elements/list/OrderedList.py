@@ -16,3 +16,9 @@ class OrderedList(ListElement):
             **kwargs,
         )
         self.object_type = "OrderedListElement"
+
+    def copy(self, copy_element: "OrderedList" = None) -> "OrderedList":
+        if not copy_element:
+            copy_element = OrderedList(object_name=self.object_name)
+        super().copy(copy_element=copy_element)
+        return copy_element

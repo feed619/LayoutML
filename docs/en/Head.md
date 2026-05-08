@@ -240,31 +240,46 @@ head.add_script(
 )
 ```
 
----
+### del_link(href: str) -> "Head"
 
-### get_css_text() -> str
+Removes a link tag by URL.
 
-Generates inline CSS styles from selectors_styles.
-
-```python id="css1ab"
+```python id="t6q2mj"
 head = Head()
-head.object_styles.set_background_color("red")
-
-css_text = head.get_css_text()  # <style>...</style>
+head.add_link(rel="stylesheet", href="style.css")
+head.del_link("style.css")  # Removes the link
 ```
 
 ---
 
-### get_html() -> str
+### get_css_global(styles: dict = {}) -> str
 
-Generates full HTML code for the `<head>` section.
+Generates inline CSS style text.
 
-```python id="html9zz"
+```python id="g7w2nk"
+head = Head()
+head.selectors_styles.add_selector("body").set_margin("0")
+css_text = head.get_css_global()
+```
+
+### get_html(styles: dict = {}) -> str
+
+Generates the full HTML code of the `<head>` section.
+
+```python id="p3x8rm"
 head = Head(title="Page")
 html = head.get_html()  # <head>...</head>
 ```
 
----
+### copy(copy_element: "Head" = None) -> "Head"
+
+Creates a deep copy of the head with all elements.
+
+```python id="k9d5tv"
+original = Head(title="Original")
+copy_head = original.copy()
+copy_head.set_title("Copy")
+```
 
 ## Examples
 

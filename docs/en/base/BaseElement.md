@@ -70,6 +70,46 @@ button = BaseElement(
 
 ## Core Methods
 
+### copy(copy_element: "BaseElement" = None) -> "BaseElement"
+
+Creates a deep copy of the element with full cloning of all attributes and styles.
+
+Parameters:
+
+- copy_element (BaseElement, optional): Existing object to copy
+
+Returns:
+
+- A copy of the current element
+
+```python
+original = BaseElement(tag="div")
+original.object_styles.set_width("100px")
+
+copy = original.copy()
+copy.object_styles.set_width("200px")  # The original will remain unchanged
+```
+
+### set_styles_mode(style_type: str) -> "BaseElement"
+
+Sets the CSS style generation mode.
+
+Parameters:
+
+- style_type (str): Style type. Possible values:
+  - "global" — global styles (always applied)
+  - "external" — external styles (applied only when explicitly requested)
+
+Returns:
+
+- Class instance for method chaining
+
+```python
+element = BaseElement(tag="div")
+element.set_styles_mode("global")  # Global styles
+element.set_styles_mode("external")  # External styles
+```
+
 ### get_html(content: str = "", tab: int = 0) -> str
 
 Generates the HTML string for the element.
@@ -108,39 +148,33 @@ html = element.get_html(content="\n    <p>Content</p>\n", tab=1)
 
 ---
 
-### get_styles(space: bool = True) -> dict
+### get_styles(styles_type: StyleType = StyleType.EXTERNAL, space: bool = True) -> dict
 
-Generates a dictionary of CSS styles for the element and binds them to classes.
+Generates CSS styles for the element.
 
 Parameters:
 
-- space (bool): If True, formats CSS with spaces and line breaks
+- `styles_type` (`StyleType`): Type of requested styles
+- `space` (`bool`): Formatting with spaces
 
 Returns:
 
-- Dictionary in format {selector: css_styles}
+- Dictionary of CSS styles
 
-Examples:
+Features:
 
-```python
-element = BaseElement(tag="div", object_name="myElement")
+- Returns an empty dictionary if the style type does not match the configured one
+- Automatically creates a selector for the element class
+- Adds styles from `object_styles` to `selectors_styles`
 
-element.object_styles.set_width("100px")\
-                     .set_height("100px")\
-                     .set_background_color("red")
+```python id="w7j3np"
+element = BaseElement(tag="div", object_name="card")
+element.object_styles.set_width("300px").set_padding("20px")
 
+# Get styles
 styles = element.get_styles()
-
-# Result:
-# {'.myElement': 'width:100px;height:100px;background-color:red;'}
-
-formatted = element.get_styles(space=True)
-
-# Result:
-# {'.myElement': ' width: 100px;\n height: 100px;\n background-color: red;'}
+# {'.card': 'width:300px;padding:20px;'}
 ```
-
----
 
 ## Examples
 

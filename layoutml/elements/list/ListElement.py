@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 from layoutml.base import BaseElement
 
 
@@ -35,3 +37,10 @@ class ListElement(BaseElement):
         if list_items:
             content = f"\n{list_items}{'    '*tab}"
         return super().get_html(content=content, tab=tab)
+
+    def copy(self, copy_element: "ListElement" = None) -> "ListElement":
+        if not copy_element:
+            copy_element = ListElement(object_name=self.object_name)
+        super().copy(copy_element=copy_element)
+        copy_element.items = deepcopy(self.items)
+        return copy_element
