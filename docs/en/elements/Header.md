@@ -37,7 +37,7 @@ Automatically assigned properties:
 
 ## Examples:
 
-```python id="header_ex_01"
+```python
 # Simple header
 header = Header()
 

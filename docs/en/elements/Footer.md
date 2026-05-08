@@ -37,7 +37,7 @@ Automatically assigned properties:
 
 ## Examples:
 
-```python id="footer_ex_01"
+```python
 # Simple footer
 footer = Footer()
 
@@ -57,7 +57,7 @@ footer = Footer(
 
 ## Styled Footer
 
-```python id="footer_ex_02"
+```python
 footer = Footer(object_name="styledFooter")
 
 # Inline styles

@@ -43,7 +43,7 @@ Creates a deep copy of the CSSBase object with full cloning of all styles and at
 
 Example:
 
-```python id="l7o0eq"
+```python
 # Create the original object
 original = CSSBase(type="class")
 original.set_width("100px")

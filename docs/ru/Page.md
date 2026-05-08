@@ -18,13 +18,13 @@ from layoutml import Page
 
 ## Атрибуты класса
 
-| Атрибут         | Тип  | Описание                    | Значение по умолчанию             |
-| --------------- | ---- | --------------------------- | --------------------------------- |
-| doctype         | str  | Тип HTML документа          | "html"                            |
-| head            | Head | Объект секции head          | Создаётся с заголовком "LayoutML" |
-| body            | Body | Объект секции body          | Пустой объект Body                |
-| object_type     | str  | Тип объекта (всегда "Page") | "Page"                            |
-| render_css_file | bool | Флаг генерации CSS файла    |
+| Атрибут       | Тип  | Описание                    | Значение по умолчанию             |
+| ------------- | ---- | --------------------------- | --------------------------------- |
+| doctype       | str  | Тип HTML документа          | "html"                            |
+| head          | Head | Объект секции head          | Создаётся с заголовком "LayoutML" |
+| body          | Body | Объект секции body          | Пустой объект Body                |
+| object_type   | str  | Тип объекта (всегда "Page") | "Page"                            |
+| need_css_file | bool | Флаг генерации CSS файла    |
 
 ## Конструктор
 
@@ -235,6 +235,30 @@ html = page.render()  # Создает CSS файл и возвращает HTML
 css = page.get_css_file()
 css_global = page.get_css_file(styles_type=StyleType.GLOBAL)
 ```
+
+### create_css_file(path: str)
+
+Создаёт CSS-файл.
+
+Пример
+
+```python
+page.create_css_file("styles/main.css")
+```
+
+### render_css_file(styles_dirname: str, file_name: str)
+
+Создаёт CSS-файл и автоматически подключает его.
+
+Пример
+
+```python
+page.render_css_file("styles", "main")
+```
+
+Будет создан:
+
+- `styles/main.css`
 
 ### get_styles(styles_type: StyleType = StyleType.EXTERNAL) -> dict
 

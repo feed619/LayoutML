@@ -406,7 +406,7 @@ def get_form_page():
     v_layout.add_elements(h_layout_name, h_layout_email, button)
     page.body.add_element(v_layout)
     # Отключении автоматического рендеринга файла страница
-    page.render_css_file = False
+    page.need_css_file = False
     page.add_stylesheet(href="styles/form_page_styles.css")
     return page
 

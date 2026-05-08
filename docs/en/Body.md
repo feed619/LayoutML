@@ -194,7 +194,7 @@ styles = body.get_styles()  # Dictionary of styles
 
 Creates a deep copy of the body with all elements.
 
-```python id="m4q9zp"
+```python
 original = Body(content="<h1>Hello</h1>")
 copy_body = original.copy()
 ```

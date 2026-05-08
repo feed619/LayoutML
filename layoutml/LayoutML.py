@@ -43,7 +43,7 @@ class LayoutML:
         page_index = 1
 
         for page in self._pages:
-            if not page.render_css_file:
+            if not page.need_css_file:
                 continue
             page_styles: dict = page.get_styles()
             if not page_styles:
@@ -52,28 +52,16 @@ class LayoutML:
             if page_name in all_pages_name:
                 page_name += str(page_index)
                 page_index += 1
-            css_text: str = ""
-            for selector_name, css in page_styles.items():
-                css_text += f"{selector_name} " + "{\n" + css + "}\n"
-            css_file_name = f"{self.styles_dirname}/{page_name}.css"
-            with open(css_file_name, "w") as f:
-                f.write(css_text)
-            page.head.add_stylesheet(css_file_name)
+            page.render_css_file(styles_dirname=self.styles_dirname, file_name=page_name)
 
-        if self.error_page and self.error_page.render_css_file:
+        if self.error_page and self.error_page.need_css_file:
             page_styles: dict = self.error_page.get_styles()
             if page_styles:
                 page_name = self.error_page.get_object_name()
                 if page_name in all_pages_name:
                     page_name += str(page_index)
                     page_index += 1
-                css_text: str = ""
-                for selector_name, css in page_styles.items():
-                    css_text += f"{selector_name} " + "{\n" + css + "}\n"
-                css_file_name = f"{self.styles_dirname}/{page_name}.css"
-                with open(css_file_name, "w") as f:
-                    f.write(css_text)
-                self.error_page.head.add_stylesheet(css_file_name)
+                page.render_css_file(styles_dirname=self.styles_dirname, file_name=page_name)
 
     def ensure_css_generated(self):
         if not self._css_generated:

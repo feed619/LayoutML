@@ -18,13 +18,13 @@ from layoutml import Page
 
 ## Class Attributes
 
-| Attribute       | Type | Description                   | Default Value                   |
-| --------------- | ---- | ----------------------------- | ------------------------------- |
-| doctype         | str  | HTML document type            | `"html"`                        |
-| head            | Head | Head section object           | Created with title `"LayoutML"` |
-| body            | Body | Body section object           | Empty Body object               |
-| object_type     | str  | Object type (always `"Page"`) | `"Page"`                        |
-| render_css_file | bool | CSS file generation flag      |
+| Attribute     | Type | Description                   | Default Value                   |
+| ------------- | ---- | ----------------------------- | ------------------------------- |
+| doctype       | str  | HTML document type            | `"html"`                        |
+| head          | Head | Head section object           | Created with title `"LayoutML"` |
+| body          | Body | Body section object           | Empty Body object               |
+| object_type   | str  | Object type (always `"Page"`) | `"Page"`                        |
+| need_css_file | bool | CSS file generation flag      |
 
 ## Constructor
 
@@ -76,7 +76,7 @@ Creates a deep copy of the page with all elements.
 
 Important: When using one page for multiple routes, the page should be copied to avoid conflicts.
 
-```python id="x8n4ql"
+```python
 base_page = Page(object_name="base")
 page_copy = base_page.copy()
 ```
@@ -175,7 +175,7 @@ page.add_stylesheet("css/print.css", media="print")
 
 Removes a CSS file from the head section by URL.
 
-```python id="d3m7kp"
+```python
 page.del_stylesheet("css/style.css")
 ```
 
@@ -236,16 +236,40 @@ html = page.render()  # Creates CSS file and returns HTML
 
 Generates the complete CSS file for the specified style type.
 
-```python id="n5v2xt"
+```python
 css = page.get_css_file()
 css_global = page.get_css_file(styles_type=StyleType.GLOBAL)
 ```
+
+### create_css_file(path: str)
+
+Creates a CSS file.
+
+Example:
+
+```python
+page.create_css_file("styles/main.css")
+```
+
+### render_css_file(styles_dirname: str, file_name: str)
+
+Creates a CSS file and automatically links it.
+
+Example:
+
+```python
+page.render_css_file("styles", "main")
+```
+
+The following file will be created:
+
+- `styles/main.css`
 
 ### get_styles(styles_type: StyleType = StyleType.EXTERNAL) -> dict
 
 Collects CSS styles from all page components into a dictionary.
 
-```python id="q7w4mb"
+```python
 styles = page.get_styles()  # {selector: styles}
 ```
 

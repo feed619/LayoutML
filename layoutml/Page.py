@@ -28,7 +28,7 @@ class Page(BaseElement):
         self.head = Head(title=title)
         self.body = Body()
 
-        self.render_css_file = True
+        self.need_css_file = True
 
         self.head.set_icon("https://raw.githubusercontent.com/feed619/LayoutML/refs/heads/main/ico/logo.ico")
 
@@ -40,7 +40,7 @@ class Page(BaseElement):
         copy_element.doctype = self.doctype
         copy_element.head = self.head.copy()
         copy_element.body = self.body.copy()
-        copy_element.render_css_file = self.render_css_file
+        copy_element.need_css_file = self.need_css_file
 
         return copy_element
 
@@ -136,6 +136,16 @@ class Page(BaseElement):
         for selector_name, css in self.get_styles(styles_type=styles_type).items():
             css_text += f"{selector_name} " + "{\n" + css + "}\n"
         return css_text
+
+    def create_css_file(self, path: str):
+        with open(path, "w") as f:
+            css_text = self.get_css_file()
+            f.write(css_text)
+
+    def render_css_file(self, styles_dirname: str, file_name: str):
+        css_file_name = f"{styles_dirname}/{file_name}.css"
+        self.create_css_file(path=css_file_name)
+        self.head.add_stylesheet(css_file_name)
 
     def get_html(self):
         parts = []

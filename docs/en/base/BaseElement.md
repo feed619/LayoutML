@@ -167,7 +167,7 @@ Features:
 - Automatically creates a selector for the element class
 - Adds styles from `object_styles` to `selectors_styles`
 
-```python id="w7j3np"
+```python
 element = BaseElement(tag="div", object_name="card")
 element.object_styles.set_width("300px").set_padding("20px")
 

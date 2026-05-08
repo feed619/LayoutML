@@ -93,7 +93,7 @@ Returns:
 
 - A deep copy of the current object
 
-```python id="r8p4tw"
+```python
 original = HorizontalLayout(object_name="menu")
 original.add_element(Button(text="Button"))
 

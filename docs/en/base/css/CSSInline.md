@@ -61,7 +61,7 @@ Returns:
 
 Example:
 
-```python id="zjkh7m"
+```python
 # Create the original object
 original = CSSInline(style="color: red; padding: 10px;")
 original.set_margin("20px")

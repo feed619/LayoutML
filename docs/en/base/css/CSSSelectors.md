@@ -263,7 +263,7 @@ Returns:
 
 Example:
 
-```python id="q4m8zk"
+```python
 original = CSSSelectors()
 original.add_selector("btn", "class").set_color("red")
 

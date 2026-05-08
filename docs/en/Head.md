@@ -42,7 +42,7 @@ Initializes a new Head element with base configuration.
 
 #### Examples
 
-```python id="h1k9qa"
+```python
 # Simple head
 head = Head()
 
@@ -85,7 +85,7 @@ Sets or updates the page title.
 
 #### Examples
 
-```python id="t2v9qz"
+```python
 head = Head(title="Initial title")
 
 head.set_title("New page title")
@@ -108,7 +108,7 @@ Adds a meta tag with specified attributes.
 
 #### Examples
 
-```python id="m9x1ab"
+```python
 # Charset (already added by default)
 head.add_meta(charset="UTF-8")
 
@@ -145,7 +145,7 @@ Adds a link tag for external resources.
 
 #### Examples
 
-```python id="l4c8qp"
+```python
 head = Head()
 
 # Stylesheets
@@ -183,7 +183,7 @@ head.add_link(
 
 Simplified method for adding CSS files.
 
-```python id="s7d1mm"
+```python
 head = Head()
 
 head.add_stylesheet("style.css")
@@ -196,7 +196,7 @@ head.add_stylesheet("print.css", media="print")
 
 Simplified method for setting a favicon.
 
-```python id="i3p8vn"
+```python
 head = Head()
 
 head.set_icon("favicon.ico")
@@ -217,7 +217,7 @@ Adds a `<script>` tag with specified parameters.
 
 #### Examples
 
-```python id="sc9x2a"
+```python
 # External script with defer
 head.add_script(src="/js/main.js", defer=True)
 
@@ -244,7 +244,7 @@ head.add_script(
 
 Removes a link tag by URL.
 
-```python id="t6q2mj"
+```python
 head = Head()
 head.add_link(rel="stylesheet", href="style.css")
 head.del_link("style.css")  # Removes the link
@@ -256,7 +256,7 @@ head.del_link("style.css")  # Removes the link
 
 Generates inline CSS style text.
 
-```python id="g7w2nk"
+```python
 head = Head()
 head.selectors_styles.add_selector("body").set_margin("0")
 css_text = head.get_css_global()
@@ -266,7 +266,7 @@ css_text = head.get_css_global()
 
 Generates the full HTML code of the `<head>` section.
 
-```python id="p3x8rm"
+```python
 head = Head(title="Page")
 html = head.get_html()  # <head>...</head>
 ```
@@ -275,7 +275,7 @@ html = head.get_html()  # <head>...</head>
 
 Creates a deep copy of the head with all elements.
 
-```python id="k9d5tv"
+```python
 original = Head(title="Original")
 copy_head = original.copy()
 copy_head.set_title("Copy")
@@ -285,7 +285,7 @@ copy_head.set_title("Copy")
 
 ### Example 1: Basic Page Setup
 
-```python id="ex1hd9"
+```python
 head = Head(title="Welcome to my website")
 
 # Meta tags
