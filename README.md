@@ -3,7 +3,7 @@
 </p>
 <p align="center">
 <a href="https://pypi.org/project/layoutml">
-    <img src="https://img.shields.io/badge/pypi-v1.05-blue" alt="Package version">
+    <img src="https://img.shields.io/badge/pypi-v1.09-blue" alt="Package version">
 </a>
 </p>
 <p align="center">
